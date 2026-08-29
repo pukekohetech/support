@@ -92,6 +92,10 @@
   .form-field{display:grid;gap:4px;min-width:0}
   .form-field>label{display:block}
   .input-action{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:stretch}
+  .assessment-label-row{display:grid;grid-template-columns:minmax(150px,.58fr) minmax(0,1fr);gap:7px;align-items:stretch}
+  .quick-assessment-label-row{display:grid;grid-template-columns:minmax(0,1fr);gap:7px;align-items:stretch}
+  .quick-assessment-label-row.has-preset{grid-template-columns:minmax(150px,.58fr) minmax(0,1fr)}
+  @media(max-width:760px){.assessment-label-row,.quick-assessment-label-row.has-preset{grid-template-columns:1fr}}
   .input-action .btn{min-height:38px;white-space:nowrap;padding-inline:11px}
   .nzqa-lookup-result{margin-top:8px;padding:9px 10px;border:1px solid #d8c7cc;border-left:5px solid var(--brand);border-radius:10px;background:#fbf7f8;color:#50333b;font-size:11px;line-height:1.4}
   .nzqa-lookup-result strong{color:#5f1b2a}
@@ -671,6 +675,33 @@
               <label><span id="assessmentDurationLabel">Assessment periods</span><input id="assessmentDurationSlots" type="number" min="1" max="40" step="1" value="4" required><input id="assessmentWeeks" type="hidden" value="1"></label>
               <label>Unit colour<input id="unitColor" type="color" value="#722031"></label>
             </div>
+            <label style="margin-top:8px">Assessment label
+              <div class="assessment-label-row">
+                <select id="assessmentLabelPreset" aria-label="Assessment label suggestion">
+                  <option value="Assessment">Assessment</option>
+                  <option value="Hand-in date">Hand-in date</option>
+                  <option value="Project due">Project due</option>
+                  <option value="Final hand-in">Final hand-in</option>
+                  <option value="Practical assessment">Practical assessment</option>
+                  <option value="Presentation">Presentation</option>
+                  <option value="Portfolio due">Portfolio due</option>
+                  <option value="Design review">Design review</option>
+                  <option value="Checkpoint">Checkpoint</option>
+                  <option value="Milestone">Milestone</option>
+                  <option value="Evidence due">Evidence due</option>
+                  <option value="Submission date">Submission date</option>
+                  <option value="Draft due">Draft due</option>
+                  <option value="Resubmission due">Resubmission due</option>
+                  <option value="Test">Test</option>
+                  <option value="Exam">Exam</option>
+                  <option value="Demonstration">Demonstration</option>
+                  <option value="Sign-off">Sign-off</option>
+                  <option value="__custom__">Custom…</option>
+                </select>
+                <input id="assessmentLabel" placeholder="Assessment or type your own wording">
+              </div>
+              <span class="hint">Choose a quick label or type your own. Available for all year levels.</span>
+            </label>
             <label class="toggle-row compact-toggle"><input id="assessmentFollowUnit" type="checkbox" checked><span><strong>Assessment follows unit</strong><br><span class="hint">Keeps the linked assessment immediately after the unit. Move the assessment manually to unlink it.</span></span></label>
             <div class="hint" id="unitDurationHint" style="margin-top:6px"></div>
             <div class="palette" id="palette" aria-label="Quick colour choices"></div>
@@ -794,7 +825,32 @@
       </div>
     </div>
     <div class="nzqa-lookup-result" id="quickNzqaLookupResult" role="status" aria-live="polite" hidden></div>
-    <label style="margin-top:9px">Title<input id="quickName" required placeholder="e.g. Workshop skills"></label>
+    <label style="margin-top:9px">Title
+      <div class="quick-assessment-label-row" id="quickAssessmentLabelRow">
+        <select id="quickAssessmentLabelPreset" aria-label="Assessment label suggestion" hidden>
+          <option value="Assessment">Assessment</option>
+          <option value="Hand-in date">Hand-in date</option>
+          <option value="Project due">Project due</option>
+          <option value="Final hand-in">Final hand-in</option>
+          <option value="Practical assessment">Practical assessment</option>
+          <option value="Presentation">Presentation</option>
+          <option value="Portfolio due">Portfolio due</option>
+          <option value="Design review">Design review</option>
+          <option value="Checkpoint">Checkpoint</option>
+          <option value="Milestone">Milestone</option>
+          <option value="Evidence due">Evidence due</option>
+          <option value="Submission date">Submission date</option>
+          <option value="Draft due">Draft due</option>
+          <option value="Resubmission due">Resubmission due</option>
+          <option value="Test">Test</option>
+          <option value="Exam">Exam</option>
+          <option value="Demonstration">Demonstration</option>
+          <option value="Sign-off">Sign-off</option>
+          <option value="__custom__">Custom…</option>
+        </select>
+        <input id="quickName" required placeholder="e.g. Workshop skills">
+      </div>
+    </label>
     <div class="form-grid three" id="quickStandardMeta" style="margin-top:9px">
       <label>Level<input id="quickLevel" type="number" min="1" max="8" placeholder="2"></label>
       <label>Version<input id="quickVersion" placeholder="1"></label>
@@ -1227,6 +1283,10 @@
     $('quickCodeLabel').textContent=isAssessment?'Code (optional)':'NZQA standard number';
     $('quickCode').placeholder=isAssessment?'e.g. Practical assessment':'e.g. 29655 or 92002';
     $('quickCode').inputMode=isAssessment?'text':'numeric';
+    $('quickAssessmentLabelPreset').hidden=!isAssessment;
+    $('quickAssessmentLabelRow').classList.toggle('has-preset',isAssessment);
+    if(isAssessment){$('quickName').placeholder='Assessment or type your own wording';syncAssessmentPresetFromInput('quickAssessmentLabelPreset','quickName');}
+    else {$('quickName').placeholder='e.g. Workshop skills';}
     if(isAssessment)clearQuickNZQALookupResult();
     $('quickAddSubmit').textContent='Add here';
   }
@@ -1270,14 +1330,37 @@
     if(state.planNameAuto!==false) state.planName=autoPlanName(state);
   }
   function assessmentForUnit(unitId){ return state.assessments.find(a=>a.unitId===unitId); }
+  function defaultAssessmentLabel(unit){
+    return isJuniorCourse()?'Assessment':`Assessment — ${unit?.name||'Unit'}`;
+  }
+  function assessmentDisplayLabel(assessment,unit=null){
+    return String(assessment?.name||'').trim()||defaultAssessmentLabel(unit)||'Assessment';
+  }
+  const ASSESSMENT_LABEL_PRESETS=['Assessment','Hand-in date','Project due','Final hand-in','Practical assessment','Presentation','Portfolio due','Design review','Checkpoint','Milestone','Evidence due','Submission date','Draft due','Resubmission due','Test','Exam','Demonstration','Sign-off'];
+  function syncAssessmentPresetFromInput(selectId,inputId){
+    const sel=$(selectId),input=$(inputId);if(!sel||!input)return;
+    const value=String(input.value||'').trim();
+    sel.value=ASSESSMENT_LABEL_PRESETS.includes(value)?value:'__custom__';
+  }
+  function applyAssessmentPreset(selectId,inputId){
+    const sel=$(selectId),input=$(inputId);if(!sel||!input)return;
+    if(sel.value==='__custom__'){input.focus();if(ASSESSMENT_LABEL_PRESETS.includes(String(input.value||'').trim()))input.select();return;}
+    input.value=sel.value;input.dispatchEvent(new Event('input',{bubbles:true}));
+  }
   function ensureAssessments(){
     if(!Array.isArray(state.assessments))state.assessments=[];
     const ids=new Set(state.units.map(u=>u.id));
     state.assessments=state.assessments.filter(a=>!a.unitId||ids.has(a.unitId));
     state.units.forEach(u=>{
       let a=assessmentForUnit(u.id);
-      if(!a){ a={id:uid('a'),unitId:u.id,name:`Assessment — ${u.name}`,weeks:1,startIndex:null,color:u.color||'#722031',followUnit:true}; state.assessments.push(a); }
-      a.name=`Assessment — ${u.name}`;
+      const defaultLabel=defaultAssessmentLabel(u);
+      if(!a){ a={id:uid('a'),unitId:u.id,name:defaultLabel,customLabel:false,weeks:1,startIndex:null,color:u.color||'#722031',followUnit:true}; state.assessments.push(a); }
+      if(a.customLabel==null){
+        const legacy=String(a.name||'').trim();
+        a.customLabel=!!legacy && legacy!=='Assessment' && !/^Assessment\s*[—-]\s*/i.test(legacy);
+      }
+      if(a.customLabel!==true)a.name=defaultLabel;
+      if(!String(a.name||'').trim())a.name=defaultLabel;
       a.color=u.color||'#722031';
       a.weeks=snapDurationWeeks(a.weeks||1,10);a.followUnit=a.followUnit===true;
     });
@@ -1502,7 +1585,8 @@
     $('quickType').value=type==='assessment'?'assessment':'unit';
     $('quickAddTitle').textContent=type==='assessment'?'Add assessment':'Add unit / standard';
     $('quickWeeks').value=type==='assessment'?1:4;syncDurationSlotInputs();
-    $('quickName').value=''; $('quickCode').value='';$('quickVersion').value='';$('quickLevel').value='';$('quickCredits').value=0;currentQuickNZQAMeta=null;
+    $('quickName').value=type==='assessment'?'Assessment':''; $('quickCode').value='';$('quickVersion').value='';$('quickLevel').value='';$('quickCredits').value=0;currentQuickNZQAMeta=null;
+    if(type==='assessment')syncAssessmentPresetFromInput('quickAssessmentLabelPreset','quickName');
     clearQuickNZQALookupResult();syncQuickAddTypeUI();
     $('quickColor').value=PALETTE[(state.units.length+state.assessments.length)%PALETTE.length];
     $('quickAddLocation').textContent=`${locationForStart(snapped)} — the new ${type==='assessment'?'assessment':'unit'} will start here.`;
@@ -1696,19 +1780,21 @@
         const color=item.color||'#722031', text=readableText(color), info=seg.placementInfo||unitPlacementInfo(item);
         const over=info&&!info.complete; const blackoutNote=state.skipBlackoutWeeks&&info&&info.blackoutCount?`skips ${info.blackoutCount} blackout wk${info.blackoutCount===1?'':'s'}`:'';
         const unit=type==='assessment'?(state.units.find(u=>u.id===item.unitId)||item):item;
-        const reference=type==='assessment'&&!item.unitId?`${item.code?esc(item.code)+' • ':''}${formatWeekValue(item.weeks||minDurationWeeks())} assessment wk`:unitReferenceLine(unit,type==='assessment'?item.weeks:unit.weeks,type==='assessment');
+        const juniorAssessment=type==='assessment'&&isJuniorCourse();
+        const assessmentLabel=type==='assessment'?assessmentDisplayLabel(item,item.unitId?unit:null):'';
+        const reference=type==='assessment'&&!item.unitId?(juniorAssessment?`${durationSlots(item.weeks||minDurationWeeks())} ${periodWord(durationSlots(item.weeks||minDurationWeeks()))}`:`${item.code?esc(item.code)+' • ':''}${formatWeekValue(item.weeks||minDurationWeeks())} assessment wk`):(juniorAssessment?`${durationSlots(item.weeks||minDurationWeeks())} ${periodWord(durationSlots(item.weeks||minDurationWeeks()))}`:unitReferenceLine(unit,type==='assessment'?item.weeks:unit.weeks,type==='assessment'));
         const reducedNote=info&&info.reducedSkipped?`skips ${info.reducedSkipped} reduced-time ${periodWord(info.reducedSkipped)}`:'';const meta=type==='unit'?[blackoutNote,reducedNote].filter(Boolean).join(' • '):'';
         const blockReference=type==='unit'?unitBlockReferenceLine(unit,item.weeks,false):reference;
         const codeLine=`${seg.continuedBefore?'<span class="continuation">↳ </span>':''}${blockReference}${seg.continuedAfter?' <span class="continuation">→</span>':''}`;
         const printContent=type==='assessment'
-          ? `<div class="print-bar-content print-assessment-content">${seg.continuedBefore?'↳ ':''}Assessment${unit?.code?` • ${esc(unit.code)}`:''}${seg.continuedAfter?' →':''}</div>`
+          ? `<div class="print-bar-content print-assessment-content">${seg.continuedBefore?'↳ ':''}${esc(assessmentLabel)}${!juniorAssessment&&unit?.code?` • ${esc(unit.code)}`:''}${seg.continuedAfter?' →':''}</div>`
           : `<div class="print-bar-content"><strong>${esc(item.name)}</strong><span>${codeLine}</span>${meta?`<span class="print-meta">${meta}</span>`:''}</div>`;
         const semesterCopy=isJuniorSemesterCopy(item), sourceId=item.id;
-        const actionEdit=type==='unit'?`<button class="block-action edit" type="button" draggable="false" data-block-action="edit" aria-label="Edit ${esc(item.name)}" title="Edit unit">✎</button>`:'';
+        const actionEdit=type==='unit'?`<button class="block-action edit" type="button" draggable="false" data-block-action="edit" aria-label="Edit ${esc(item.name)}" title="Edit unit">✎</button>`:(type==='assessment'&&item.unitId?`<button class="block-action edit" type="button" draggable="false" data-block-action="edit-assessment" aria-label="Edit ${esc(assessmentLabel)}" title="Edit assessment label">✎</button>`:'');
         const blockActions=`<span class="block-actions screen-only">${actionEdit}<button class="block-action remove" type="button" draggable="false" data-block-action="remove" aria-label="Remove ${esc(item.name)}" title="Remove or delete">×</button></span>`;
         return `<div class="unit-block ${type==='assessment'?'assessment-block ':''}${semesterCopy?'semester-copy ':''}span-${Math.min(seg.span,3)}${selectedUnitId===sourceId?' selected':''}" draggable="true" data-unit-id="${sourceId}" data-item-type="${type}" style="grid-column:${seg.colStart}/span ${seg.span};grid-row:${lane+1};background:${color};color:${text}" title="${semesterCopy?'Semester 2 copy • Independently editable':'Click to select • Drag to move'} • ${esc(item.name)}">
           ${over&&seg.overYear?'<span class="overflow-badge">extends past year</span>':''}${blockActions}
-          <div class="name">${esc(item.name)}</div><div class="code">${codeLine}</div>${meta?`<div class="meta">${meta}</div>`:''}${semesterCopy?'<span class="semester-copy-badge screen-only">S2 copy</span>':''}${printContent}${!seg.continuedAfter?`<span class="resize-handle" role="slider" tabindex="0" draggable="false" data-unit-id="${sourceId}" aria-label="Resize ${esc(item.name)}" aria-valuemin="${minDurationWeeks()}" aria-valuemax="${type==='assessment'?10:50}" aria-valuenow="${Number(item.weeks||minDurationWeeks())}" title="Drag one ${periodWord(1)} at a time; use left or right arrow keys"></span>`:''}
+          <div class="name">${esc(type==='assessment'?assessmentLabel:item.name)}</div>${juniorAssessment?'':`<div class="code">${codeLine}</div>`}${meta?`<div class="meta">${meta}</div>`:''}${semesterCopy?'<span class="semester-copy-badge screen-only">S2 copy</span>':''}${printContent}${!seg.continuedAfter?`<span class="resize-handle" role="slider" tabindex="0" draggable="false" data-unit-id="${sourceId}" aria-label="Resize ${esc(type==='assessment'?assessmentLabel:item.name)}" aria-valuemin="${minDurationWeeks()}" aria-valuemax="${type==='assessment'?10:50}" aria-valuenow="${Number(item.weeks||minDurationWeeks())}" title="Drag one ${periodWord(1)} at a time; use left or right arrow keys"></span>`:''}
         </div>`;
       }).join(''):'<div class="empty-term">'+(type==='assessment'?'Place assessment blocks here':'Drag a unit onto any week in this term')+'</div>';
       html+=`<article class="term-card">
@@ -1737,6 +1823,7 @@
       block.querySelectorAll('.block-action').forEach(btn=>btn.addEventListener('click',e=>{
         e.preventDefault();e.stopPropagation();selectedUnitId=block.dataset.unitId;
         if(btn.dataset.blockAction==='edit'){startEdit(block.dataset.unitId);window.scrollTo({top:0,behavior:'smooth'});return;}
+        if(btn.dataset.blockAction==='edit-assessment'){startAssessmentEdit(block.dataset.unitId);window.scrollTo({top:0,behavior:'smooth'});return;}
         if(btn.dataset.blockAction==='remove')openRemoveDialog(block.dataset.unitId);
       }));
     });
@@ -1759,18 +1846,18 @@
   function renderBankAndList(){
     ensureAssessments();
     const unplacedUnits=state.units.filter(u=>u.startIndex==null), unplacedAssess=state.assessments.filter(a=>a.startIndex==null);
-    const chip=(item,type)=>{const unit=type==='assessment'?(state.units.find(u=>u.id===item.unitId)||item):item;const copyNote=isJuniorSemesterCopy(item)||isJuniorSemesterCopy(unit)?'Semester 2 copy • ':'';const details=type==='assessment'&&!item.unitId?`${item.code?esc(item.code)+' • ':''}${formatWeekValue(item.weeks||minDurationWeeks())} assessment wk`:unitReferenceLine(unit,type==='assessment'?item.weeks:unit.weeks,type==='assessment');return `<div class="bank-unit ${type==='assessment'?'assessment ':''}${selectedUnitId===item.id?'selected':''}" draggable="true" data-unit-id="${item.id}" data-item-type="${type}" style="--unit-color:${item.color||'#722031'}"><div><strong>${esc(item.name)}</strong><small>${copyNote}${details}</small></div></div>`;};
+    const chip=(item,type)=>{const unit=type==='assessment'?(state.units.find(u=>u.id===item.unitId)||item):item;const copyNote=isJuniorSemesterCopy(item)||isJuniorSemesterCopy(unit)?'Semester 2 copy • ':'';const juniorAssessment=type==='assessment'&&isJuniorCourse();const details=juniorAssessment?`${durationSlots(item.weeks||minDurationWeeks())} ${periodWord(durationSlots(item.weeks||minDurationWeeks()))}`:(type==='assessment'&&!item.unitId?`${item.code?esc(item.code)+' • ':''}${formatWeekValue(item.weeks||minDurationWeeks())} assessment wk`:unitReferenceLine(unit,type==='assessment'?item.weeks:unit.weeks,type==='assessment'));const label=type==='assessment'?assessmentDisplayLabel(item,item.unitId?unit:null):item.name;return `<div class="bank-unit ${type==='assessment'?'assessment ':''}${selectedUnitId===item.id?'selected':''}" draggable="true" data-unit-id="${item.id}" data-item-type="${type}" style="--unit-color:${item.color||'#722031'}"><div><strong>${esc(label)}</strong><small>${copyNote}${details}</small></div></div>`;};
     $('unitBank').innerHTML=`<div class="bank-section-label">Units</div>${unplacedUnits.length?unplacedUnits.map(u=>chip(u,'unit')).join(''):'<div class="hint">All units placed.</div>'}<div class="bank-section-label">Assessments</div>${unplacedAssess.length?unplacedAssess.map(a=>chip(a,'assessment')).join(''):'<div class="hint">All assessments placed.</div>'}`;
     $('unitBank').querySelectorAll('.bank-unit').forEach(el=>{
       el.addEventListener('dragstart',e=>{dragUnitId=el.dataset.unitId;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',dragUnitId);});
       el.addEventListener('dragend',()=>{dragUnitId=null;$('unitBank').classList.remove('drag-over');});
       el.addEventListener('click',()=>{selectedUnitId=selectedUnitId===el.dataset.unitId?null:el.dataset.unitId;renderAll();});
-      el.addEventListener('dblclick',()=>{if(el.dataset.itemType==='unit')startEdit(el.dataset.unitId);});
+      el.addEventListener('dblclick',()=>{if(el.dataset.itemType==='unit')startEdit(el.dataset.unitId);else startAssessmentEdit(el.dataset.unitId);});
     });
     const sel=planItemById(selectedUnitId); $('selectionHint').textContent=sel?`${sel.type==='assessment'?'Assessment':'Unit'} selected — click a week to place • Delete removes • Esc cancels`:'Select a block to place it';
     const unitRows=state.units.map(u=>{
       const placed=u.startIndex!=null,a=assessmentForUnit(u.id),ap=a?.startIndex!=null;
-      return `<div class="unit-row" style="--unit-color:${u.color||'#722031'}"><div class="dot"></div><div><strong>${unitReferenceLine(u)} — ${esc(u.name)}${isJuniorSemesterCopy(u)?' • Semester 2 copy':''}</strong><small>Unit: ${placed?locationForStart(u.startIndex,true):'unplaced'} • Assessment: ${ap?locationForStart(a.startIndex,true):'unplaced'}</small></div><div class="row-actions"><button class="btn ghost small" data-act="edit" data-kind="unit" data-id="${u.id}">Edit</button><button class="btn ghost small" data-act="unplace" data-kind="unit" data-id="${u.id}" ${(placed||ap)?'':'disabled'}>Unplace both</button><button class="btn danger small" data-act="delete" data-kind="unit" data-id="${u.id}">×</button></div></div>`;
+      return `<div class="unit-row" style="--unit-color:${u.color||'#722031'}"><div class="dot"></div><div><strong>${unitReferenceLine(u)} — ${esc(u.name)}${isJuniorSemesterCopy(u)?' • Semester 2 copy':''}</strong><small>Unit: ${placed?locationForStart(u.startIndex,true):'unplaced'} • ${esc(assessmentDisplayLabel(a,u))}: ${ap?locationForStart(a.startIndex,true):'unplaced'}</small></div><div class="row-actions"><button class="btn ghost small" data-act="edit" data-kind="unit" data-id="${u.id}">Edit</button><button class="btn ghost small" data-act="unplace" data-kind="unit" data-id="${u.id}" ${(placed||ap)?'':'disabled'}>Unplace both</button><button class="btn danger small" data-act="delete" data-kind="unit" data-id="${u.id}">×</button></div></div>`;
     }).join('');
     const extraAssessmentRows=state.assessments.filter(a=>!a.unitId).map(a=>{const placed=a.startIndex!=null;return `<div class="unit-row" style="--unit-color:${a.color||'#722031'}"><div class="dot"></div><div><strong>Assessment — ${a.code?esc(a.code)+' — ':''}${esc(a.name)}</strong><small>${formatWeekValue(a.weeks||minDurationWeeks())} wk • ${placed?locationForStart(a.startIndex,true):'unplaced'}</small></div><div class="row-actions"><button class="btn ghost small" data-act="unplace" data-kind="assessment" data-id="${a.id}" ${placed?'':'disabled'}>Unplace</button><button class="btn danger small" data-act="delete" data-kind="assessment" data-id="${a.id}">×</button></div></div>`;}).join('');
     $('unitList').innerHTML=(unitRows+extraAssessmentRows)||'<div class="hint">No units or assessments added yet.</div>';
@@ -2071,8 +2158,8 @@
         hasCredits&&Number(u.credits||0)>0?`${Number(u.credits)} credit${Number(u.credits)===1?'':'s'}`:'',
         hasAssessmentType&&u.nzqaRecord?.assessment?String(u.nzqaRecord.assessment):''
       ].filter(Boolean);
-      const assessmentLines=a?studentPdfPlacementLines(a,true):['To be confirmed'];
-      if(a)assessmentLines.push(`Assessment duration: ${durationSlots(a.weeks)} ${periodWord(durationSlots(a.weeks))}`);
+      const assessmentLines=a?[assessmentDisplayLabel(a,u),...studentPdfPlacementLines(a,true)]:['To be confirmed'];
+      if(a)assessmentLines.push(`Duration: ${durationSlots(a.weeks)} ${periodWord(durationSlots(a.weeks))}`);
       return {title:u.name||'Untitled unit',details,teaching:studentPdfPlacementLines(u,true),assessment:assessmentLines};
     });
     const standalone=state.assessments.filter(a=>!a.unitId).map(a=>({title:a.name||'Assessment',timing:studentPdfPlacementLines(a,false)}));
@@ -2218,7 +2305,7 @@
       return `<tr>
         <td class="unit-title"><span class="unit-index">${index+1}</span><div><strong>${esc(u.name)}</strong>${details?`<div class="standard-details">${details}</div>`:''}</div></td>
         <td class="timing-cell">${studentPlacementHtml(u,true)}</td>
-        <td class="timing-cell assessment-cell">${a?studentPlacementHtml(a,true):'<strong>To be confirmed</strong>'}${a?`<small>Assessment duration: ${durationSlots(a.weeks)} ${periodWord(durationSlots(a.weeks))}</small>`:''}</td>
+        <td class="timing-cell assessment-cell">${a?`<strong>${esc(assessmentDisplayLabel(a,u))}</strong>${studentPlacementHtml(a,true)}`:'<strong>To be confirmed</strong>'}${a?`<small>Duration: ${durationSlots(a.weeks)} ${periodWord(durationSlots(a.weeks))}</small>`:''}</td>
       </tr>`;
     }).join(''):`<tr><td colspan="3" class="empty">No units or standards have been added to this plan yet.</td></tr>`;
     const standalone=state.assessments.filter(a=>!a.unitId);
@@ -2275,30 +2362,47 @@
   function resetUnitForm(){
     $('unitForm').reset(); $('editUnitId').value='';
     const junior=Number(state.subjectYear)===9||Number(state.subjectYear)===10;
-    $('unitCredits').value=junior?0:4; $('unitWeeks').value=junior?4:(estimatedWeeksFromCredits(4)||4); $('assessmentWeeks').value=1;$('assessmentFollowUnit').checked=true; $('unitColor').value=PALETTE[state.units.length%PALETTE.length];currentNZQAMeta=null;
+    $('unitCredits').value=junior?0:4; $('unitWeeks').value=junior?4:(estimatedWeeksFromCredits(4)||4); $('assessmentWeeks').value=1;$('assessmentLabel').value='Assessment';syncAssessmentPresetFromInput('assessmentLabelPreset','assessmentLabel');$('assessmentFollowUnit').checked=true; $('unitColor').value=PALETTE[state.units.length%PALETTE.length];currentNZQAMeta=null;
     $('saveUnitBtn').textContent='Add unit'; $('cancelEditBtn').hidden=true;clearNZQALookupResult();syncDurationSlotInputs();updateDurationUI();if($('unitAdvancedDetails'))$('unitAdvancedDetails').open=false;
   }
   function startEdit(id){
     const u=state.units.find(x=>x.id===id); if(!u)return;
-    const a=assessmentForUnit(u.id); $('editUnitId').value=u.id; $('unitName').value=u.name||''; $('unitCode').value=u.code||''; $('unitVersion').value=u.version||''; $('unitLevel').value=u.level||''; $('unitCredits').value=u.credits??0; $('unitWeeks').value=u.weeks||1; $('assessmentWeeks').value=a?.weeks||1;$('assessmentFollowUnit').checked=a?.followUnit===true; $('unitColor').value=u.color||'#722031';
+    const a=assessmentForUnit(u.id); $('editUnitId').value=u.id; $('unitName').value=u.name||''; $('unitCode').value=u.code||''; $('unitVersion').value=u.version||''; $('unitLevel').value=u.level||''; $('unitCredits').value=u.credits??0; $('unitWeeks').value=u.weeks||1; $('assessmentWeeks').value=a?.weeks||1;$('assessmentLabel').value=assessmentDisplayLabel(a,u);syncAssessmentPresetFromInput('assessmentLabelPreset','assessmentLabel');$('assessmentFollowUnit').checked=a?.followUnit===true; $('unitColor').value=u.color||'#722031';
     $('saveUnitBtn').textContent='Save changes'; $('cancelEditBtn').hidden=false;clearNZQALookupResult();currentNZQAMeta=u.nzqaRecord||null;syncDurationSlotInputs();if($('unitAdvancedDetails'))$('unitAdvancedDetails').open=true;$('unitName').focus();
+  }
+  function startAssessmentEdit(assessmentId){
+    const a=state.assessments.find(x=>x.id===assessmentId);if(!a)return;
+    if(a.unitId){
+      startEdit(a.unitId);
+      if($('unitAdvancedDetails'))$('unitAdvancedDetails').open=true;
+      requestAnimationFrame(()=>{$('assessmentLabel')?.focus();$('assessmentLabel')?.select();});
+      toast('Edit the assessment label, then Save changes');
+      return;
+    }
+    const next=prompt('Assessment label',assessmentDisplayLabel(a));
+    if(next==null)return;const value=next.trim();if(!value)return;
+    checkpoint('edit assessment label');a.name=value;a.customLabel=true;saveState();renderAll();
   }
 
   $('unitForm').addEventListener('submit',e=>{
     e.preventDefault(); const id=$('editUnitId').value;
     const data={name:$('unitName').value.trim(),code:$('unitCode').value.trim(),version:$('unitVersion').value.trim(),level:$('unitLevel').value.trim(),credits:Number($('unitCredits').value||0),weeks:snapDurationWeeks($('unitWeeks').value,50),color:$('unitColor').value,nzqaRecord:(currentNZQAMeta&&currentNZQAMeta.number===standardNumberFrom($('unitCode').value))?currentNZQAMeta:null};
-    const assessmentWeeks=snapDurationWeeks($('assessmentWeeks').value,10),followUnit=$('assessmentFollowUnit').checked; if(!data.name)return;checkpoint(id?'edit unit':'add unit');
-    if(id){const u=state.units.find(x=>x.id===id);Object.assign(u,data);let a=assessmentForUnit(id);if(!a){a={id:uid('a'),unitId:id,startIndex:null};state.assessments.push(a);}Object.assign(a,{name:`Assessment — ${data.name}`,weeks:assessmentWeeks,color:data.color,followUnit});if(followUnit)syncLinkedAssessment(u);toast('Unit and assessment updated');}
-    else {const u={id:uid('u'),startIndex:null,...data};state.units.push(u);state.assessments.push({id:uid('a'),unitId:u.id,name:`Assessment — ${u.name}`,weeks:assessmentWeeks,startIndex:null,color:u.color,followUnit});toast('Unit and assessment added to Planning Bank');}
+    const assessmentWeeks=snapDurationWeeks($('assessmentWeeks').value,10),followUnit=$('assessmentFollowUnit').checked; if(!data.name)return;const assessmentLabel=String($('assessmentLabel').value||'').trim()||'Assessment';checkpoint(id?'edit unit':'add unit');
+    if(id){const u=state.units.find(x=>x.id===id);Object.assign(u,data);let a=assessmentForUnit(id);if(!a){a={id:uid('a'),unitId:id,startIndex:null};state.assessments.push(a);}const defaultLabel=defaultAssessmentLabel(u);Object.assign(a,{name:assessmentLabel,customLabel:assessmentLabel!==defaultLabel,weeks:assessmentWeeks,color:data.color,followUnit});if(followUnit)syncLinkedAssessment(u);toast('Unit and assessment updated');}
+    else {const u={id:uid('u'),startIndex:null,...data};state.units.push(u);const defaultLabel=defaultAssessmentLabel(u);state.assessments.push({id:uid('a'),unitId:u.id,name:assessmentLabel,customLabel:assessmentLabel!==defaultLabel,weeks:assessmentWeeks,startIndex:null,color:u.color,followUnit});toast('Unit and assessment added to Planning Bank');}
     saveState(); resetUnitForm(); renderAll();
   });
+  $('assessmentLabelPreset').addEventListener('change',()=>applyAssessmentPreset('assessmentLabelPreset','assessmentLabel'));
+  $('assessmentLabel').addEventListener('input',()=>syncAssessmentPresetFromInput('assessmentLabelPreset','assessmentLabel'));
+  $('quickAssessmentLabelPreset').addEventListener('change',()=>applyAssessmentPreset('quickAssessmentLabelPreset','quickName'));
+  $('quickName').addEventListener('input',()=>{if($('quickType').value==='assessment')syncAssessmentPresetFromInput('quickAssessmentLabelPreset','quickName');});
   $('nzqaLookupBtn').addEventListener('click',lookupNZQAStandard);
   $('unitCode').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();lookupNZQAStandard();}});
   $('unitCode').addEventListener('input',()=>{if(!$('nzqaLookupBtn').disabled)clearNZQALookupResult();});
   $('unitCredits').addEventListener('change',applyCreditEstimate);$('unitDurationSlots').addEventListener('input',e=>{$('unitWeeks').value=weeksFromVisibleSlots(e.target.value,50);updateDurationUI();});$('assessmentDurationSlots').addEventListener('input',e=>{$('assessmentWeeks').value=weeksFromVisibleSlots(e.target.value,10);});
   $('quickType').addEventListener('change',e=>{
     const isAssessment=e.target.value==='assessment';
-    $('quickWeeks').value=isAssessment?1:4;syncDurationSlotInputs();
+    $('quickWeeks').value=isAssessment?1:4;if(isAssessment&&!String($('quickName').value||'').trim())$('quickName').value='Assessment';syncDurationSlotInputs();
     $('quickAddTitle').textContent=isAssessment?'Add assessment':'Add unit / standard';
     syncQuickAddTypeUI();
     const start=Number($('quickStartIndex').value);if(Number.isFinite(start))$('quickAddLocation').textContent=`${locationForStart(start)} — the new ${isAssessment?'assessment':'unit'} will start here.`;
@@ -2317,7 +2421,7 @@
       toast(`Assessment added at ${locationForStart(startIndex)}`);
     }else{
       const unit={...item,version:$('quickVersion').value.trim(),level:$('quickLevel').value.trim(),credits:Number($('quickCredits').value||0),nzqaRecord:(currentQuickNZQAMeta&&currentQuickNZQAMeta.number===standardNumberFrom($('quickCode').value))?currentQuickNZQAMeta:null};state.units.push(unit);
-      state.assessments.push({id:uid('a'),unitId:unit.id,name:`Assessment — ${unit.name}`,weeks:1,startIndex:null,color:unit.color,followUnit:true});syncLinkedAssessment(unit);
+      state.assessments.push({id:uid('a'),unitId:unit.id,name:'Assessment',customLabel:true,weeks:1,startIndex:null,color:unit.color,followUnit:true});syncLinkedAssessment(unit);
       toast(`Unit added at ${locationForStart(startIndex)}`);
     }
     $('quickAddDialog').close();saveState();renderAll();
