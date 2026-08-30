@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHS BCATS 2027 | Teacher Induction & Resource Hub</title>
+<meta name="description" content="Pukekohe High School BCATS 2027 teacher induction and resource hub for Level 1, Level 2 and Level 3 BCATS skill standards.">
+<style>
+  :root{
+    --ink:#17212b; --muted:#5d6b78; --paper:#f5f7f8; --card:#ffffff; --line:#dbe2e7;
+    --brand:#173a5e; --brand2:#244f78; --accent:#c9942f; --ok:#167654; --warn:#a55b00;
+    --shadow:0 10px 28px rgba(17,31,44,.09);
+    --s40540:#b74444; --s40541:#c48a1c; --s40544:#2d6ca2; --s40546:#7451a6;
+    --s40551:#16806b; --s40552:#a97818; --s40553:#d66e1f; --s40563:#3f58a8;
+    --s40569:#2f6f5e; --s40570:#a36524; --s40571:#596675; --s40572:#2874a6;
+    --s40573:#7b4d96; --s40574:#277486; --s40575:#9a5268; --s40576:#4d5c9a;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.45}
+  a{color:inherit}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar-inner{max-width:1220px;margin:auto;display:flex;align-items:center;gap:10px;padding:10px 18px;overflow:auto}
+  .brand-mini{font-weight:900;color:var(--brand);white-space:nowrap;margin-right:auto}
+  .navbtn{border:1px solid var(--line);background:#fff;padding:8px 11px;border-radius:9px;text-decoration:none;font-size:.88rem;font-weight:700;white-space:nowrap}
+  .navbtn:hover{border-color:#9eb0bf;background:#f7fafc}
+  header{background:linear-gradient(135deg,#132f4d 0%,#1d466d 70%,#315c80 100%);color:#fff}
+  .hero{max-width:1220px;margin:auto;padding:38px 22px 30px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end}
+  .eyebrow{font-weight:800;text-transform:uppercase;letter-spacing:.13em;font-size:.78rem;color:#d9e7f2}
+  h1{font-size:clamp(2rem,4vw,3.45rem);line-height:1.03;margin:8px 0 12px;max-width:880px}
+  .hero p{margin:0;max-width:880px;color:#e3edf5;font-size:1.03rem}
+  .stamp{border:1px solid rgba(255,255,255,.35);border-radius:14px;padding:14px 16px;text-align:right;background:rgba(255,255,255,.07);min-width:200px}
+  .stamp strong{display:block;font-size:1.2rem}.stamp span{font-size:.82rem;color:#dce9f4}
+  main{max-width:1220px;margin:0 auto;padding:24px 20px 50px}
+  .quickgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:-4px;margin-bottom:24px}
+  .quick{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;text-decoration:none;box-shadow:0 4px 14px rgba(17,31,44,.04)}
+  .quick strong{display:block;font-size:.92rem}.quick span{display:block;font-size:.75rem;color:var(--muted);margin-top:2px}
+  .quick:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .notice{border-left:5px solid var(--ok);background:#edf8f4;padding:14px 16px;border-radius:10px;margin:18px 0;color:#23483d}
+  .notice.warn{border-left-color:var(--warn);background:#fff5e7;color:#664117}
+  section{scroll-margin-top:78px;margin-top:30px}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:13px}
+  .section-head h2{margin:0;color:var(--brand);font-size:1.65rem}.section-head p{margin:0;color:var(--muted);font-size:.9rem}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 16px rgba(17,31,44,.04)}
+  .setup{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;padding:18px}
+  .checkrow{display:flex;gap:10px;align-items:flex-start;padding:9px 4px;border-bottom:1px dashed #e5eaee}
+  .checkrow:last-child{border-bottom:0}.checkrow input{width:19px;height:19px;margin-top:2px;accent-color:var(--ok)}
+  .checkrow label{font-weight:650}.checkrow small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+  .progressbox{background:#f2f6f9;border-radius:13px;padding:16px;height:max-content}
+  .progressline{height:10px;background:#dae3ea;border-radius:10px;overflow:hidden;margin:10px 0}.progressfill{height:100%;width:0;background:var(--ok);transition:width .2s}
+  .progressbox strong{font-size:1.45rem;color:var(--brand)}
+  .searchbar{display:flex;gap:10px;margin:8px 0 16px}.searchbar input{flex:1;border:1px solid #cfd8df;border-radius:11px;padding:11px 13px;font-size:1rem}.searchbar button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:0 15px;font-weight:700;cursor:pointer}
+  .standard-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .standard{--c:var(--brand);background:#fff;border:1px solid var(--line);border-top:7px solid var(--c);border-radius:15px;padding:17px;box-shadow:0 5px 18px rgba(17,31,44,.05);position:relative;overflow:hidden}
+  .standard::after{content:"";position:absolute;right:-45px;top:-55px;width:120px;height:120px;background:color-mix(in srgb,var(--c) 10%,transparent);border-radius:50%}
+  .standard-head{display:flex;gap:13px;align-items:flex-start;position:relative;z-index:1}.icon{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:1.55rem;background:color-mix(in srgb,var(--c) 12%,white);border:1px solid color-mix(in srgb,var(--c) 25%,white);flex:0 0 auto}
+  .std-id{font-size:.78rem;font-weight:900;letter-spacing:.08em;color:var(--c);text-transform:uppercase}.standard h3{font-size:1.1rem;margin:2px 0 5px;line-height:1.25}.meta{font-size:.82rem;color:var(--muted)}
+  .replace{display:inline-flex;gap:6px;align-items:center;background:#f1f4f6;border-radius:999px;padding:5px 9px;font-size:.77rem;font-weight:700;margin:10px 0 5px}
+  .resources{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.res{display:inline-flex;align-items:center;gap:6px;border-radius:9px;padding:8px 10px;text-decoration:none;font-size:.82rem;font-weight:800;border:1px solid #d5dce2;background:#fff}.res:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
+  .res.current{background:var(--c);color:#fff;border-color:var(--c)}.res.pdf{background:#f5f9fc}.res.nzqa{background:#eef5ff;border-color:#c9daf2;color:#244e78}.res.legacy{background:#fff7e8;border-color:#ead2a5;color:#755017}.res.local{background:#eef8f4;border-color:#bfdfd2;color:#185d47}
+  .hint{font-size:.77rem;color:var(--muted);margin-top:10px}.hint strong{color:var(--ink)}
+  .legend{display:flex;flex-wrap:wrap;gap:9px;margin:8px 0 15px}.legend span{font-size:.76rem;padding:5px 8px;border-radius:999px;border:1px solid var(--line);background:#fff}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden}th,td{padding:10px 11px;border-bottom:1px solid #e2e7eb;text-align:left;font-size:.88rem;vertical-align:top}th{background:#edf3f7;color:#24415c}tr:last-child td{border-bottom:0}
+  .shared-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.shared{padding:16px}.shared h3{margin:0 0 7px;color:var(--brand);font-size:1.02rem}.shared p{font-size:.84rem;color:var(--muted);margin:0 0 11px}.shared .resources{margin-top:0}
+  .footer{border-top:1px solid var(--line);padding-top:22px;margin-top:34px;color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.footer strong{color:var(--ink)}
+  .toplink{position:fixed;right:18px;bottom:18px;background:var(--brand);color:#fff;text-decoration:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;box-shadow:var(--shadow);font-weight:900}
+  .hidden-card{display:none!important}
+  @media(max-width:960px){.hero{grid-template-columns:1fr}.stamp{text-align:left;width:max-content}.quickgrid{grid-template-columns:repeat(3,1fr)}.shared-grid{grid-template-columns:1fr 1fr}.setup{grid-template-columns:1fr}.standard-grid{grid-template-columns:1fr}}
+  @media(max-width:620px){.quickgrid{grid-template-columns:1fr 1fr}.shared-grid{grid-template-columns:1fr}.hero{padding:28px 18px 24px}main{padding:18px 12px 42px}.section-head{display:block}.section-head p{margin-top:4px}.resources{display:grid;grid-template-columns:1fr 1fr}.res{justify-content:center;text-align:center}.footer{display:block}}
+  @media print{.topbar,.searchbar,.toplink{display:none!important}body{background:#fff}.hero{padding:20px 0;color:#111;background:#fff}.hero p,.eyebrow,.stamp span{color:#333}.stamp{border-color:#bbb;background:#fff}.quickgrid{display:none}main{max-width:none;padding:0}.standard,.panel,.shared{box-shadow:none;break-inside:avoid}.resources a{border:1px solid #bbb}.res.current{color:#000;background:#fff}.footer{page-break-before:auto}}
+</style>
+</head>
+<body id="top">
+<nav class="topbar" aria-label="Page navigation">
+  <div class="topbar-inner">
+    <div class="brand-mini">PHS Technology • BCATS 2027</div>
+    <a class="navbtn" href="#start">Induction</a>
+    <a class="navbtn" href="#level1">Level 1</a>
+    <a class="navbtn" href="#level2">Level 2</a>
+    <a class="navbtn" href="#level3">Level 3</a>
+    <a class="navbtn" href="#shared">Shared files</a>
+    <a class="navbtn" href="#transition">Transition</a>
+  </div>
+</nav>
+<header>
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Pukekohe High School • Building / Construction</div>
+      <h1>BCATS 2027 Teacher Induction & Resource Hub</h1>
+      <p>One place for the 2027 Level 1, Level 2 and Level 3 BCATS skill standards, BConstructive assessment files, learning resources, NZQA standards, evidence guidance, PHS cover sheets and transition notes.</p>
+    </div>
+    <div class="stamp"><strong>2027 Ready</strong><span>Links checked 29 Aug 2026</span></div>
+  </div>
+</header>
+<main>
+  <div class="quickgrid" aria-label="Quick links">
+    <a class="quick" href="https://www.bconstructive.co.nz/national_certificate_building_construction_and_allied_trades_skills_level_1" target="_blank" rel="noopener"><strong>Level 1 BConstructive ↗</strong><span>Current standard list</span></a>
+    <a class="quick" href="https://www.bconstructive.co.nz/national_certificate_building_construction_and_allied_trades_skills_level_2" target="_blank" rel="noopener"><strong>Level 2 BConstructive ↗</strong><span>Current standard list</span></a>
+    <a class="quick" href="https://bconstructive.co.nz/level-3-bcats-skill-standards" target="_blank" rel="noopener"><strong>Level 3 BConstructive ↗</strong><span>All 8 current standards</span></a>
+    <a class="quick" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS%20L1-3%20Programme%20Guidance_ISB.pdf" target="_blank" rel="noopener"><strong>Programme Guidance PDF ↗</strong><span>A / M / E judgement guidance</span></a>
+    <a class="quick" href="https://www.mybcito.nz/" target="_blank" rel="noopener"><strong>myBCITO ↗</strong><span>Verified teacher resources</span></a>
+    <a class="quick" href="https://www.nzqa.govt.nz/providers/nqf-accreditations.do?providerId=10336001" target="_blank" rel="noopener"><strong>PHS Consent ↗</strong><span>NZQA provider record</span></a>
+    <a class="quick" href="https://bconstructive.co.nz/unit/00-1" target="_blank" rel="noopener"><strong>Programme approval ↗</strong><span>If awarding full NZ Certificate</span></a>
+  </div>
+
+  <div class="notice"><strong>Consent to assess:</strong> PHS currently holds Building, Construction, and Allied Trades Skills consent through Level 3, so the selected 405xx standards sit inside the school’s existing domain/level consent. A separate programme approval/accreditation question only arises if the school intends to award the full New Zealand Certificate.</div>
+  <div class="notice warn"><strong>2027 transition:</strong> the old BCATS unit standards replaced by these skill standards remain expiring with a last assessment date of <strong>31 December 2027</strong>. For a new 2027 course, use the 405xx resources and A/M/E guidance below rather than building new material around the outgoing standards.</div>
+
+  <section id="start">
+    <div class="section-head"><div><h2>1. Teacher induction checklist</h2><p>Tick once completed. Progress is saved in this browser.</p></div><p>Recommended before students begin assessment.</p></div>
+    <div class="panel setup">
+      <div id="checklist">
+        <div class="checkrow"><input type="checkbox" id="c1"><label for="c1">Access myBCITO as a verified teacher<small>Teacher-only support and model material may sit behind the myBCITO login.</small></label></div>
+        <div class="checkrow"><input type="checkbox" id="c2"><label for="c2">Download the current BCATS Programme Guidance<small>Use this when making Achieved / Merit / Excellence decisions.</small></label></div>
+        <div class="checkrow"><input type="checkbox" id="c3"><label for="c3">Save the Level 1 / Level 2 / Level 3 evidence crosswalks<small>Use shared project evidence efficiently across standards where permitted.</small></label></div>
+        <div class="checkrow"><input type="checkbox" id="c4"><label for="c4">Confirm the class standard set and credit totals<small>PHS planned set: Level 1 = 21 credits; Level 2 = 20 credits. The full Level 3 set = 40 credits.</small></label></div>
+        <div class="checkrow"><input type="checkbox" id="c5"><label for="c5">Set up student evidence storage<small>Plan where assessment PDFs, photos, teacher observations, project briefs and sign-offs will be retained for moderation.</small></label></div>
+        <div class="checkrow"><input type="checkbox" id="c6"><label for="c6">Confirm workshop safety / tool induction records<small>Make sure the evidence system supports safety and practical observation requirements throughout projects.</small></label></div>
+        <div class="checkrow"><input type="checkbox" id="c7"><label for="c7">Create the moderation folder before assessment starts<small>Keep final assessment decisions, schedules, annotated evidence and samples together.</small></label></div>
+      </div>
+      <div class="progressbox">
+        <div>Induction progress</div>
+        <strong id="progressText">0 / 7</strong>
+        <div class="progressline"><div class="progressfill" id="progressFill"></div></div>
+        <div style="font-size:.82rem;color:var(--muted)">This checklist is local to your browser/device. It does not submit information anywhere.</div>
+        <div class="resources" style="margin-top:14px"><a class="res current" href="https://bcito.org.nz/educators/" target="_blank" rel="noopener">Register / teacher access ↗</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="level1">
+    <div class="section-head"><div><h2>2. Level 1 BCATS • 21 credits</h2><p>Direct successor set for the current PHS Level 1 course.</p></div><p>40540 + 40541 + 40544 + 40546</p></div>
+    <div class="searchbar"><input id="search" type="search" placeholder="Search standards or resources… e.g. safety, joints, 24355"><button type="button" id="clearSearch">Clear</button></div>
+    <div class="legend"><span>● Coloured top = standard identity</span><span>Green = current BConstructive page</span><span>Blue = NZQA</span><span>Amber = legacy teaching support</span></div>
+    <div class="standard-grid">
+      <article class="standard filter-card" style="--c:var(--s40540)" data-search="40540 24352 safety being safe ppe hazards controls level 1">
+        <div class="standard-head"><div class="icon">🦺</div><div><div class="std-id">SS 40540 • 4 credits</div><h3>Use safety practices for a BCATS project or related tasks</h3><div class="meta">Level 1 • Health & safety • A / M / E</div></div></div>
+        <div class="replace">Replaces US 24352</div>
+        <div class="resources">
+          <a class="res current" href="https://www.bconstructive.co.nz/skill/40540" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-01/Assessment%20schedule_SS%2040540.pdf" target="_blank" rel="noopener">Assessment schedule PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Safety_0.pdf" target="_blank" rel="noopener">Safety learning PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40540.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint"><strong>Assessment resource:</strong> use the green current-page button; BConstructive’s page always points to its latest “Being safe” assessment PDF even if the filename changes.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40541)" data-search="40541 24355 materials timber preservation treatment handling storage level 1 basic materials">
+        <div class="standard-head"><div class="icon">🪵</div><div><div class="std-id">SS 40541 • 5 credits</div><h3>Use materials for a basic BCATS project or related tasks</h3><div class="meta">Level 1 • Timber & construction materials • A / M / E</div></div></div>
+        <div class="replace">Replaces US 24355</div>
+        <div class="resources">
+          <a class="res current" href="https://www.bconstructive.co.nz/skill/40541" target="_blank" rel="noopener">Assessment + schedule ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Materials_1.pdf" target="_blank" rel="noopener">Materials learning PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40541.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+          <a class="res legacy" href="https://bconstructive.co.nz/unit/24355" target="_blank" rel="noopener">Legacy 24355 teaching page ↗</a>
+        </div>
+        <div class="hint">The shared Materials &amp; hardware learning resource supports 40541 as well as higher-level materials standards.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40544)" data-search="40544 24356 construction processes marking out cutting shaping assembly finishing project reflection level 1">
+        <div class="standard-head"><div class="icon">🛠️</div><div><div class="std-id">SS 40544 • 8 credits</div><h3>Carry out construction processes for a BCATS project or related tasks</h3><div class="meta">Level 1 • Practical construction processes • A / M / E</div></div></div>
+        <div class="replace">Replaces US 24356</div>
+        <div class="resources">
+          <a class="res current" href="https://www.bconstructive.co.nz/skill/40544" target="_blank" rel="noopener">Assessment + schedule ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40544.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+          <a class="res legacy" href="https://bconstructive.co.nz/unit/24356" target="_blank" rel="noopener">Legacy 24356 teaching page ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS%20L1-3%20Programme%20Guidance_ISB.pdf#page=23" target="_blank" rel="noopener">A/M/E guidance ↗</a>
+        </div>
+        <div class="hint">Key evidence centres on construction processes, finished-project detail and reflection. Use the current page for the latest BConstructive assessment files.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40546)" data-search="40546 25920 joints jointing mitre housing halving dowel welded riveted level 1">
+        <div class="standard-head"><div class="icon">🧩</div><div><div class="std-id">SS 40546 • 4 credits</div><h3>Create joints for a BCATS project or related tasks</h3><div class="meta">Level 1 • Jointing • A / M / E</div></div></div>
+        <div class="replace">Replaces US 25920</div>
+        <div class="resources">
+          <a class="res current" href="https://www.bconstructive.co.nz/skill/40546" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/BCATS_AR_L1_SS%2040546_Joints.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/Assessment%20schedule_SS%2040546.pdf" target="_blank" rel="noopener">Schedule PDF ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Joints_L1.pdf" target="_blank" rel="noopener">Joints learning PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40546.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint">BConstructive expects evidence of jointing methods and close-up evidence of two completed joints, alongside teacher observation.</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="level2">
+    <div class="section-head"><div><h2>3. Level 2 BCATS • 20 credits</h2><p>Direct replacement set for the current PHS Level 2 standards.</p></div><p>40551 + 40552 + 40553 + 40563</p></div>
+    <div class="standard-grid">
+      <article class="standard filter-card" style="--c:var(--s40551)" data-search="40551 24354 safety controls workplace hazards health safety level 2 working safely">
+        <div class="standard-head"><div class="icon">⛑️</div><div><div class="std-id">SS 40551 • 4 credits</div><h3>Apply controls to maintain a safe BCATS environment</h3><div class="meta">Level 2 • Workplace safety controls • A / M / E</div></div></div>
+        <div class="replace">Replaces US 24354</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40551" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-03/BCATS_AR_L2_SS%2040551_Working%20safely_0.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/Assessment%20schedule_SS%2040551.pdf" target="_blank" rel="noopener">Schedule PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Safety_0.pdf" target="_blank" rel="noopener">Safety learning PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40551.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint">Evidence includes workplace hazards/controls, safe-work evidence, tidy-up evidence, maintenance records where needed, and the project brief.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40552)" data-search="40552 24360 timber materials storage suitability waste level 2 using materials">
+        <div class="standard-head"><div class="icon">🧱</div><div><div class="std-id">SS 40552 • 5 credits</div><h3>Use materials for a BCATS project</h3><div class="meta">Level 2 • Materials selection/use • A / M / E</div></div></div>
+        <div class="replace">Replaces US 24360</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40552" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-03/BCATS_AR_L2_SS%2040552_Using%20materials.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/Assessment%20schedule_SS%2040552_0.pdf" target="_blank" rel="noopener">Schedule PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Materials_1.pdf" target="_blank" rel="noopener">Materials learning PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40552.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint">The assessment includes a Materials ID activity plus practical photo/observation evidence from first use through to the finished product.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40553)" data-search="40553 24350 power tools drill router sander maintenance ppe level 2 using power tools">
+        <div class="standard-head"><div class="icon">🪛</div><div><div class="std-id">SS 40553 • 5 credits</div><h3>Use power tools for a BCATS project</h3><div class="meta">Level 2 • Power tools • A / M / E</div></div></div>
+        <div class="replace">Replaces US 24350</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40553" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-03/BCATS_AR_L2_SS%2040553_Using%20power%20tools.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/Assessment%20schedule_SS%2040553_0.pdf" target="_blank" rel="noopener">Schedule PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Tools_1.pdf" target="_blank" rel="noopener">Tools learning PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40553.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint">The BConstructive assessment separates <strong>Use power tools</strong> and <strong>Maintain power tools</strong>, with setup/use photos, maintenance evidence and safe storage evidence.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40563)" data-search="40563 12936 utility building shed timber framed building cladding roof weathertight level 2">
+        <div class="standard-head"><div class="icon">🏠</div><div><div class="std-id">SS 40563 • 6 credits</div><h3>Construct a utility building as a BCATS project</h3><div class="meta">Level 2 • Non-consent timber-framed utility building • A / M / E</div></div></div>
+        <div class="replace">Replaces US 12936</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40563" target="_blank" rel="noopener">Current assessment files ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40563.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+          <a class="res legacy" href="https://bconstructive.co.nz/unit/12936" target="_blank" rel="noopener">Legacy 12936 teaching resources ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS%20L1-3%20Programme%20Guidance_ISB.pdf#page=61" target="_blank" rel="noopener">A/M/E guidance ↗</a>
+        </div>
+        <div class="hint"><strong>Important:</strong> use the 40563 BConstructive page for the current assessment resource/schedule. The old 12936 page is useful only as legacy teaching/project support.</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="level3">
+    <div class="section-head"><div><h2>4. Level 3 BCATS • all 8 standards • 40 credits</h2><p>Complete current BConstructive Level 3 skill-standard set. Evidence is designed to be gathered through a substantial BCATS project and Level 3 project diary.</p></div><p>40569–40576</p></div>
+    <div class="notice"><strong>Level 3 evidence model:</strong> BConstructive provides a Level 3 project diary and evidence crosswalk so one authentic project can contribute evidence across several standards. Use the current assessment resource and Programme Guidance for the final A / M / E decision.</div>
+    <div class="standard-grid">
+      <article class="standard filter-card" style="--c:var(--s40569)" data-search="40569 29677 safety practices health safe workplace hazard controls toolbox meetings level 3">
+        <div class="standard-head"><div class="icon">🦺</div><div><div class="std-id">SS 40569 • 5 credits</div><h3>Contribute to a healthy and safe BCATS environment</h3><div class="meta">Level 3 • Safety culture and controls • A / M / E</div></div></div>
+        <div class="replace">Replaces US 29677</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40569" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-03/BCATS_AR_L3_SS%2040569_Safety%20practices_0.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/Assessment%20schedule_SS%2040569_0.pdf" target="_blank" rel="noopener">Schedule PDF ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Safety_1.pdf" target="_blank" rel="noopener">Safety learning PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40569.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint">Evidence can include induction records, toolbox participation, hazard/control records, progress records, teacher observation and project evidence.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40570)" data-search="40570 29678 materials selection use waste timber hardware level 3 working materials">
+        <div class="standard-head"><div class="icon">🪵</div><div><div class="std-id">SS 40570 • 5 credits</div><h3>Select and use materials for a BCATS project</h3><div class="meta">Level 3 • Materials selection and skilled use • A / M / E</div></div></div>
+        <div class="replace">Replaces US 29678</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40570" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-03/BCATS_AR_L3_SS%2040570_Working%20with%20materials_0.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/Assessment%20schedule_SS%2040570_0.pdf" target="_blank" rel="noopener">Schedule PDF ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Materials_2.pdf" target="_blank" rel="noopener">Materials learning PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40570.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint">BConstructive links this standard strongly to the project plan, progress record and evidence of precise, low-waste material use.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40571)" data-search="40571 29682 tools equipment machinery power tools fixed machinery maintenance level 3">
+        <div class="standard-head"><div class="icon">🛠️</div><div><div class="std-id">SS 40571 • 5 credits</div><h3>Manage the use of tools, equipment, and machinery for a BCATS project</h3><div class="meta">Level 3 • Tool / machinery selection, use and maintenance • A / M / E</div></div></div>
+        <div class="replace">Replaces US 29682</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40571" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-03/BCATS_AR_L3_SS%2040571_Working%20with%20tools_0.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/Assessment%20schedule_SS%2040571_0.pdf" target="_blank" rel="noopener">Schedule PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS_LR_Tools_2.pdf" target="_blank" rel="noopener">Tools learning PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-06/BCATS_LR_Fixed%20machinery_0.pdf" target="_blank" rel="noopener">Fixed machinery resource ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40571.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint">Assessment covers selecting ideal items, safe/skilful use, inspection, maintenance, storage and reporting issues.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40572)" data-search="40572 29681 mathematical processes measurement calculations geometry trigonometry cutting list materials list level 3">
+        <div class="standard-head"><div class="icon">📐</div><div><div class="std-id">SS 40572 • 5 credits</div><h3>Apply mathematical processes to a BCATS project</h3><div class="meta">Level 3 • Measurement, calculations and geometry • A / M / E</div></div></div>
+        <div class="replace">Replaces US 29681</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40572" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-03/BCATS_AR_L3_SS%2040572_Mathematical%20processes.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40572.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/L3_Project%20diary_Overview.pdf" target="_blank" rel="noopener">Project diary overview ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS%20L1-3%20Programme%20Guidance_ISB.pdf#page=79" target="_blank" rel="noopener">A/M/E guidance ↗</a>
+        </div>
+        <div class="hint">Evidence includes measurements, calculations, cutting/materials lists, adjustments and clear mathematical working tied to the project.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40573)" data-search="40573 29680 communication collaboration team work others respond BCATS environment level 3">
+        <div class="standard-head"><div class="icon">🤝</div><div><div class="std-id">SS 40573 • 5 credits</div><h3>Respond to the BCATS environment to work with others</h3><div class="meta">Level 3 • Team communication and collaboration • A / M / E</div></div></div>
+        <div class="replace">Replaces US 29680</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40573" target="_blank" rel="noopener">BConstructive page + files ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40573.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS%20L1-3%20Programme%20Guidance_ISB.pdf" target="_blank" rel="noopener">A/M/E guidance ↗</a>
+        </div>
+        <div class="hint">Use the live BConstructive page for the latest assessment file. This standard focuses on responding appropriately to people, information and the working environment.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40574)" data-search="40574 new project coordination plan monitor stages quality checks schedule issues level 3">
+        <div class="standard-head"><div class="icon">🗂️</div><div><div class="std-id">SS 40574 • 5 credits</div><h3>Plan and monitor stages of a BCATS project</h3><div class="meta">Level 3 • Project coordination • A / M / E</div></div></div>
+        <div class="replace">NEW skill standard • no direct predecessor</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40574" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/BCATS_AR_L3_SS%2040574_Project%20coordination.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40574.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-03/L3_Project%20diary_Project%20plan.pdf" target="_blank" rel="noopener">Project plan template ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-03/L3_Project%20diary_Progress%20record_0.pdf" target="_blank" rel="noopener">Progress record ↗</a>
+        </div>
+        <div class="hint">Plan project stages, monitor quality and timing, solve issues proactively and update the plan as work progresses.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40575)" data-search="40575 29683 other parties trades schedule subcontractors coordination level 3">
+        <div class="standard-head"><div class="icon">👷</div><div><div class="std-id">SS 40575 • 2 credits</div><h3>Incorporate other parties into a BCATS project schedule</h3><div class="meta">Level 3 • Coordinating other parties / trades • A / M / E</div></div></div>
+        <div class="replace">Replaces US 29683</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40575" target="_blank" rel="noopener">BConstructive page + files ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40575.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS%20L1-3%20Programme%20Guidance_ISB.pdf" target="_blank" rel="noopener">A/M/E guidance ↗</a>
+        </div>
+        <div class="hint">Use the current BConstructive assessment resource to document how other parties are identified, scheduled and incorporated into the project.</div>
+      </article>
+
+      <article class="standard filter-card" style="--c:var(--s40576)" data-search="40576 29684 undertake evaluate project finished quality reflection evaluation level 3 project">
+        <div class="standard-head"><div class="icon">🏗️</div><div><div class="std-id">SS 40576 • 8 credits</div><h3>Create and evaluate a BCATS project</h3><div class="meta">Level 3 • Major project and evaluation • A / M / E</div></div></div>
+        <div class="replace">Replaces US 29684</div>
+        <div class="resources">
+          <a class="res current" href="https://bconstructive.co.nz/skill/40576" target="_blank" rel="noopener">BConstructive page ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-03/BCATS_AR_L3_SS%2040576_Project.pdf" target="_blank" rel="noopener">Assessment PDF ↗</a>
+          <a class="res pdf" href="https://www.bconstructive.co.nz/sites/default/files/2026-02/Assessment%20schedule_SS%2040576_0.pdf" target="_blank" rel="noopener">Schedule PDF ↗</a>
+          <a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/L3_Project%20diary_Overview.pdf" target="_blank" rel="noopener">Project diary overview ↗</a>
+          <a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/skills/pdf/40576.pdf" target="_blank" rel="noopener">NZQA standard ↗</a>
+        </div>
+        <div class="hint">The project must be completed before sign-off. Evidence includes progress records, quality/finish photos, the project brief and a completed project evaluation.</div>
+      </article>
+    </div>
+    <div class="notice warn"><strong>Legacy Level 3 note:</strong> US 29679 (develop and use Stage 3 BCATS project documentation) is expiring on 31 December 2027 and NZQA lists it as having <strong>no direct replacement</strong>. Do not look for a 405xx one-to-one successor for it.</div>
+  </section>
+
+  <section id="shared">
+    <div class="section-head"><div><h2>5. Shared teacher files</h2><p>Files you are likely to use across more than one standard.</p></div></div>
+    <div class="shared-grid">
+      <div class="panel shared"><h3>Assessment & judgement</h3><p>Current A/M/E guidance and evidence planning.</p><div class="resources"><a class="res current" href="https://bconstructive.co.nz/sites/default/files/2026-02/BCATS%20L1-3%20Programme%20Guidance_ISB.pdf" target="_blank" rel="noopener">Programme Guidance PDF ↗</a><a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-05/BCATS%20SS%20evidence_Level%201.xlsx" target="_blank" rel="noopener">L1 evidence XLSX ↗</a><a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-05/BCATS%20SS%20evidence_Level%202.xlsx" target="_blank" rel="noopener">L2 evidence XLSX ↗</a><a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-05/BCATS%20SS%20evidence_Level%203.xlsx" target="_blank" rel="noopener">L3 evidence XLSX ↗</a><a class="res pdf" href="https://bconstructive.co.nz/sites/default/files/2026-02/L3_Project%20diary_Overview.pdf" target="_blank" rel="noopener">L3 project diary ↗</a></div></div>
+      <div class="panel shared"><h3>PHS course documents</h3><p>These links work when this HTML is opened from the companion ZIP folder.</p><div class="resources"><a class="res local" href="PHS_BCATS_Level_1_Student_Checklist_2027_Assessment_Evidence.docx">L1 cover sheet</a><a class="res local" href="PHS_BCATS_Level_2_Student_Checklist_2027_Assessment_Evidence.docx">L2 cover sheet</a><a class="res local" href="PHS_BCATS_Skill_Standards_2027_Transition_and_CTA.docx">Transition + CTA</a></div></div>
+      <div class="panel shared"><h3>Official checks</h3><p>Use these if you need to verify a change before offering or assessing a standard.</p><div class="resources"><a class="res nzqa" href="https://www.nzqa.govt.nz/framework/explore/domain-full.do?frameworkId=900333606" target="_blank" rel="noopener">NZQA BCATS domain ↗</a><a class="res nzqa" href="https://www.nzqa.govt.nz/nqfdocs/summaries/2025/may25/revsummay25-18.html" target="_blank" rel="noopener">Replacement report ↗</a><a class="res nzqa" href="https://www.nzqa.govt.nz/providers/nqf-accreditations.do?providerId=10336001" target="_blank" rel="noopener">PHS consent record ↗</a></div></div>
+    </div>
+  </section>
+
+  <section id="transition">
+    <div class="section-head"><div><h2>6. 2026 → 2027 replacement map</h2><p>Quick reference when checking old course plans, booklets or markbooks.</p></div></div>
+    <div class="panel" style="overflow:auto">
+      <table>
+        <thead><tr><th>2027 skill standard</th><th>Credits</th><th>Replaces old unit standard</th><th>Old standard status</th><th>PHS CTA</th></tr></thead>
+        <tbody>
+          <tr><td><strong>40540</strong> Safety practices</td><td>4</td><td>24352</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered</td></tr>
+          <tr><td><strong>40541</strong> Basic materials</td><td>5</td><td>24355</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered</td></tr>
+          <tr><td><strong>40544</strong> Construction processes</td><td>8</td><td>24356</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered</td></tr>
+          <tr><td><strong>40546</strong> Joints</td><td>4</td><td>25920</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered</td></tr>
+          <tr><td><strong>40551</strong> Safety controls</td><td>4</td><td>24354</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered</td></tr>
+          <tr><td><strong>40552</strong> Materials</td><td>5</td><td>24360</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered</td></tr>
+          <tr><td><strong>40553</strong> Power tools</td><td>5</td><td>24350</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered</td></tr>
+          <tr><td><strong>40563</strong> Utility building</td><td>6</td><td>12936</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered</td></tr>
+          <tr><td><strong>40569</strong> Healthy &amp; safe environment</td><td>5</td><td>29677</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered to L3</td></tr>
+          <tr><td><strong>40570</strong> Select/use materials</td><td>5</td><td>29678</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered to L3</td></tr>
+          <tr><td><strong>40571</strong> Tools/equipment/machinery</td><td>5</td><td>29682</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered to L3</td></tr>
+          <tr><td><strong>40572</strong> Mathematical processes</td><td>5</td><td>29681</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered to L3</td></tr>
+          <tr><td><strong>40573</strong> Work with others</td><td>5</td><td>29680</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered to L3</td></tr>
+          <tr><td><strong>40574</strong> Plan/monitor stages</td><td>5</td><td>NEW</td><td>New skill standard</td><td>Covered to L3</td></tr>
+          <tr><td><strong>40575</strong> Other parties in schedule</td><td>2</td><td>29683</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered to L3</td></tr>
+          <tr><td><strong>40576</strong> Create/evaluate project</td><td>8</td><td>29684</td><td>Expiring • last assessment 31 Dec 2027</td><td>Covered to L3</td></tr>
+          <tr><td><strong>No direct replacement</strong></td><td>—</td><td>29679</td><td>Expiring • last assessment 31 Dec 2027 • Category D</td><td>Legacy only</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div><strong>Purpose:</strong> internal teacher induction / resource navigation for Pukekohe High School BCATS planning. Always use the registered NZQA standard, current BConstructive assessment resource and current Programme Guidance when making assessment decisions.</div>
+    <div style="min-width:240px"><strong>Link maintenance:</strong><br>If a direct PDF link ever breaks, use the coloured <em>BConstructive page</em> button on that standard card; it is the safest route to the current file.</div>
+  </div>
+</main>
+<a class="toplink" href="#top" aria-label="Back to top">↑</a>
+<script>
+(function(){
+  const boxes=[...document.querySelectorAll('#checklist input[type=checkbox]')];
+  const key='phs-bcats-2027-induction-v1';
+  function load(){try{const s=JSON.parse(localStorage.getItem(key)||'{}'); boxes.forEach(b=>b.checked=!!s[b.id]);}catch(e){}}
+  function save(){const s={};boxes.forEach(b=>s[b.id]=b.checked);localStorage.setItem(key,JSON.stringify(s));update();}
+  function update(){const done=boxes.filter(b=>b.checked).length;document.getElementById('progressText').textContent=done+' / '+boxes.length;document.getElementById('progressFill').style.width=(done/boxes.length*100)+'%';}
+  boxes.forEach(b=>b.addEventListener('change',save));load();update();
+  const input=document.getElementById('search'), cards=[...document.querySelectorAll('.filter-card')];
+  function filter(){const q=input.value.trim().toLowerCase();cards.forEach(c=>c.classList.toggle('hidden-card',q && !((c.dataset.search||'')+' '+c.textContent).toLowerCase().includes(q)));}
+  input.addEventListener('input',filter);document.getElementById('clearSearch').addEventListener('click',()=>{input.value='';filter();input.focus();});
+})();
+</script>
+</body>
+</html>
