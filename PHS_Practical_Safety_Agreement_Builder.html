@@ -84,6 +84,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .step-eyebrow{display:inline-block;color:var(--maroon);font-weight:850;text-transform:uppercase;letter-spacing:.07em;font-size:.67rem;margin-bottom:4px}
 .step h3{margin:0 0 5px;font-size:1.32rem;line-height:1.24;color:var(--charcoal);letter-spacing:-.015em}
 .step-intro{margin:0;color:var(--muted);line-height:1.48;font-size:.9rem;max-width:850px}
+
+.resume-card{display:flex;align-items:center;gap:14px;border:1px solid #e1d7d9;background:linear-gradient(135deg,#fbf6f7 0%,#fff 64%);border-left:5px solid var(--maroon);border-radius:14px;padding:13px 15px;margin:0 0 14px;box-shadow:0 3px 10px rgba(36,32,33,.035)}
+.resume-icon{width:40px;height:40px;border-radius:12px;background:var(--soft-gold);border:1px solid #ecd69b;display:grid;place-items:center;font-size:1.08rem;flex:0 0 40px}
+.resume-copy{min-width:0;flex:1}.resume-copy strong{display:block;color:var(--charcoal);font-size:.91rem;line-height:1.25}.resume-copy span{display:block;color:var(--muted);font-size:.76rem;line-height:1.4;margin-top:3px}
+.resume-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}.resume-actions .btn{min-height:38px;padding:8px 12px;font-size:.78rem}
+@media(max-width:760px){.resume-card{align-items:flex-start;flex-wrap:wrap}.resume-copy{flex:1 1 calc(100% - 58px)}.resume-actions{width:100%;padding-left:54px}.resume-actions .btn{width:100%}}
+@media(max-width:430px){.resume-actions{padding-left:0}.resume-icon{width:36px;height:36px;flex-basis:36px}.resume-copy{flex-basis:calc(100% - 50px)}}
+
 .form-card{border:1px solid #e3ddda;border-radius:14px;background:#fff;padding:16px;margin:0 0 14px;box-shadow:0 2px 7px rgba(36,32,33,.025)}
 .form-card.auto-card{background:linear-gradient(180deg,#fff,#fbfaf9);border-color:#ddd4d2}
 .form-card.status-form-card{border-top:4px solid var(--gold)}
@@ -224,6 +232,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
 .export-box h4{margin:0 0 5px;color:var(--maroon-dark);font-size:1rem}
 .export-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.export-actions .btn.gold{min-width:190px}
 .privacy-note{border-left:4px solid var(--gold);background:#fff8e7;padding:10px 12px;border-radius:7px;margin:11px 0;font-size:.8rem;line-height:1.42}
+.duration-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}.duration-btn{border:1px solid #d8cfcc;background:#fff;color:#554c4e;border-radius:8px;padding:6px 9px;font:inherit;font-size:.72rem;font-weight:800;cursor:pointer}.duration-btn:hover,.duration-btn.selected{border-color:var(--maroon);background:var(--soft-maroon);color:var(--maroon-dark)}
+.staff-defaults{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px;padding-top:11px;border-top:1px dashed #e1d9d6}.staff-defaults label{display:flex;align-items:center;gap:7px;font-size:.77rem;font-weight:750;color:#5f5658}.staff-defaults input{width:17px;height:17px;accent-color:var(--maroon)}.text-link{border:0;background:transparent;color:var(--maroon);font:inherit;font-size:.74rem;font-weight:800;cursor:pointer;padding:4px 2px}.text-link:hover{text-decoration:underline}
+.existing-agreement{display:none;border:1px solid #d8cfcc;border-left:6px solid var(--maroon);border-radius:13px;background:linear-gradient(135deg,#fff,#fbf7f6);padding:14px 15px;margin:0 0 14px;box-shadow:var(--shadow-soft)}.existing-agreement.show{display:block}.existing-top{display:flex;gap:12px;align-items:flex-start}.existing-top>div:first-child{flex:1}.existing-top h4{margin:0 0 4px;color:var(--charcoal);font-size:.96rem}.existing-top p{margin:0;color:var(--muted);font-size:.78rem;line-height:1.4}.due-badge{flex:0 0 auto;border-radius:999px;padding:5px 9px;font-size:.68rem;font-weight:900;border:1px solid #d8cfcc;background:#f3efed;color:#655c5e;white-space:nowrap}.due-badge.due{background:#fff1cf;color:#805300;border-color:#e7c978}.due-badge.overdue{background:#fde7e7;color:#86262b;border-color:#e6a9ad}.due-badge.ok{background:#e7f4eb;color:#1f6438;border-color:#b8d8c2}.existing-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.meta-chip{background:#f2eeec;border:1px solid #e2dad7;border-radius:999px;padding:5px 8px;font-size:.68rem;font-weight:800;color:#5d5456}.existing-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.review-workspace{display:none;border:2px solid #d7c2c8;background:linear-gradient(145deg,#fff,#fff9f7);border-radius:15px;padding:16px;margin-bottom:15px}.review-workspace.show{display:block}.review-workspace h4{margin:0 0 4px;color:var(--maroon-dark);font-size:1rem}.review-workspace>p{margin:0 0 12px;color:var(--muted);font-size:.8rem;line-height:1.42}.review-current{border:1px solid #e4dcd9;border-radius:10px;padding:10px 11px;background:#fff;margin-bottom:12px;font-size:.78rem;line-height:1.45}.review-outcome-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 12px}.review-choice{position:relative;border:2px solid #e1dbd9;border-radius:10px;background:#fff;padding:10px;cursor:pointer;min-height:78px}.review-choice input{position:absolute;opacity:0}.review-choice strong{display:block;font-size:.78rem;margin-bottom:4px}.review-choice small{display:block;font-size:.68rem;color:var(--muted);line-height:1.3}.review-choice:has(input:checked){border-color:var(--maroon);background:var(--soft-maroon);box-shadow:0 0 0 3px rgba(123,32,54,.06)}.review-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.review-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.history-summary{margin-top:12px;border-top:1px dashed #e1d9d6;padding-top:11px}.history-summary h5{margin:0 0 6px;font-size:.78rem;color:#665d5f}.history-list{margin:0;padding-left:18px;color:#5e5658;font-size:.73rem;line-height:1.4}.history-list li{margin:3px 0}
+.staff-summary-card{margin-top:12px;border:1px solid #ddd5d2;background:#f8f6f5;border-radius:12px;padding:12px}.staff-summary-card .report-output{min-height:105px}.staff-summary-note{font-size:.7rem;color:var(--muted);margin-top:6px;line-height:1.35}
+.lifecycle-closed{display:inline-flex;align-items:center;gap:5px;background:#ece8e6;color:#554d4f;border:1px solid #d8d0cd;border-radius:999px;padding:4px 8px;font-size:.66rem;font-weight:900;letter-spacing:.03em}.scope-note{font-size:.72rem;color:var(--muted);margin-top:5px;line-height:1.35}
 .error-banner{display:none;border:1px solid #df9fa3;background:#fff0f0;color:#7c2026;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:.84rem;font-weight:650}.error-banner.show{display:block}
 #toast{position:fixed;right:20px;bottom:20px;background:var(--charcoal);color:white;padding:10px 13px;border-radius:10px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s;z-index:50;font-size:.82rem}#toast.show{opacity:1;transform:none}
 .hidden{display:none!important}
@@ -240,6 +254,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
   #previewToggle{display:none}
 }
 @media(max-width:760px){
+  .review-outcome-grid{grid-template-columns:1fr 1fr}.review-fields{grid-template-columns:1fr}.existing-top{display:block}.due-badge{display:inline-flex;margin-top:8px}.existing-actions .btn{flex:1 1 150px}.duration-row{gap:6px}.duration-btn{flex:1 1 auto}.staff-defaults{align-items:flex-start}.report-grid{grid-template-columns:1fr}
   .topbar{position:relative;padding:9px 12px}.brand{align-items:center;flex-wrap:wrap}.brand>div:not(.brand-tools){flex:1 1 calc(100% - 58px);min-width:0}.brand img{width:42px;height:49px}.brand h1{font-size:.95rem;line-height:1.25}.brand p{font-size:.78rem}.brand-tools{display:flex;width:100%;margin-left:0;justify-content:flex-start;padding-left:54px}.small-btn{font-size:.76rem}
   .app{padding:0 9px;margin-top:10px;display:block}.wizard-head{padding:15px 14px 13px}.wizard-title-row{display:block}.wizard-title-actions{justify-content:flex-start;margin-top:9px}.speed-pill{font-size:.68rem}
   .stepper{gap:6px}.step-dot{gap:5px}.step-num{width:28px;height:28px;flex-basis:28px}.step-name{font-size:.68rem}.step-line{min-width:8px}
@@ -301,6 +316,25 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
           <p class="step-intro">Enter the essential details, then choose the level of practical access that can currently be managed safely. The colour is an access decision, not a behaviour grade.</p>
         </div>
 
+
+        <div class="resume-card" aria-label="Continue from a saved agreement draft">
+          <div class="resume-icon" aria-hidden="true">↥</div>
+          <div class="resume-copy"><strong>Continue an existing agreement</strong><span>Load a saved JSON draft to restore the student, concerns, access level, goals, conditions and review dates.</span></div>
+          <div class="resume-actions"><label class="btn secondary" style="cursor:pointer">Load JSON draft<input id="loadJsonStart" type="file" accept="application/json,.json" hidden></label></div>
+        </div>
+
+        <div class="existing-agreement" id="existingAgreementCard" aria-live="polite">
+          <div class="existing-top">
+            <div><h4 id="existingAgreementTitle">Existing agreement loaded</h4><p id="existingAgreementText">Current agreement details will appear here.</p></div>
+            <span class="due-badge" id="reviewDueBadge">Review status</span>
+          </div>
+          <div class="existing-meta" id="existingAgreementMeta"></div>
+          <div class="existing-actions">
+            <button type="button" class="btn" id="reviewLoadedAgreement">Review agreement</button>
+            <button type="button" class="btn secondary" id="recordSafetyBreach">Safety breach → RED</button>
+          </div>
+        </div>
+
         <div class="form-card">
           <div class="form-card-head">
             <div><h4>Student & agreement details</h4><p>Only the fields marked with an asterisk are required.</p></div>
@@ -310,13 +344,15 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
             <div class="field"><label class="req" for="studentName">Student name</label><input id="studentName" type="text" autocomplete="off" placeholder="Student full name" /></div>
             <div class="field"><label class="req" for="yearClass">Year / class</label><input id="yearClass" type="text" autocomplete="off" placeholder="e.g. Year 11 / 1ENG" /></div>
             <div class="field"><label class="req" for="area">Subject / classroom</label><select id="area"><option value="">Select subject…</option><option>Engineering</option><option>Building / BCATS</option><option>Food Technology / Catering</option><option>DVC / Design</option><option>Digital / Computer classroom</option><option>Textiles / Soft Materials</option><option>Technology classroom</option><option value="Other">Other</option></select></div>
+            <div class="field"><label for="agreementScope">Agreement applies to</label><select id="agreementScope"><option value="class">This class only</option><option value="subject" selected>This Technology subject / area</option><option value="allTech">All Technology practical learning areas</option></select><div class="scope-note">Use “all Technology” only where the safety concern genuinely applies across practical areas.</div></div>
             <div class="field hidden" id="otherAreaField"><label for="otherArea">Other area</label><input id="otherArea" type="text" placeholder="Name the practical learning area" /></div>
             <div class="field"><label for="classTeacher">Classroom teacher</label><input id="classTeacher" type="text" placeholder="Teacher responsible for the class" /></div>
             <div class="field"><label class="req" for="issuerRole">Agreement issued by</label><select id="issuerRole"><option value="">Select role…</option><option value="Pou Taahū">Pou Taahū</option><option value="HOD">HOD</option></select></div>
             <div class="field"><label class="req" for="issuerName">Issuing staff member</label><input id="issuerName" type="text" placeholder="Name" /></div>
             <div class="field"><label for="startDate">Start date</label><input id="startDate" type="date" /></div>
-            <div class="field"><label for="reviewDate">Review date</label><input id="reviewDate" type="date" /><div class="help">A review two weeks later is suggested automatically.</div></div>
+            <div class="field"><label for="reviewDate">Review date</label><input id="reviewDate" type="date" /><div class="duration-row" aria-label="Quick review period"><button type="button" class="duration-btn" data-duration="7">1 week</button><button type="button" class="duration-btn selected" data-duration="14">2 weeks</button><button type="button" class="duration-btn" data-duration="28">4 weeks</button><button type="button" class="duration-btn" data-duration="custom">Custom</button></div><div class="help">Choose a quick period or enter a date directly.</div></div>
           </div>
+          <div class="staff-defaults"><label><input id="rememberStaffDefaults" type="checkbox"> Remember my staff/subject defaults on this device</label><button type="button" class="text-link" id="forgetStaffDefaults">Forget saved defaults</button><span class="muted-small">No student details are saved as staff defaults.</span></div>
         </div>
 
         <div class="form-card status-form-card">
@@ -461,6 +497,26 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
           <p class="step-intro">Check the live preview, copy a short KAMAR / email summary if needed, then create the editable Word agreement.</p>
         </div>
 
+        <div class="review-workspace" id="reviewWorkspace">
+          <h4>Review existing agreement</h4>
+          <p>Record the outcome once, then the builder updates the status, history, KAMAR note, email and saved JSON automatically.</p>
+          <div class="review-current" id="reviewCurrentSummary"></div>
+          <div class="field-label">Review outcome</div>
+          <div class="review-outcome-grid">
+            <label class="review-choice"><input type="radio" name="reviewOutcomeAction" value="close"><strong>✓ Close agreement</strong><small>Expectations met; no further practical restriction required.</small></label>
+            <label class="review-choice"><input type="radio" name="reviewOutcomeAction" value="green"><strong>🟢 Move to GREEN</strong><small>Full practical access with monitoring/review if required.</small></label>
+            <label class="review-choice"><input type="radio" name="reviewOutcomeAction" value="amber"><strong>🟠 Remain / move AMBER</strong><small>Continue or revise restrictions and set another review.</small></label>
+            <label class="review-choice"><input type="radio" name="reviewOutcomeAction" value="red"><strong>🔴 Move to RED</strong><small>Practical access stops pending safe re-entry.</small></label>
+          </div>
+          <div class="review-fields">
+            <div class="field"><label for="reviewActionDate">Review completed</label><input id="reviewActionDate" type="date"></div>
+            <div class="field"><label for="nextReviewDate">Next review date</label><input id="nextReviewDate" type="date"><div class="duration-row"><button type="button" class="duration-btn" data-next-duration="7">1 week</button><button type="button" class="duration-btn selected" data-next-duration="14">2 weeks</button><button type="button" class="duration-btn" data-next-duration="28">4 weeks</button><button type="button" class="duration-btn" data-next-duration="custom">Custom</button></div></div>
+          </div>
+          <div class="field compact-field" style="margin-top:10px"><label for="reviewNote">Optional short review note</label><input id="reviewNote" type="text" placeholder="e.g. Met expectations over three practical lessons"></div>
+          <div class="review-actions"><button type="button" class="btn gold" id="applyReviewOutcome">Apply review outcome</button><button type="button" class="btn secondary" id="cancelReviewMode">Cancel review</button></div>
+          <div class="history-summary" id="historySummaryWrap"><h5>Agreement history</h5><ol class="history-list" id="historySummary"></ol></div>
+        </div>
+
         <div class="form-card">
           <div class="form-card-head">
             <div><h4>Signature lines</h4><p>Student, classroom teacher and issuing HOD / Pou Taahū are selected by default.</p></div>
@@ -479,7 +535,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
 
         <div class="quick-report">
           <div class="quick-report-head">
-            <div><h4>Quick KAMAR / email report</h4><p>Generated from the agreement above. Short enough to paste into KAMAR or an email without retyping the contract.</p></div>
+            <div><h4>Quick KAMAR / whānau communication</h4><p>The KAMAR note stays factual; the email is written as a warm, ready-to-send message to whānau.</p></div>
             <span class="quick-report-badge">Auto-generated</span>
           </div>
           <div class="report-grid">
@@ -488,12 +544,17 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
               <textarea class="report-output" id="kamarReport" readonly aria-label="Generated KAMAR note"></textarea>
             </div>
             <div class="report-card">
-              <div class="report-card-head"><strong>Email summary</strong><button type="button" class="report-copy" id="copyEmail">Copy email body</button></div>
+              <div class="report-card-head"><strong>Whānau email</strong><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="report-copy" id="openEmail">Open email</button><button type="button" class="report-copy" id="copyEmail">Copy email</button></div></div>
               <div class="report-subject" id="emailSubjectLine"><b>Subject:</b> Technology Practical Access Agreement</div>
               <textarea class="report-output email" id="emailReport" readonly aria-label="Generated email summary"></textarea>
             </div>
           </div>
-          <div class="report-foot">The communication summary is factual and brief; the signed Word agreement remains the full record of goals, restrictions, supports and re-entry requirements.</div>
+          <div class="staff-summary-card">
+            <div class="report-card-head"><strong>Staff practical-access handover</strong><button type="button" class="report-copy" id="copyStaffSummary">Copy staff summary</button></div>
+            <textarea class="report-output" id="staffAccessSummary" readonly aria-label="Generated staff practical access summary"></textarea>
+            <div class="staff-summary-note">This deliberately leaves out incident history and the reason for the agreement. It is suitable for a Technology colleague or reliever who only needs to know the practical-access conditions.</div>
+          </div>
+          <div class="report-foot">The KAMAR note stays factual and brief. The whānau email adapts to the selected concerns, practical access level, goals and supports; the signed Word agreement remains the full record.</div>
         </div>
 
         <div class="export-box">
@@ -529,7 +590,16 @@ const SHIELD_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAABLAAAAVkCAYAAADE+eZCAAEAAElEQVR4n
 const STORAGE_KEY = 'phs-practical-access-agreement-v3';
 const LEGACY_STORAGE_KEY = 'phs-practical-safety-agreement-v2';
 const SAVE_TTL_MS = 24 * 60 * 60 * 1000;
+const SCHEMA_VERSION = 4;
+const STAFF_DEFAULTS_KEY = 'phs-practical-access-staff-defaults-v1';
 const stepNames = ['Student & access','Concerns & goals','Conditions & support','Response & pathway','Export'];
+let agreementId = (globalThis.crypto?.randomUUID?.() || `phs-${Date.now()}-${Math.random().toString(36).slice(2,8)}`);
+let agreementCreatedAt = new Date().toISOString();
+let agreementHistory = [];
+let agreementState = 'active';
+let lastUpdateType = 'creation';
+let loadedExisting = false;
+let reviewMode = false;
 
 const CORE_EXPECTATIONS = [
   'Follow a STOP or safety instruction immediately.',
@@ -1043,10 +1113,11 @@ function restrictionsFor(s=collectState()){
 function statusConditions(status=getStatus(),areaKey=getAreaKey(),s=null){
   const state=s || collectState();
   const normal=areaAccess[areaKey]||areaAccess.other;
-  if(status==='green')return ['GREEN — Full practical participation','Full practical participation may continue while the agreed safety expectations are met.',normal.green,'If safety deteriorates, practical work may be stopped immediately and the access level reviewed.'];
-  if(status==='red')return ['RED — Non-practical until safety review / re-entry','The student does not take part in practical work until a safety review and re-entry decision is made.','A safe alternative learning task is provided.',normal.red,'RED returns to AMBER first; full Green access is not restored directly from Red.'];
+  const scopeLine=state.agreementScope==='allTech'?'These access conditions apply across Technology practical learning areas.':state.agreementScope==='class'?'These access conditions apply to this class only.':'These access conditions apply to this Technology subject / area.';
+  if(status==='green')return ['GREEN — Full practical participation','Full practical participation may continue while the agreed safety expectations are met.',scopeLine,normal.green,'If safety deteriorates, practical work may be stopped immediately and the access level reviewed.'];
+  if(status==='red')return ['RED — Non-practical until safety review / re-entry','The student does not take part in practical work until a safety review and re-entry decision is made.',scopeLine,'A safe alternative learning task is provided.',state.agreementScope==='allTech'?'No practical participation across Technology practical learning areas until re-entry is approved.':normal.red,'RED returns to AMBER first; full Green access is not restored directly from Red.'];
   const r=restrictionsFor(state);
-  return ['AMBER — Restricted practical / increased supervision','Practical work may continue only within the restrictions set by the teacher.','Increased supervision is expected and practical work may be stopped immediately if safety deteriorates.',...(r.length?r:[normal.amber])];
+  return ['AMBER — Restricted practical / increased supervision','Practical work may continue only within the restrictions set by the teacher.',scopeLine,'Increased supervision is expected and practical work may be stopped immediately if safety deteriorates.',...(r.length?r:[normal.amber])];
 }
 function renderStatusPlan(){
   const arr=statusConditions();const html=`<strong>${esc(arr[0])}</strong><ul>${arr.slice(1).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
@@ -1076,6 +1147,95 @@ function statusProgression(status=getStatus(),cp=val('checkpoint')){
   return `AMBER → GREEN after ${checkpoint} and review. AMBER → RED if restrictions are not followed or behaviour creates a serious / immediate risk.`;
 }
 
+function todayIso(){const d=new Date();const m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${d.getFullYear()}-${m}-${day}`}
+function addDaysIso(baseIso,days){const base=baseIso?new Date(`${baseIso}T12:00:00`):new Date();if(Number.isNaN(base.getTime()))return '';base.setDate(base.getDate()+Number(days||0));const m=String(base.getMonth()+1).padStart(2,'0'),d=String(base.getDate()).padStart(2,'0');return `${base.getFullYear()}-${m}-${d}`}
+function scopeLabel(v){return v==='class'?'This class only':v==='allTech'?'All Technology practical learning areas':'This Technology subject / area'}
+function statusLabelShort(v){return v==='green'?'GREEN':v==='red'?'RED':'AMBER'}
+function daysUntil(iso){if(!iso)return null;const a=new Date(`${todayIso()}T12:00:00`),b=new Date(`${iso}T12:00:00`);if(Number.isNaN(b.getTime()))return null;return Math.round((b-a)/86400000)}
+function reviewDueInfo(s=collectState()){
+  if(s.agreementState==='closed')return {text:'Agreement closed',cls:'ok'};
+  const d=daysUntil(s.reviewDate);if(d===null)return {text:'Review date not set',cls:''};
+  if(d<0)return {text:`Review overdue by ${Math.abs(d)} day${Math.abs(d)===1?'':'s'}`,cls:'overdue'};
+  if(d===0)return {text:'Review due today',cls:'due'};
+  if(d<=3)return {text:`Review due in ${d} day${d===1?'':'s'}`,cls:'due'};
+  return {text:`${d} days to review`,cls:'ok'};
+}
+function historySummaryItems(s=collectState()){
+  return (s.history||[]).map(h=>{
+    const date=displayDate(h.date||'');
+    if(h.type==='creation')return `${date}: Agreement created at ${statusLabelShort(h.toStatus||s.status)}.`;
+    if(h.type==='breach')return `${date}: Safety breach recorded; ${statusLabelShort(h.fromStatus)} → RED.${h.note?` ${h.note}`:''}`;
+    if(h.type==='review')return `${date}: Review — ${h.outcomeLabel||`${statusLabelShort(h.fromStatus)} → ${statusLabelShort(h.toStatus)}`}.${h.note?` ${h.note}`:''}`;
+    return `${date}: Agreement updated.`;
+  });
+}
+function renderExistingAgreementCard(){
+  const card=document.getElementById('existingAgreementCard');if(!card)return;
+  if(!loadedExisting){card.classList.remove('show');return}
+  const s=collectState(), due=reviewDueInfo(s);card.classList.add('show');
+  document.getElementById('existingAgreementTitle').textContent=s.agreementState==='closed'?'Closed agreement loaded':'Existing agreement loaded';
+  document.getElementById('existingAgreementText').textContent=`${s.studentName||'Student'} · ${areaDisplay(s)} · ${statusLabelShort(s.status)} practical access`;
+  const badge=document.getElementById('reviewDueBadge');badge.textContent=due.text;badge.className=`due-badge ${due.cls}`;
+  document.getElementById('existingAgreementMeta').innerHTML=[`Started ${displayDate(s.startDate)}`,`Review ${displayDate(s.reviewDate)}`,scopeLabel(s.agreementScope),`${(s.history||[]).length} history event${(s.history||[]).length===1?'':'s'}`].map(x=>`<span class="meta-chip">${esc(x)}</span>`).join('');
+  const breach=document.getElementById('recordSafetyBreach');if(breach)breach.disabled=s.agreementState==='closed';
+}
+function renderReviewWorkspace(){
+  const box=document.getElementById('reviewWorkspace');if(!box)return;box.classList.toggle('show',reviewMode&&loadedExisting);
+  if(!(reviewMode&&loadedExisting))return;
+  const s=collectState(), due=reviewDueInfo(s);
+  document.getElementById('reviewCurrentSummary').innerHTML=`<b>${esc(s.studentName||'Student')}</b> is currently <b>${esc(statusLabelShort(s.status))}</b> · ${esc(scopeLabel(s.agreementScope))}. Current review: <b>${esc(displayDate(s.reviewDate))}</b> (${esc(due.text)}).`;
+  const hist=historySummaryItems(s);document.getElementById('historySummary').innerHTML=hist.length?hist.map(x=>`<li>${esc(x)}</li>`).join(''):'<li>No recorded lifecycle events yet.</li>';
+}
+function selectedReviewOutcome(){return document.querySelector('input[name="reviewOutcomeAction"]:checked')?.value||''}
+function reviewOutcomeLabel(outcome,from){if(outcome==='close')return 'Agreement closed — normal practical access restored';if(outcome==='green')return `Moved from ${statusLabelShort(from)} to GREEN`;if(outcome==='amber')return `${from==='amber'?'Remained':'Moved to'} AMBER`;if(outcome==='red')return `${from==='red'?'Remained':'Moved to'} RED`;return 'Review recorded'}
+function setStatusRadio(status){const r=document.querySelector(`input[name="status"][value="${status}"]`);if(r){r.checked=true;updateStatusCards()}}
+function ensureCreationHistory(){if(agreementHistory.some(h=>h.type==='creation'))return;const s=collectState();agreementHistory.unshift({type:'creation',date:s.startDate||todayIso(),fromStatus:null,toStatus:s.status,outcomeLabel:'Agreement created'});}
+function staffAccessSummaryText(s=collectState()){
+  const name=s.studentName||'[Student]', area=areaDisplay(s), scope=scopeLabel(s.agreementScope), review=s.agreementState==='closed'?'Agreement closed':`Review ${displayDate(s.reviewDate)}`;
+  let access='';
+  if(s.agreementScope==='allTech'){
+    access=s.status==='green'?'Full practical access across Technology areas under normal teacher permission and safety expectations.':s.status==='red'?'No practical participation across Technology practical learning areas until review / re-entry.':'Restricted practical participation across relevant Technology areas. Apply the concern-specific restrictions and increased supervision shown in the agreement.';
+  }else if(s.status==='green')access='Full practical access under normal teacher permission and safety expectations.';
+  else if(s.status==='red')access=(areaAccess[getAreaKey(s.area)]||areaAccess.other).red;
+  else {const r=restrictionsFor(s);access=r.length?r.join(' '):(areaAccess[getAreaKey(s.area)]||areaAccess.other).amber}
+  const contact=[s.issuerName,s.issuerRole].filter(Boolean).join(', ')||'HOD / Pou Taahū';
+  return `${name} | ${statusLabelShort(s.status)} | ${area}
+Scope: ${scope}
+Practical access: ${access}
+${review}
+Contact: ${contact}`;
+}
+function saveStaffDefaults(){
+  const remember=document.getElementById('rememberStaffDefaults');if(!remember?.checked)return;
+  const payload={issuerRole:val('issuerRole'),issuerName:val('issuerName'),classTeacher:val('classTeacher'),area:val('area'),agreementScope:val('agreementScope')||'subject',reviewDays:currentReviewDays()||14};
+  try{localStorage.setItem(STAFF_DEFAULTS_KEY,JSON.stringify(payload))}catch(e){}
+}
+function loadStaffDefaults(){
+  try{const raw=localStorage.getItem(STAFF_DEFAULTS_KEY);if(!raw)return false;const d=JSON.parse(raw);['issuerRole','issuerName','classTeacher','area','agreementScope'].forEach(id=>{const e=document.getElementById(id);if(e&&d[id])e.value=d[id]});document.getElementById('rememberStaffDefaults').checked=true;setReviewDuration(Number(d.reviewDays)||14,false);return true}catch(e){return false}
+}
+function currentReviewDays(){const s=val('startDate'),r=val('reviewDate');if(!s||!r)return null;return Math.round((new Date(`${r}T12:00:00`)-new Date(`${s}T12:00:00`))/86400000)}
+function updateDurationButtons(){const days=currentReviewDays();document.querySelectorAll('[data-duration]').forEach(b=>b.classList.toggle('selected',String(days)===b.dataset.duration || (b.dataset.duration==='custom'&&![7,14,28].includes(days))))}
+function setReviewDuration(days,focus=true){if(days==='custom'){document.getElementById('reviewDate')?.focus();return}const start=val('startDate')||todayIso();document.getElementById('reviewDate').value=addDaysIso(start,Number(days));updateDurationButtons();if(focus)changeHandler()}
+function setNextReviewDuration(days){if(days==='custom'){document.getElementById('nextReviewDate')?.focus();return}const base=val('reviewActionDate')||todayIso();document.getElementById('nextReviewDate').value=addDaysIso(base,Number(days));document.querySelectorAll('[data-next-duration]').forEach(b=>b.classList.toggle('selected',b.dataset.nextDuration===String(days)))}
+function startReviewMode(){if(!loadedExisting)return;reviewMode=true;const s=collectState();document.getElementById('reviewActionDate').value=todayIso();document.getElementById('nextReviewDate').value=addDaysIso(todayIso(),14);document.querySelectorAll('input[name="reviewOutcomeAction"]').forEach(x=>x.checked=false);const defaultOutcome=s.status==='red'?'amber':s.status==='amber'?'green':'close';const r=document.querySelector(`input[name="reviewOutcomeAction"][value="${defaultOutcome}"]`);if(r)r.checked=true;renderReviewWorkspace();goStep(4)}
+function applyReviewOutcome(){
+  const outcome=selectedReviewOutcome();if(!outcome){toast('Choose a review outcome');return}
+  const from=getStatus(), date=val('reviewActionDate')||todayIso(), note=val('reviewNote').trim();
+  const to=outcome==='close'||outcome==='green'?'green':outcome;
+  agreementHistory.push({type:'review',date,fromStatus:from,toStatus:to,outcome,outcomeLabel:reviewOutcomeLabel(outcome,from),note,reviewedBy:[val('issuerName'),val('issuerRole')].filter(Boolean).join(', ')});
+  agreementState=outcome==='close'?'closed':'active';lastUpdateType='review';setStatusRadio(to);
+  if(outcome==='close')document.getElementById('reviewDate').value=date;else if(val('nextReviewDate'))document.getElementById('reviewDate').value=val('nextReviewDate');
+  applyStatusDefaults({preserveCheckpoint:outcome==='close'});reviewMode=false;renderAll();saveLocal(false);toast(outcome==='close'?'Agreement closed and review recorded':'Review outcome applied');
+}
+function recordSafetyBreach(){
+  if(!loadedExisting||agreementState==='closed')return;
+  if(!confirm('Record a new safety breach and move practical access to RED?'))return;
+  const from=getStatus();const note=prompt('Optional brief factual note for this breach (leave blank to skip):','')||'';
+  agreementHistory.push({type:'breach',date:todayIso(),fromStatus:from,toStatus:'red',outcomeLabel:'Safety breach — practical access moved to RED',note:note.trim(),reviewedBy:[val('issuerName'),val('issuerRole')].filter(Boolean).join(', ')});
+  agreementState='active';lastUpdateType='breach';setStatusRadio('red');
+  const d=daysUntil(val('reviewDate'));if(d===null||d<=0)document.getElementById('reviewDate').value=addDaysIso(todayIso(),7);
+  applyStatusDefaults({preserveCheckpoint:false});renderAll();saveLocal(false);goStep(4);toast('Safety breach recorded — access moved to RED');
+}
 function naturalList(items){
   const a=(items||[]).filter(Boolean);
   if(!a.length)return '';
@@ -1101,6 +1261,11 @@ function durationText(startIso,reviewIso){
 }
 function reportAccessText(s){
   const key=getAreaKey(s.area), access=areaAccess[key]||areaAccess.other;
+  if(s.agreementScope==='allTech'){
+    if(s.status==='green')return 'GREEN — full practical participation across Technology areas under normal teacher permission and safety expectations.';
+    if(s.status==='red')return 'RED — no practical participation across Technology practical learning areas until safety review / re-entry.';
+    return 'AMBER — restricted practical participation across relevant Technology areas; staff should apply the named concern-specific restrictions and increased supervision.';
+  }
   if(s.status==='green')return `GREEN — full practical participation. ${access.green}`;
   if(s.status==='red')return `RED — no practical participation until safety review / re-entry. ${access.red}`;
   let text=`AMBER — restricted practical participation / increased supervision. ${access.amber}`;
@@ -1113,36 +1278,118 @@ function reportReviewText(s){
   if(s.status==='amber')return `${date}; target is ${checkpointText(s.checkpoint)} before review for GREEN.`;
   return `${date}; review can close the agreement or adjust access if safety concerns remain.`;
 }
+function emailAccessSummary(s){
+  const key=getAreaKey(s.area), access=areaAccess[key]||areaAccess.other;
+  if(s.agreementState==='closed')return 'normal practical access has resumed.';
+  if(s.agreementScope==='allTech'){
+    if(s.status==='green')return 'they can take part in practical Technology learning as normal, while continuing to meet the usual safety expectations.';
+    if(s.status==='red')return 'they will complete non-practical learning for now and will not take part in practical activities until the agreed re-entry review.';
+    return 'they can still take part in practical Technology learning, but with agreed restrictions and closer teacher supervision.';
+  }
+  if(s.status==='green')return 'they can take part in practical learning as normal, while continuing to meet the usual safety expectations.';
+  if(s.status==='red')return 'they will complete non-practical learning for now and will not use practical tools or equipment until the agreed re-entry review.';
+  if(key==='engineering')return 'they can continue practical learning, but access to workshop tools and machines will be controlled by the teacher and some higher-risk equipment may be unavailable for now.';
+  if(key==='building')return 'they can continue practical learning, but access to hand tools, power tools and worksite equipment will be controlled more closely by the teacher.';
+  if(key==='food')return 'they can continue practical learning, but access to knives, hot equipment and powered appliances may be limited to direct teacher permission or supervision.';
+  if(key==='dvc')return 'they can continue their design work, with closer supervision and restrictions applied only to the computers, cutting tools or model-making equipment linked to the concern.';
+  if(key==='computer')return 'they can continue the assigned digital learning, with access limited to the agreed device, task and settings.';
+  if(key==='textiles')return 'they can continue practical learning, with closer teacher supervision and agreed limits around cutting, sewing or heat equipment where needed.';
+  return 'they can continue practical learning, with agreed restrictions and closer teacher supervision where needed.';
+}
+function emailReviewSummary(s){
+  const date=displayDate(s.reviewDate);
+  if(s.status==='red')return `We will review this on ${date}. The next step will be a safety/re-entry conversation, with any return to practical work beginning at AMBER.`;
+  if(s.status==='amber')return `We will review this on ${date}. The aim is for ${s.studentName||'the student'} to show ${checkpointText(s.checkpoint)} so we can consider a return to GREEN/full practical access.`;
+  return `We will review this on ${date}. If things continue safely, the agreement can be closed.`;
+}
+function stripEmailStop(text){return String(text||'').trim().replace(/[.]+$/,'')}
+function lowerEmailStart(text){const t=stripEmailStop(text);return t?t.charAt(0).toLowerCase()+t.slice(1):''}
+function emailGoalSupportSummary(s){
+  const student=s.studentName||'the student';
+  const presetGoals=(s.goals||[]).map(id=>getLabel('goals',id,s.area)).filter(Boolean).slice(0,3);
+  const customGoals=lines(s.customGoal);
+  const supports=[...(s.supports||[]).map(id=>getLabel('supports',id,s.area)),...lines(s.otherSupport)].filter(Boolean).slice(0,3);
+  const parts=[];
+  if(presetGoals.length){
+    const clauses=presetGoals.map(lowerEmailStart);
+    parts.push(`We’ll be focusing particularly on helping ${student} to ${naturalList(clauses)}.`);
+  }else if(customGoals.length){
+    parts.push(`We’ll also be working towards the agreed goal: ${stripEmailStop(customGoals[0])}.`);
+  }
+  if(supports.length){
+    parts.push(`To make that easier, we’ll use ${naturalList(supports.map(lowerEmailStart))}.`);
+  }
+  if(s.regulationPlan){
+    parts.push(`If ${student} feels they are not able to work safely, the agreed plan is to ${lowerEmailStart(s.regulationPlan)}.`);
+  }
+  return parts.join('\n\n');
+}
+function emailSignoffName(s){
+  return s.issuerName ? `\n${s.issuerName}${s.issuerRole?`\n${s.issuerRole}`:''}` : '';
+}
 function quickReportData(s=collectState()){
-  const student=s.studentName || '[Student]';
-  const cls=s.yearClass ? ` (${s.yearClass})` : '';
-  const area=areaDisplay(s);
+  const student=s.studentName || '[Student]', cls=s.yearClass ? ` (${s.yearClass})` : '', area=areaDisplay(s), scope=scopeLabel(s.agreementScope);
   const start=displayDate(s.startDate), review=displayDate(s.reviewDate), duration=durationText(s.startDate,s.reviewDate);
   const reasons=naturalList(reportConcernLabels(s)) || 'the safety concerns recorded in the agreement';
   const incident=s.incidentNote ? ` Context: ${s.incidentNote.trim().replace(/\s+/g,' ').slice(0,180)}${s.incidentNote.trim().replace(/\s+/g,' ').length>180?'…':''}` : '';
-  const access=reportAccessText(s);
-  const reviewLine=reportReviewText(s);
-  const issuer=[s.issuerName,s.issuerRole].filter(Boolean).join(', ') || 'issuing HOD / Pou Taahū';
-  const teacher=s.classTeacher && s.classTeacher!==s.issuerName ? ` Classroom teacher: ${s.classTeacher}.` : '';
-  const whanau=s.whanauStatus || 'Not yet contacted';
-  const kamar=`${student}${cls} is on a PHS Technology Practical Access & Safety Agreement for ${area} from ${start} to ${review} (${duration}). Reason: ${reasons}.${incident} Current access: ${access} Review: ${reviewLine} Issued by ${issuer}.${teacher} Whānau: ${whanau}.`;
-  const subject=`${student} – Technology Practical Access Agreement`;
-  const email=`Kia ora,
+  const access=reportAccessText(s), reviewLine=reportReviewText(s), issuer=[s.issuerName,s.issuerRole].filter(Boolean).join(', ') || 'issuing HOD / Pou Taahū';
+  const teacher=s.classTeacher && s.classTeacher!==s.issuerName ? ` Classroom teacher: ${s.classTeacher}.` : '', whanau=s.whanauStatus || 'Not yet contacted';
+  const latest=[...(s.history||[])].reverse().find(h=>h.type==='review'||h.type==='breach');
+  let kamar,subject,email;
+  if(latest && s.lastUpdateType==='review'){
+    const closed=s.agreementState==='closed';const outcome=latest.outcomeLabel||reviewOutcomeLabel(latest.outcome,latest.fromStatus);
+    kamar=`${student}${cls}'s PHS Technology Practical Access & Safety Agreement was reviewed on ${displayDate(latest.date)}. Outcome: ${outcome}. ${closed?'The agreement is now closed and normal practical access applies.':`Current access: ${reportAccessText(s)} Next review: ${displayDate(s.reviewDate)}.`}${latest.note?` Review note: ${latest.note}.`:''} Scope: ${scope}. Reviewed by ${issuer}.`;
+    subject=`Quick update on ${student}'s Technology practical agreement`;
+    email=`Kia ora,
 
-${student}${cls} has been placed on a Pukekohe High School Technology Practical Access & Safety Agreement for ${area}. The agreement runs from ${start} to ${review} (${duration}).
+Just a quick update on ${student}${cls}'s Technology Practical Access & Safety Agreement. We reviewed it on ${displayDate(latest.date)}.
 
-Reason: ${reasons}.${incident}
+${closed?`The agreement has now been closed and ${student} can return to normal practical participation. Thank you for the support while we worked through this.`:`Following the review, ${outcome.charAt(0).toLowerCase()+outcome.slice(1)}. At this stage, ${emailAccessSummary(s)}`}${latest.note?`\n\nA brief note from the review: ${latest.note}`:''}${closed?'':emailGoalSupportSummary(s)?`\n\n${emailGoalSupportSummary(s)}`:''}
+${closed?'':`\n\n${emailReviewSummary(s)}`}
 
-Current practical access: ${access}
+The aim is to keep practical learning safe while giving ${student} a clear way to move forward successfully.
 
-Review: ${reviewLine}
+Please feel free to get in touch if you would like to talk this through.
 
-Issued by: ${issuer}.${teacher ? `
-${teacher.trim()}` : ''}
-Whānau communication: ${whanau}.
+Ngā mihi${emailSignoffName(s)}`;
+  }else if(latest && s.lastUpdateType==='breach'){
+    kamar=`A new safety breach was recorded for ${student}${cls} on ${displayDate(latest.date)} while on a PHS Technology Practical Access & Safety Agreement. Practical access moved from ${statusLabelShort(latest.fromStatus)} to RED. ${latest.note?`Context: ${latest.note}. `:''}Current access: ${reportAccessText(s)} Review: ${displayDate(s.reviewDate)}. Scope: ${scope}. Recorded by ${issuer}.`;
+    subject=`Update about ${student}'s Technology practical work`;
+    email=`Kia ora,
 
-Ngā mihi`;
-  return {kamar,subject,email};
+I’m getting in touch with an update about ${student}${cls}'s Technology practical work.
+
+There was a further safety concern on ${displayDate(latest.date)} while ${student} was on a Practical Access & Safety Agreement.${latest.note?` The brief context recorded was: ${latest.note}`:''}
+
+Because of this, ${student}'s practical access has moved to RED for now. This means ${emailAccessSummary(s)}${emailGoalSupportSummary(s)?`\n\n${emailGoalSupportSummary(s)}`:''}
+
+${emailReviewSummary(s)}
+
+This is about keeping ${student}, other students and staff safe, while still giving ${student} a clear pathway back into practical learning.
+
+Please get in touch if you would like to discuss what happened or the next steps.
+
+Ngā mihi${emailSignoffName(s)}`;
+  }else{
+    kamar=`${student}${cls} is on a PHS Technology Practical Access & Safety Agreement for ${area} from ${start} to ${review} (${duration}). Reason: ${reasons}.${incident} Current access: ${access} Scope: ${scope}. Review: ${reviewLine} Issued by ${issuer}.${teacher} Whānau: ${whanau}.`;
+    subject=`Technology practical learning plan for ${student}`;
+    email=`Kia ora,
+
+I’m getting in touch to let you know that ${student}${cls} is starting a Technology Practical Access & Safety Agreement in ${area}. It will run from ${start} until the review on ${review} (${duration}).
+
+The agreement has been put in place following concerns about ${reasons}.${incident}
+
+The aim is not to remove ${student} from practical learning unnecessarily, but to make the expectations really clear and give them a supported pathway to take part safely. At the moment, ${emailAccessSummary(s)}${emailGoalSupportSummary(s)?`\n\n${emailGoalSupportSummary(s)}`:''}
+
+${emailReviewSummary(s)}
+
+We’ll keep supporting ${student} to meet the agreed expectations and will recognise progress at the review.
+
+Please feel free to get in touch if you have any questions or anything you think would help us support ${student} successfully.
+
+Ngā mihi${emailSignoffName(s)}`;
+  }
+  return {kamar,subject,email,staff:staffAccessSummaryText(s)};
 }
 function renderQuickReports(){
   const d=quickReportData();
@@ -1150,6 +1397,8 @@ function renderQuickReports(){
   if(k)k.value=d.kamar;
   if(e)e.value=d.email;
   if(sub)sub.innerHTML=`<b>Subject:</b> ${esc(d.subject)}`;
+  const staff=document.getElementById('staffAccessSummary');if(staff)staff.value=d.staff;
+  renderExistingAgreementCard();renderReviewWorkspace();
 }
 function renderAutomaticResponse(){document.getElementById('automaticResponseSummary').innerHTML=listHtml(automaticResponses(),'Automatic response will appear here.')}
 function renderSeriousSummary(){document.getElementById('seriousSummary').innerHTML=listHtml(seriousExamples(),'No extra subject-specific serious examples are needed beyond the immediate safety rule.')}
@@ -1209,8 +1458,8 @@ function collectState(){
   const incidentNote=val('incidentSummary');
   const incident=[val('incidentPreset'),incidentNote].filter(Boolean).join(' ');
   return {
-    version:3,
-    studentName:val('studentName'),yearClass:val('yearClass'),area:val('area'),otherArea:val('otherArea'),classTeacher:val('classTeacher'),issuerRole:val('issuerRole'),issuerName:val('issuerName'),startDate:val('startDate'),reviewDate:val('reviewDate'),status:getStatus(),
+    version:SCHEMA_VERSION,schemaVersion:SCHEMA_VERSION,agreementId,createdAt:agreementCreatedAt,updatedAt:new Date().toISOString(),agreementState,lastUpdateType,history:agreementHistory,
+    studentName:val('studentName'),yearClass:val('yearClass'),area:val('area'),otherArea:val('otherArea'),agreementScope:val('agreementScope')||'subject',classTeacher:val('classTeacher'),issuerRole:val('issuerRole'),issuerName:val('issuerName'),startDate:val('startDate'),reviewDate:val('reviewDate'),status:getStatus(),
     concerns:checked('concerns'),otherEquipment:val('otherEquipment'),incidentPreset:val('incidentPreset'),incidentNote,incidentSummary:incident,
     goals:checked('goals'),customGoal:val('customGoal'),expectations:checked('expectations'),customExpectations:val('customExpectations'),supports:checked('supports'),regulationPlan:val('regulationPlan'),otherSupport:val('otherSupport'),
     escalation:checked('escalation'),whanauStatus:val('whanauStatus'),reentry:checked('reentry'),reentryNotes:val('reentryNotes'),checkpoint:val('checkpoint')||'3',signatures:checked('signatures'),internalNote:val('internalNote'),keepDraft:document.getElementById('keepDraft')?.checked||false
@@ -1223,11 +1472,16 @@ function migrateState(raw){
   if(!s.escalation && Array.isArray(s.consequences))s.escalation=s.consequences.filter(x=>['home','refer'].includes(x)).map(x=>x==='refer'?'leader':x);
   if(s.incidentSummary && s.incidentPreset && s.incidentSummary.startsWith(s.incidentPreset))s.incidentSummary=s.incidentSummary.slice(s.incidentPreset.length).trim();
   if(s.area==='Digital / Computer classroom' && Array.isArray(s.concerns))s.concerns=s.concerns.map(x=>x==='compInappropriate'?'compRiskMisuse':x);
+  if(!s.agreementScope)s.agreementScope='subject';
+  if(!Array.isArray(s.history))s.history=[];
+  if(!s.agreementState)s.agreementState='active';
+  if(!s.lastUpdateType)s.lastUpdateType='creation';
   return s;
 }
 function applyState(raw){
   const s=migrateState(raw);
-  const ids=['studentName','yearClass','area','otherArea','classTeacher','issuerRole','issuerName','startDate','reviewDate','otherEquipment','incidentPreset','customGoal','customExpectations','regulationPlan','otherSupport','whanauStatus','reentryNotes','internalNote','checkpoint'];
+  agreementId=s.agreementId||agreementId;agreementCreatedAt=s.createdAt||agreementCreatedAt;agreementHistory=Array.isArray(s.history)?s.history:[];agreementState=s.agreementState||'active';lastUpdateType=s.lastUpdateType||'creation';
+  const ids=['studentName','yearClass','area','otherArea','agreementScope','classTeacher','issuerRole','issuerName','startDate','reviewDate','otherEquipment','incidentPreset','customGoal','customExpectations','regulationPlan','otherSupport','whanauStatus','reentryNotes','internalNote','checkpoint'];
   ids.forEach(id=>{const e=document.getElementById(id);if(e && s[id]!==undefined)e.value=s[id]??''});
   const incidentNote=s.incidentNote!==undefined?s.incidentNote:(s.incidentSummary||'');const incidentInput=document.getElementById('incidentSummary');if(incidentInput)incidentInput.value=incidentNote;
   if(s.status){const r=document.querySelector(`input[name="status"][value="${s.status}"]`);if(r)r.checked=true}
@@ -1251,7 +1505,7 @@ function loadLocal(){
   return false;
 }
 let saveTimer;
-function changeHandler(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveLocal(false),300);toggleOtherArea();toggleOtherEquipment();updateStatusCards();updateGoalCount();renderAll()}
+function changeHandler(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveLocal(false),300);toggleOtherArea();toggleOtherEquipment();updateStatusCards();updateGoalCount();updateDurationButtons();saveStaffDefaults();renderAll()}
 
 function requiredErrors(){
   const s=collectState();const e=[];
@@ -1280,8 +1534,8 @@ function renderPreview(){
   document.getElementById('preview').innerHTML=`
     <div class="paper-head"><img src="data:image/png;base64,${SHIELD_BASE64}" alt="PHS shield"><div><h2>Pukekohe High School</h2><h3>Technology | Hangarau</h3><p>Practical Access &amp; Safety Agreement</p></div></div>
     <div class="gold-rule"></div>
-    <div class="meta"><div><b>Student</b><span>${esc(s.studentName||'—')}</span></div><div><b>Year / Class</b><span>${esc(s.yearClass||'—')}</span></div><div><b>Technology area</b><span>${esc(areaDisplay(s))}</span></div><div><b>Classroom teacher</b><span>${esc(s.classTeacher||'—')}</span></div><div><b>Agreement begins</b><span>${esc(displayDate(s.startDate))}</span></div><div><b>Review date</b><span>${esc(displayDate(s.reviewDate))}</span></div><div><b>Issued by</b><span>${esc([s.issuerName,s.issuerRole].filter(Boolean).join(', ')||'—')}</span></div><div><b>Whānau communication</b><span>${esc(s.whanauStatus||'Not yet contacted')}</span></div></div>
-    <div class="status-banner ${statusClass}"><b>PRACTICAL ACCESS LEVEL:</b> ${esc(statusText)}</div>
+    <div class="meta"><div><b>Student</b><span>${esc(s.studentName||'—')}</span></div><div><b>Year / Class</b><span>${esc(s.yearClass||'—')}</span></div><div><b>Technology area</b><span>${esc(areaDisplay(s))}</span></div><div><b>Applies to</b><span>${esc(scopeLabel(s.agreementScope))}</span></div><div><b>Classroom teacher</b><span>${esc(s.classTeacher||'—')}</span></div><div><b>Agreement begins</b><span>${esc(displayDate(s.startDate))}</span></div><div><b>Review date</b><span>${esc(displayDate(s.reviewDate))}</span></div><div><b>Issued by</b><span>${esc([s.issuerName,s.issuerRole].filter(Boolean).join(', ')||'—')}</span></div><div><b>Whānau communication</b><span>${esc(s.whanauStatus||'Not yet contacted')}</span></div><div><b>Agreement state</b><span>${esc(s.agreementState==='closed'?'Closed':'Active')}</span></div></div>
+    <div class="status-banner ${statusClass}"><b>${s.agreementState==='closed'?'AGREEMENT CLOSED — PRACTICAL ACCESS:':'PRACTICAL ACCESS LEVEL:'}</b> ${esc(statusText)}</div>
     <h4>What this access level means</h4>${listHtml(plan.slice(1),'Select an access level.')}
     <h4>Why this agreement is being used</h4>${listHtml(concerns,'Select the concern(s) on Step 2.')}${s.incidentSummary?`<p><b>Brief factual note:</b> ${esc(s.incidentSummary)}</p>`:''}
     <h4>Non-negotiable safety expectations</h4>${listHtml(CORE_EXPECTATIONS)}
@@ -1293,6 +1547,7 @@ function renderPreview(){
     ${serious.length?`<h4>Relevant serious-safety examples</h4>${listHtml(serious)}`:''}
     <h4>Pathway back to full practical access</h4><p><b>${esc(statusProgression(s.status,s.checkpoint))}</b></p>${listHtml(reentry,'No additional re-entry actions selected.')}${s.reentryNotes?`<p><b>Additional re-entry condition:</b> ${esc(s.reentryNotes)}</p>`:''}
     <h4>Possible outcomes at review</h4>${listHtml(reviewOutcomes(s.status))}
+    ${(s.history||[]).length?`<h4>Agreement review history</h4>${listHtml(historySummaryItems(s))}`:''}
     <h4>Agreement</h4><p>Practical participation depends on behaviour that keeps the student and others safe. Staff will clearly communicate expectations, provide reasonable support, acknowledge positive progress and act when practical work cannot continue safely.</p>
     <p class="small-note">Signatures acknowledge that the expectations and Practical Access Level have been explained. They do not necessarily indicate agreement with every account of the preceding incident(s).</p>
     <p class="small-note">This agreement supports, rather than replaces, normal Pukekohe High School behaviour, pastoral, health and safety, assessment and disciplinary processes.</p>
@@ -1307,8 +1562,9 @@ renderSubjectOptions({preserve:false});
 setDefaultDates();
 
 const hadDraft=loadLocal();
-if(!hadDraft){setChecked('signatures',['student','teacher','issuer']);applyStatusDefaults({preserveCheckpoint:false});}
+if(!hadDraft){loadStaffDefaults();renderSubjectOptions({preserve:true});setChecked('signatures',['student','teacher','issuer']);applyStatusDefaults({preserveCheckpoint:false});}
 else renderAll();
+updateDurationButtons();renderExistingAgreementCard();
 
 document.addEventListener('input',e=>{
   if(e.target.matches('input[data-group="goals"]'))updateGoalCount();
@@ -1321,6 +1577,16 @@ document.addEventListener('change',e=>{
 });
 document.getElementById('area').addEventListener('change',()=>{renderSubjectOptions({preserve:false});setChecked('signatures',['student','teacher','issuer']);autoGoalIds=[];autoExpectationIds=[];autoReentryIds=[];applyConcernRecommendations()});
 document.querySelectorAll('input[name="status"]').forEach(r=>r.addEventListener('change',()=>applyStatusDefaults({preserveCheckpoint:false})));
+document.querySelectorAll('[data-duration]').forEach(b=>b.addEventListener('click',()=>setReviewDuration(b.dataset.duration)));
+document.querySelectorAll('[data-next-duration]').forEach(b=>b.addEventListener('click',()=>setNextReviewDuration(b.dataset.nextDuration)));
+document.getElementById('startDate').addEventListener('change',()=>{const selected=document.querySelector('[data-duration].selected')?.dataset.duration;setReviewDuration(selected&&selected!=='custom'?selected:14,false)});
+document.getElementById('reviewDate').addEventListener('change',updateDurationButtons);
+document.getElementById('rememberStaffDefaults').addEventListener('change',()=>{if(document.getElementById('rememberStaffDefaults').checked){saveStaffDefaults();toast('Staff defaults will be remembered on this device')}else{try{localStorage.removeItem(STAFF_DEFAULTS_KEY)}catch(e){}}});
+document.getElementById('forgetStaffDefaults').addEventListener('click',()=>{try{localStorage.removeItem(STAFF_DEFAULTS_KEY)}catch(e){}document.getElementById('rememberStaffDefaults').checked=false;toast('Saved staff defaults cleared')});
+document.getElementById('reviewLoadedAgreement').addEventListener('click',startReviewMode);
+document.getElementById('recordSafetyBreach').addEventListener('click',recordSafetyBreach);
+document.getElementById('applyReviewOutcome').addEventListener('click',applyReviewOutcome);
+document.getElementById('cancelReviewMode').addEventListener('click',()=>{reviewMode=false;renderReviewWorkspace();toast('Review mode closed')});
 document.getElementById('clearGoals').addEventListener('click',()=>{setChecked('goals',[]);autoGoalIds=[];updateGoalCount();changeHandler()});
 document.querySelectorAll('[data-checkpoint]').forEach(b=>b.addEventListener('click',()=>{document.getElementById('checkpoint').value=b.dataset.checkpoint;renderAll();saveLocal(false)}));
 document.getElementById('saveDraftTop').addEventListener('click',()=>saveLocal(true));
@@ -1365,10 +1631,10 @@ function wordDocXml(s){
   const plan=statusConditions(s.status,getAreaKey(s.area),s);
   let body=headerTable();
   body+=metaTable([
-    ['Student',s.studentName],['Year / Class',s.yearClass],['Technology area',area],['Classroom teacher',s.classTeacher||'—'],
-    ['Agreement begins',displayDate(s.startDate)],['Review date',displayDate(s.reviewDate)],['Issued by',[s.issuerName,s.issuerRole].filter(Boolean).join(', ')],['Whānau communication',s.whanauStatus||'Not yet contacted']
+    ['Student',s.studentName],['Year / Class',s.yearClass],['Technology area',area],['Applies to',scopeLabel(s.agreementScope)],['Classroom teacher',s.classTeacher||'—'],
+    ['Agreement begins',displayDate(s.startDate)],['Review date',displayDate(s.reviewDate)],['Agreement state',s.agreementState==='closed'?'Closed':'Active'],['Issued by',[s.issuerName,s.issuerRole].filter(Boolean).join(', ')],['Whānau communication',s.whanauStatus||'Not yet contacted']
   ]);
-  body+=mixedPara([{text:'PRACTICAL ACCESS LEVEL: ',bold:true,color:statusColor,size:20},{text:st,bold:true,color:statusColor,size:20}],{shade:statusFill,before:120,after:120});
+  body+=mixedPara([{text:s.agreementState==='closed'?'AGREEMENT CLOSED — PRACTICAL ACCESS: ':'PRACTICAL ACCESS LEVEL: ',bold:true,color:statusColor,size:20},{text:st,bold:true,color:statusColor,size:20}],{shade:statusFill,before:120,after:120});
   body+=sectionHeading('What this access level means');plan.slice(1).forEach(x=>body+=bullet(x));
   body+=sectionHeading('Why this agreement is being used');
   body+=para('Practical Technology learning can involve tools, machinery, equipment, heat, sharp utensils, computers, materials and other hazards. This agreement sets clear conditions for safe participation and a pathway back to full practical access.',{size:21,after:90});
@@ -1387,6 +1653,7 @@ function wordDocXml(s){
   reentry.forEach(x=>body+=bullet(x));
   if(s.reentryNotes)body+=mixedPara([{text:'Additional re-entry condition: ',bold:true,size:21},{text:s.reentryNotes,size:21}],{after:90});
   body+=sectionHeading('Possible outcomes at review');reviewOutcomes(s.status).forEach(x=>body+=bullet(x));
+  if((s.history||[]).length){body+=sectionHeading('Agreement review history');historySummaryItems(s).forEach(x=>body+=bullet(x))}
   body+=sectionHeading('Agreement');
   body+=para('The student understands that practical participation depends on behaviour that keeps themselves and others safe. Staff will clearly communicate expectations, provide reasonable support, acknowledge positive progress and act when practical work cannot continue safely.',{size:21,after:80});
   body+=para('Signatures acknowledge that the expectations and Practical Access Level have been explained. They do not necessarily indicate agreement with every account of the preceding incident(s).',{bold:true,size:19,color:'5F5659',after:80});
@@ -1419,10 +1686,12 @@ async function copyGeneratedText(text,label){
 }
 document.getElementById('copyKamar')?.addEventListener('click',()=>copyGeneratedText(document.getElementById('kamarReport')?.value||'','KAMAR note'));
 document.getElementById('copyEmail')?.addEventListener('click',()=>copyGeneratedText(document.getElementById('emailReport')?.value||'','Email summary'));
+document.getElementById('copyStaffSummary')?.addEventListener('click',()=>copyGeneratedText(document.getElementById('staffAccessSummary')?.value||'','Staff access summary'));
+document.getElementById('openEmail')?.addEventListener('click',()=>{const d=quickReportData();window.location.href=`mailto:?subject=${encodeURIComponent(d.subject)}&body=${encodeURIComponent(d.email)}`});
 document.getElementById('downloadDocx').addEventListener('click',()=>{
   const errs=requiredErrors();showErrors(errs);
   if(errs.length){toast('Complete the required fields first');return}
-  const s=collectState();const blob=makeDocxBlob(s);
+  ensureCreationHistory();lastUpdateType=lastUpdateType||'creation';const s=collectState();const blob=makeDocxBlob(s);
   triggerDownload(blob,`PHS_Practical_Access_Agreement_${safeFilename(s.studentName)}_${s.startDate||'draft'}.docx`);
   if(s.keepDraft){saveLocal(false);toast('Word agreement created — local draft kept')}
   else{clearLocalDraft();toast('Word agreement created — local browser draft cleared')}
@@ -1430,17 +1699,27 @@ document.getElementById('downloadDocx').addEventListener('click',()=>{
 document.getElementById('printAgreement').addEventListener('click',()=>window.print());
 document.getElementById('downloadJson').addEventListener('click',()=>{
   const state=collectState();
-  const payload={privacyNotice:'This file contains student information. Store it only in an appropriate school location.',exportedAt:new Date().toISOString(),state};
+  const payload={schema:'PHS-Practical-Access-Agreement',schemaVersion:SCHEMA_VERSION,privacyNotice:'This file contains student information. Store it only in an appropriate school location.',exportedAt:new Date().toISOString(),state};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   triggerDownload(blob,`PHS_Practical_Access_Draft_${safeFilename(state.studentName)}.json`);
   toast('Draft downloaded — store it in an appropriate school location');
 });
-document.getElementById('loadJson').addEventListener('change',async e=>{
-  const f=e.target.files?.[0];if(!f)return;
-  try{const parsed=JSON.parse(await f.text());applyState(parsed?.state||parsed);saveLocal(false);toast('Draft loaded')}
-  catch(err){toast('That draft file could not be read')}
-  e.target.value='';
-});
+function currentAgreementHasWork(){
+  const s=collectState();
+  return !!(s.studentName || s.yearClass || s.concerns?.length || s.incidentSummary || s.internalNote);
+}
+async function handleJsonDraftLoad(input){
+  const f=input.files?.[0];if(!f)return;
+  try{
+    if(currentAgreementHasWork() && !confirm('Load this saved draft and replace the agreement currently on screen?')){input.value='';return}
+    const parsed=JSON.parse(await f.text());
+    const state=parsed?.state||parsed;
+    if(!state || typeof state!=='object' || Array.isArray(state))throw new Error('Invalid draft');
+    applyState(state);loadedExisting=true;reviewMode=false;saveLocal(false);showErrors([]);renderExistingAgreementCard();goStep(0);const ver=Number(parsed?.schemaVersion||state?.schemaVersion||state?.version||0);toast(ver&&ver<SCHEMA_VERSION?'Older agreement loaded and upgraded':'Saved agreement loaded');
+  }catch(err){toast('That JSON draft could not be read')}
+  input.value='';
+}
+['loadJsonStart','loadJson'].forEach(id=>{const input=document.getElementById(id);if(input)input.addEventListener('change',()=>handleJsonDraftLoad(input))});
 function resetAll(){
   if(!confirm('Clear this agreement and start a new one?'))return;
   clearLocalDraft();location.reload();
