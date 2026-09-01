@@ -84,14 +84,6 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .step-eyebrow{display:inline-block;color:var(--maroon);font-weight:850;text-transform:uppercase;letter-spacing:.07em;font-size:.67rem;margin-bottom:4px}
 .step h3{margin:0 0 5px;font-size:1.32rem;line-height:1.24;color:var(--charcoal);letter-spacing:-.015em}
 .step-intro{margin:0;color:var(--muted);line-height:1.48;font-size:.9rem;max-width:850px}
-
-.resume-card{display:flex;align-items:center;gap:14px;border:1px solid #e1d7d9;background:linear-gradient(135deg,#fbf6f7 0%,#fff 64%);border-left:5px solid var(--maroon);border-radius:14px;padding:13px 15px;margin:0 0 14px;box-shadow:0 3px 10px rgba(36,32,33,.035)}
-.resume-icon{width:40px;height:40px;border-radius:12px;background:var(--soft-gold);border:1px solid #ecd69b;display:grid;place-items:center;font-size:1.08rem;flex:0 0 40px}
-.resume-copy{min-width:0;flex:1}.resume-copy strong{display:block;color:var(--charcoal);font-size:.91rem;line-height:1.25}.resume-copy span{display:block;color:var(--muted);font-size:.76rem;line-height:1.4;margin-top:3px}
-.resume-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}.resume-actions .btn{min-height:38px;padding:8px 12px;font-size:.78rem}
-@media(max-width:760px){.resume-card{align-items:flex-start;flex-wrap:wrap}.resume-copy{flex:1 1 calc(100% - 58px)}.resume-actions{width:100%;padding-left:54px}.resume-actions .btn{width:100%}}
-@media(max-width:430px){.resume-actions{padding-left:0}.resume-icon{width:36px;height:36px;flex-basis:36px}.resume-copy{flex-basis:calc(100% - 50px)}}
-
 .form-card{border:1px solid #e3ddda;border-radius:14px;background:#fff;padding:16px;margin:0 0 14px;box-shadow:0 2px 7px rgba(36,32,33,.025)}
 .form-card.auto-card{background:linear-gradient(180deg,#fff,#fbfaf9);border-color:#ddd4d2}
 .form-card.status-form-card{border-top:4px solid var(--gold)}
@@ -307,13 +299,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
           <span class="step-eyebrow">Step 1 · Setup</span>
           <h3>Student and practical access</h3>
           <p class="step-intro">Enter the essential details, then choose the level of practical access that can currently be managed safely. The colour is an access decision, not a behaviour grade.</p>
-        </div>
-
-
-        <div class="resume-card" aria-label="Continue from a saved agreement draft">
-          <div class="resume-icon" aria-hidden="true">↥</div>
-          <div class="resume-copy"><strong>Continue an existing agreement</strong><span>Load a saved JSON draft to restore the student, concerns, access level, goals, conditions and review dates.</span></div>
-          <div class="resume-actions"><label class="btn secondary" style="cursor:pointer">Load JSON draft<input id="loadJsonStart" type="file" accept="application/json,.json" hidden></label></div>
         </div>
 
         <div class="form-card">
@@ -1450,22 +1435,12 @@ document.getElementById('downloadJson').addEventListener('click',()=>{
   triggerDownload(blob,`PHS_Practical_Access_Draft_${safeFilename(state.studentName)}.json`);
   toast('Draft downloaded — store it in an appropriate school location');
 });
-function currentAgreementHasWork(){
-  const s=collectState();
-  return !!(s.studentName || s.yearClass || s.area || s.issuerName || s.concerns?.length || s.incidentSummary || s.internalNote);
-}
-async function handleJsonDraftLoad(input){
-  const f=input.files?.[0];if(!f)return;
-  try{
-    if(currentAgreementHasWork() && !confirm('Load this saved draft and replace the agreement currently on screen?')){input.value='';return}
-    const parsed=JSON.parse(await f.text());
-    const state=parsed?.state||parsed;
-    if(!state || typeof state!=='object' || Array.isArray(state))throw new Error('Invalid draft');
-    applyState(state);saveLocal(false);showErrors([]);goStep(0);toast('Saved agreement loaded');
-  }catch(err){toast('That JSON draft could not be read')}
-  input.value='';
-}
-['loadJsonStart','loadJson'].forEach(id=>{const input=document.getElementById(id);if(input)input.addEventListener('change',()=>handleJsonDraftLoad(input))});
+document.getElementById('loadJson').addEventListener('change',async e=>{
+  const f=e.target.files?.[0];if(!f)return;
+  try{const parsed=JSON.parse(await f.text());applyState(parsed?.state||parsed);saveLocal(false);toast('Draft loaded')}
+  catch(err){toast('That draft file could not be read')}
+  e.target.value='';
+});
 function resetAll(){
   if(!confirm('Clear this agreement and start a new one?'))return;
   clearLocalDraft();location.reload();
