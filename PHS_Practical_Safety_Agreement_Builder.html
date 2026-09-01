@@ -84,6 +84,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .step-eyebrow{display:inline-block;color:var(--maroon);font-weight:850;text-transform:uppercase;letter-spacing:.07em;font-size:.67rem;margin-bottom:4px}
 .step h3{margin:0 0 5px;font-size:1.32rem;line-height:1.24;color:var(--charcoal);letter-spacing:-.015em}
 .step-intro{margin:0;color:var(--muted);line-height:1.48;font-size:.9rem;max-width:850px}
+
+.resume-card{display:flex;align-items:center;gap:14px;border:1px solid #e1d7d9;background:linear-gradient(135deg,#fbf6f7 0%,#fff 64%);border-left:5px solid var(--maroon);border-radius:14px;padding:13px 15px;margin:0 0 14px;box-shadow:0 3px 10px rgba(36,32,33,.035)}
+.resume-icon{width:40px;height:40px;border-radius:12px;background:var(--soft-gold);border:1px solid #ecd69b;display:grid;place-items:center;font-size:1.08rem;flex:0 0 40px}
+.resume-copy{min-width:0;flex:1}.resume-copy strong{display:block;color:var(--charcoal);font-size:.91rem;line-height:1.25}.resume-copy span{display:block;color:var(--muted);font-size:.76rem;line-height:1.4;margin-top:3px}
+.resume-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}.resume-actions .btn{min-height:38px;padding:8px 12px;font-size:.78rem}
+@media(max-width:760px){.resume-card{align-items:flex-start;flex-wrap:wrap}.resume-copy{flex:1 1 calc(100% - 58px)}.resume-actions{width:100%;padding-left:54px}.resume-actions .btn{width:100%}}
+@media(max-width:430px){.resume-actions{padding-left:0}.resume-icon{width:36px;height:36px;flex-basis:36px}.resume-copy{flex-basis:calc(100% - 50px)}}
+
 .form-card{border:1px solid #e3ddda;border-radius:14px;background:#fff;padding:16px;margin:0 0 14px;box-shadow:0 2px 7px rgba(36,32,33,.025)}
 .form-card.auto-card{background:linear-gradient(180deg,#fff,#fbfaf9);border-color:#ddd4d2}
 .form-card.status-form-card{border-top:4px solid var(--gold)}
@@ -204,6 +212,22 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
 .preview-callout{border:1px solid #e6b6b9;border-left:5px solid var(--red);background:var(--red-soft);color:#6f2429;border-radius:6px;padding:7px 8px;margin:8px 0 10px;font-size:11.3px;line-height:1.4}
 .small-note{font-size:10.6px;color:#6d6668;line-height:1.42}
 .signature-preview{display:grid;grid-template-columns:1fr 1fr;gap:20px 16px;margin-top:18px}.signature-preview>div{display:flex;flex-direction:column;gap:2px;font-size:10.5px}.signature-preview>div>span{color:#4e484a}.signature-preview b{font-size:10.7px}.signature-preview small{font-size:9.4px;color:#777073}
+.quick-report{margin-top:16px;border:1px solid #e6dedb;background:#fff;border-radius:15px;padding:17px;box-shadow:0 5px 16px rgba(47,37,40,.05)}
+.quick-report-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px;padding-bottom:11px;border-bottom:1px solid #eee7e4}
+.quick-report-head h4{margin:0 0 3px;color:var(--charcoal);font-size:1.02rem}
+.quick-report-head p{margin:0;color:var(--muted);font-size:.83rem;line-height:1.4}
+.quick-report-badge{flex:0 0 auto;background:#f8edd0;color:#704d08;border:1px solid #ebcf88;border-radius:999px;padding:5px 9px;font-size:.67rem;font-weight:850;letter-spacing:.04em;text-transform:uppercase}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.report-card{border:1px solid #e5dedb;border-radius:12px;background:#fbfaf9;padding:12px;min-width:0}
+.report-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.report-card-head strong{font-size:.87rem;color:var(--maroon-dark)}
+.report-copy{border:1px solid #d6c9c5;background:white;color:var(--maroon-dark);border-radius:8px;padding:6px 9px;font:inherit;font-size:.72rem;font-weight:800;cursor:pointer;white-space:nowrap}
+.report-copy:hover{border-color:var(--maroon);background:#fff8f6}
+.report-output{width:100%;box-sizing:border-box;border:1px solid #ded6d3;border-radius:9px;background:white;color:#302b2c;font:inherit;font-size:.78rem;line-height:1.45;padding:10px;resize:vertical;min-height:128px}
+.report-output.email{min-height:190px}
+.report-subject{margin:0 0 8px;padding:7px 9px;border-radius:8px;background:#f2eeec;color:#52494b;font-size:.74rem;line-height:1.35;word-break:break-word}
+.report-subject b{color:var(--charcoal)}
+.report-foot{margin-top:9px;color:var(--muted);font-size:.72rem;line-height:1.4}
 .export-box{border:2px solid #e5c063;background:linear-gradient(135deg,#fffaf0,#fff);border-radius:14px;padding:17px;margin-top:14px;box-shadow:0 4px 14px rgba(155,104,17,.07)}
 .export-box h4{margin:0 0 5px;color:var(--maroon-dark);font-size:1rem}
 .export-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.export-actions .btn.gold{min-width:190px}
@@ -231,6 +255,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
   .grid2,.grid3,.option-list,.status-choice{grid-template-columns:1fr}.option{min-height:44px}.status-card{min-height:76px}
   .wizard-nav{bottom:0;margin:0;border-radius:0 0 13px 13px;padding:10px;flex-wrap:nowrap}.wizard-nav .btn{min-width:88px;padding:9px 11px}.step-label{font-size:.7rem}.nav-spacer{display:none}#nextBtn{margin-left:auto}
   .preview-panel{display:none}.paper{padding:22px 19px}.meta{grid-template-columns:1fr}.meta div:nth-child(odd){border-right:0}.meta div:nth-last-child(-n+2){border-bottom:1px solid #e3dddb}.meta div:last-child{border-bottom:0}
+  .report-grid{grid-template-columns:1fr}.quick-report{padding:13px}.quick-report-head{display:block}.quick-report-badge{display:inline-block;margin-top:8px}.report-output{min-height:145px}.report-output.email{min-height:220px}
   .export-actions{display:grid;grid-template-columns:1fr}.export-actions .btn,.export-actions .btn.gold{width:100%;min-width:0}.optional-panel>summary span{display:none}
 }
 @media(max-width:430px){
@@ -282,6 +307,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
           <span class="step-eyebrow">Step 1 · Setup</span>
           <h3>Student and practical access</h3>
           <p class="step-intro">Enter the essential details, then choose the level of practical access that can currently be managed safely. The colour is an access decision, not a behaviour grade.</p>
+        </div>
+
+
+        <div class="resume-card" aria-label="Continue from a saved agreement draft">
+          <div class="resume-icon" aria-hidden="true">↥</div>
+          <div class="resume-copy"><strong>Continue an existing agreement</strong><span>Load a saved JSON draft to restore the student, concerns, access level, goals, conditions and review dates.</span></div>
+          <div class="resume-actions"><label class="btn secondary" style="cursor:pointer">Load JSON draft<input id="loadJsonStart" type="file" accept="application/json,.json" hidden></label></div>
         </div>
 
         <div class="form-card">
@@ -440,8 +472,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
       <section class="step" data-step="4">
         <div class="step-heading">
           <span class="step-eyebrow">Step 5 · Export</span>
-          <h3>Check, sign and export</h3>
-          <p class="step-intro">Check the live preview, confirm who needs a signature line, then create the editable Word agreement.</p>
+          <h3>Review, report and export</h3>
+          <p class="step-intro">Check the live preview, copy a short KAMAR / email summary if needed, then create the editable Word agreement.</p>
         </div>
 
         <div class="form-card">
@@ -459,6 +491,25 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
             <div class="privacy-note"><b>Privacy:</b> local autosaves expire after 24 hours. A saved JSON draft contains student information and should only be stored in an appropriate school location.</div>
           </div>
         </details>
+
+        <div class="quick-report">
+          <div class="quick-report-head">
+            <div><h4>Quick KAMAR / email report</h4><p>Generated from the agreement above. Short enough to paste into KAMAR or an email without retyping the contract.</p></div>
+            <span class="quick-report-badge">Auto-generated</span>
+          </div>
+          <div class="report-grid">
+            <div class="report-card">
+              <div class="report-card-head"><strong>KAMAR note</strong><button type="button" class="report-copy" id="copyKamar">Copy KAMAR note</button></div>
+              <textarea class="report-output" id="kamarReport" readonly aria-label="Generated KAMAR note"></textarea>
+            </div>
+            <div class="report-card">
+              <div class="report-card-head"><strong>Email summary</strong><button type="button" class="report-copy" id="copyEmail">Copy email body</button></div>
+              <div class="report-subject" id="emailSubjectLine"><b>Subject:</b> Technology Practical Access Agreement</div>
+              <textarea class="report-output email" id="emailReport" readonly aria-label="Generated email summary"></textarea>
+            </div>
+          </div>
+          <div class="report-foot">The communication summary is factual and brief; the signed Word agreement remains the full record of goals, restrictions, supports and re-entry requirements.</div>
+        </div>
 
         <div class="export-box">
           <h4>Ready to produce the agreement</h4>
@@ -841,6 +892,46 @@ const reentryMap = {
   techTool:['techEquipmentReentry'], techInterfere:['reentryRestate'], techThrow:['reentryRestate'], techComputer:['techEquipmentReentry']
 };
 
+const REPORT_CONCERNS = {
+  aggression:'unsafe physical behaviour / aggression',
+  refusal:'failure or refusal to follow STOP / safety instructions',
+  disruption:'behaviour disrupting safe practical learning',
+  damage:'deliberate or reckless damage / misuse of property or equipment',
+  movement:'leaving the assigned area or entering restricted areas without permission',
+  otherEquipment:'unsafe use of subject-specific equipment',
+  engUnauthorised:'unsafe or unauthorised use of workshop machinery / powered tools',
+  engInterfere:'interfering with another student using machinery or tools',
+  engThrow:'throwing or misusing workshop tools / materials',
+  engPpe:'repeated failure to meet workshop PPE / clothing requirements',
+  engHotWork:'unsafe or unauthorised welding / gas / hot-work use',
+  bldPower:'unsafe or unauthorised use of power tools / site equipment',
+  bldInterfere:'interfering with another student using building tools / equipment',
+  bldThrow:'throwing or misusing building tools / materials',
+  bldPpe:'repeated failure to meet Building PPE / clothing requirements',
+  bldHeight:'unsafe or unauthorised work-at-height / access-equipment use',
+  foodKnife:'unsafe or inappropriate use of knives / sharp utensils',
+  foodHeat:'unsafe behaviour around heat / hot equipment',
+  foodAppliance:'unsafe or unauthorised use of powered kitchen appliances',
+  foodInterfere:'interfering with another student’s food, equipment or workstation',
+  foodHygiene:'failure to follow hygiene / allergen / cross-contamination controls',
+  foodThrow:'throwing food, utensils or kitchen equipment',
+  dvcCutting:'unsafe use of craft knives / model-making cutting tools',
+  dvcInterfere:'interfering with another student’s model-making work / tools',
+  dvcComputer:'damaging or unauthorised use of computers / CAD / fabrication equipment',
+  compEquipmentDamage:'damage or reckless misuse of computers / digital equipment',
+  compTamper:'tampering with hardware, cables, settings or security controls',
+  compAccount:'interfering with another person’s files / account / digital work',
+  compRiskMisuse:'digital-equipment misuse creating a significant safety / security / damage risk',
+  txtSharp:'unsafe use of scissors / cutters / needles / sharp textile tools',
+  txtMachine:'unsafe or unauthorised use of sewing / powered textile equipment',
+  txtHeat:'unsafe behaviour around irons / heat presses / hot equipment',
+  txtInterference:'interfering with another student’s textiles equipment / work',
+  techTool:'unsafe or unauthorised use of practical tools / classroom equipment',
+  techInterfere:'interfering with another student’s practical work / equipment',
+  techThrow:'throwing or misusing tools / equipment / materials',
+  techComputer:'damaging, tampering with or misusing classroom digital equipment'
+};
+
 const restrictionMap = {
   aggression:'The student remains in an assigned work area. Access to loose tools, sharp items, hot equipment or other high-risk equipment is limited to direct teacher permission while behaviour is settled and safe.',
   refusal:'Practical activity is limited to tasks where the teacher can directly verify safety instructions are being followed; failure to follow a STOP instruction ends practical work immediately.',
@@ -999,6 +1090,82 @@ function statusProgression(status=getStatus(),cp=val('checkpoint')){
   if(status==='red')return `RED → AMBER only after the safety review / re-entry requirements are met. After re-entry at AMBER, complete ${checkpoint} before review for GREEN. If safety is not established, remain RED.`;
   return `AMBER → GREEN after ${checkpoint} and review. AMBER → RED if restrictions are not followed or behaviour creates a serious / immediate risk.`;
 }
+
+function naturalList(items){
+  const a=(items||[]).filter(Boolean);
+  if(!a.length)return '';
+  if(a.length===1)return a[0];
+  if(a.length===2)return `${a[0]} and ${a[1]}`;
+  return `${a.slice(0,-1).join(', ')}, and ${a[a.length-1]}`;
+}
+function reportConcernLabels(s){
+  return s.concerns.map(id=>{
+    if(id==='otherEquipment' && s.otherEquipment)return `unsafe use of ${s.otherEquipment}`;
+    return REPORT_CONCERNS[id] || getLabel('concerns',id,s.area).replace(/[.]+$/,'').toLowerCase();
+  });
+}
+function durationText(startIso,reviewIso){
+  if(!startIso || !reviewIso)return 'review period not yet set';
+  const start=new Date(`${startIso}T12:00:00`), review=new Date(`${reviewIso}T12:00:00`);
+  if(Number.isNaN(start.getTime()) || Number.isNaN(review.getTime()))return 'review period not yet set';
+  const days=Math.round((review-start)/86400000);
+  if(days<0)return 'review date is before the start date';
+  if(days===0)return 'same-day review';
+  if(days%7===0){const w=days/7;return `${days} days (${w} week${w===1?'':'s'})`}
+  return `${days} day${days===1?'':'s'}`;
+}
+function reportAccessText(s){
+  const key=getAreaKey(s.area), access=areaAccess[key]||areaAccess.other;
+  if(s.status==='green')return `GREEN — full practical participation. ${access.green}`;
+  if(s.status==='red')return `RED — no practical participation until safety review / re-entry. ${access.red}`;
+  let text=`AMBER — restricted practical participation / increased supervision. ${access.amber}`;
+  if(s.concerns.includes('otherEquipment') && s.otherEquipment)text+=` Access to ${s.otherEquipment} is restricted to teacher authorisation.`;
+  return text;
+}
+function reportReviewText(s){
+  const date=displayDate(s.reviewDate);
+  if(s.status==='red')return `${date}; practical re-entry requires a safety review and returns at AMBER before GREEN.`;
+  if(s.status==='amber')return `${date}; target is ${checkpointText(s.checkpoint)} before review for GREEN.`;
+  return `${date}; review can close the agreement or adjust access if safety concerns remain.`;
+}
+function quickReportData(s=collectState()){
+  const student=s.studentName || '[Student]';
+  const cls=s.yearClass ? ` (${s.yearClass})` : '';
+  const area=areaDisplay(s);
+  const start=displayDate(s.startDate), review=displayDate(s.reviewDate), duration=durationText(s.startDate,s.reviewDate);
+  const reasons=naturalList(reportConcernLabels(s)) || 'the safety concerns recorded in the agreement';
+  const incident=s.incidentNote ? ` Context: ${s.incidentNote.trim().replace(/\s+/g,' ').slice(0,180)}${s.incidentNote.trim().replace(/\s+/g,' ').length>180?'…':''}` : '';
+  const access=reportAccessText(s);
+  const reviewLine=reportReviewText(s);
+  const issuer=[s.issuerName,s.issuerRole].filter(Boolean).join(', ') || 'issuing HOD / Pou Taahū';
+  const teacher=s.classTeacher && s.classTeacher!==s.issuerName ? ` Classroom teacher: ${s.classTeacher}.` : '';
+  const whanau=s.whanauStatus || 'Not yet contacted';
+  const kamar=`${student}${cls} is on a PHS Technology Practical Access & Safety Agreement for ${area} from ${start} to ${review} (${duration}). Reason: ${reasons}.${incident} Current access: ${access} Review: ${reviewLine} Issued by ${issuer}.${teacher} Whānau: ${whanau}.`;
+  const subject=`${student} – Technology Practical Access Agreement`;
+  const email=`Kia ora,
+
+${student}${cls} has been placed on a Pukekohe High School Technology Practical Access & Safety Agreement for ${area}. The agreement runs from ${start} to ${review} (${duration}).
+
+Reason: ${reasons}.${incident}
+
+Current practical access: ${access}
+
+Review: ${reviewLine}
+
+Issued by: ${issuer}.${teacher ? `
+${teacher.trim()}` : ''}
+Whānau communication: ${whanau}.
+
+Ngā mihi`;
+  return {kamar,subject,email};
+}
+function renderQuickReports(){
+  const d=quickReportData();
+  const k=document.getElementById('kamarReport'), e=document.getElementById('emailReport'), sub=document.getElementById('emailSubjectLine');
+  if(k)k.value=d.kamar;
+  if(e)e.value=d.email;
+  if(sub)sub.innerHTML=`<b>Subject:</b> ${esc(d.subject)}`;
+}
 function renderAutomaticResponse(){document.getElementById('automaticResponseSummary').innerHTML=listHtml(automaticResponses(),'Automatic response will appear here.')}
 function renderSeriousSummary(){document.getElementById('seriousSummary').innerHTML=listHtml(seriousExamples(),'No extra subject-specific serious examples are needed beyond the immediate safety rule.')}
 function renderReviewOutcomes(){document.getElementById('reviewOutcomeSummary').innerHTML=listHtml(reviewOutcomes(),'Review outcomes will appear here.')}
@@ -1147,7 +1314,7 @@ function renderPreview(){
     <div class="signature-preview">${sigs.map(x=>`<div><span>________________________________</span><b>${esc(x)}</b><small>Signature &nbsp;&nbsp;&nbsp;&nbsp; Date</small></div>`).join('')}</div>`;
 }
 
-function renderAll(){renderStatusPlan();renderCoreExpectations();renderAutomaticResponse();renderSeriousSummary();renderReviewOutcomes();renderPathway();renderPreview()}
+function renderAll(){renderStatusPlan();renderCoreExpectations();renderAutomaticResponse();renderSeriousSummary();renderReviewOutcomes();renderPathway();renderPreview();renderQuickReports()}
 
 buildStepper();
 renderCoreExpectations();
@@ -1258,6 +1425,15 @@ function makeDocxBlob(s){const now=new Date().toISOString();const contentTypes=`
 function safeFilename(s){return (s||'Student').replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,50)||'Student'}
 function triggerDownload(blob,name){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200)}
 function clearLocalDraft(){try{localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(LEGACY_STORAGE_KEY)}catch(e){}}
+async function copyGeneratedText(text,label){
+  if(!text)return;
+  try{await navigator.clipboard.writeText(text);toast(`${label} copied`);return}catch(e){}
+  const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');toast(`${label} copied`)}catch(e){toast('Copy failed — select the text manually')}
+  ta.remove();
+}
+document.getElementById('copyKamar')?.addEventListener('click',()=>copyGeneratedText(document.getElementById('kamarReport')?.value||'','KAMAR note'));
+document.getElementById('copyEmail')?.addEventListener('click',()=>copyGeneratedText(document.getElementById('emailReport')?.value||'','Email summary'));
 document.getElementById('downloadDocx').addEventListener('click',()=>{
   const errs=requiredErrors();showErrors(errs);
   if(errs.length){toast('Complete the required fields first');return}
@@ -1274,12 +1450,22 @@ document.getElementById('downloadJson').addEventListener('click',()=>{
   triggerDownload(blob,`PHS_Practical_Access_Draft_${safeFilename(state.studentName)}.json`);
   toast('Draft downloaded — store it in an appropriate school location');
 });
-document.getElementById('loadJson').addEventListener('change',async e=>{
-  const f=e.target.files?.[0];if(!f)return;
-  try{const parsed=JSON.parse(await f.text());applyState(parsed?.state||parsed);saveLocal(false);toast('Draft loaded')}
-  catch(err){toast('That draft file could not be read')}
-  e.target.value='';
-});
+function currentAgreementHasWork(){
+  const s=collectState();
+  return !!(s.studentName || s.yearClass || s.area || s.issuerName || s.concerns?.length || s.incidentSummary || s.internalNote);
+}
+async function handleJsonDraftLoad(input){
+  const f=input.files?.[0];if(!f)return;
+  try{
+    if(currentAgreementHasWork() && !confirm('Load this saved draft and replace the agreement currently on screen?')){input.value='';return}
+    const parsed=JSON.parse(await f.text());
+    const state=parsed?.state||parsed;
+    if(!state || typeof state!=='object' || Array.isArray(state))throw new Error('Invalid draft');
+    applyState(state);saveLocal(false);showErrors([]);goStep(0);toast('Saved agreement loaded');
+  }catch(err){toast('That JSON draft could not be read')}
+  input.value='';
+}
+['loadJsonStart','loadJson'].forEach(id=>{const input=document.getElementById(id);if(input)input.addEventListener('change',()=>handleJsonDraftLoad(input))});
 function resetAll(){
   if(!confirm('Clear this agreement and start a new one?'))return;
   clearLocalDraft();location.reload();
