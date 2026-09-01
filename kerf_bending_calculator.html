@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kerf Bending Calculator</title>
+<style>
+  :root{
+    --bg:#f5f6f2;
+    --panel:#ffffff;
+    --ink:#17211b;
+    --muted:#5e6d63;
+    --green:#0f5c42;
+    --green2:#1c7a58;
+    --gold:#d6a735;
+    --amber:#f0b94a;
+    --red:#b9423a;
+    --line:#d8ded9;
+    --soft:#eef3ef;
+    --shadow:0 14px 36px rgba(26,45,34,.10);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    background:linear-gradient(180deg,#eef3ef 0,#f7f7f3 45%,#f4f3ed 100%);
+    color:var(--ink);
+  }
+  .app{
+    width:min(1240px,96vw);
+    margin:24px auto 42px;
+  }
+  header{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    background:var(--green);
+    color:white;
+    padding:24px 28px;
+    border-radius:20px 20px 8px 8px;
+    box-shadow:var(--shadow);
+  }
+  .eyebrow{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:#dbeadf;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  header h1{margin:0;font-size:clamp(28px,3vw,43px);line-height:1}
+  header p{margin:8px 0 0;color:#dbe9df;max-width:760px;font-size:15px;line-height:1.4}
+  .formula-pill{
+    min-width:250px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:14px;
+    padding:12px 14px;
+    font-size:13px;
+    line-height:1.35;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:18px;
+    margin-top:18px;
+  }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+  }
+  .controls{padding:22px}
+  .section-title{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin:0 0 16px;font-size:18px;
+  }
+  .section-title span{font-size:12px;color:var(--muted);font-weight:400}
+  .field{margin:0 0 17px}
+  .field label{
+    display:flex;justify-content:space-between;gap:14px;align-items:end;
+    font-weight:700;font-size:14px;margin-bottom:7px;
+  }
+  .field label small{font-weight:400;color:var(--muted);font-size:11px;text-align:right}
+  .input-row{display:grid;grid-template-columns:1fr 90px;gap:10px;align-items:center}
+  input[type="range"]{width:100%;accent-color:var(--green2)}
+  input[type="number"]{
+    width:100%;height:40px;border:1px solid #c8d1ca;border-radius:9px;
+    padding:0 10px;font-size:16px;font-weight:700;color:var(--ink);background:#fbfcfa;
+  }
+  .advanced{
+    margin-top:9px;padding-top:16px;border-top:1px solid var(--line);
+  }
+  details summary{cursor:pointer;font-weight:700;color:var(--green);margin-bottom:14px}
+  .hint{
+    padding:12px 13px;border-radius:10px;background:#f8f3e4;border:1px solid #ead59b;
+    color:#5b4a19;font-size:12.5px;line-height:1.4;margin-top:12px;
+  }
+  .main{padding:20px;display:grid;gap:16px}
+  .results{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
+  }
+  .result{
+    background:var(--soft);border:1px solid #dbe6de;border-radius:12px;padding:13px 14px;
+    min-height:92px;
+  }
+  .result b{display:block;color:var(--green);font-size:25px;line-height:1.05;margin:6px 0 4px}
+  .result .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .result .s{font-size:11px;color:var(--muted);line-height:1.3}
+  .visual-wrap{
+    border:1px solid var(--line);border-radius:14px;background:#fbfcf8;padding:12px;overflow:hidden;
+  }
+  .visual-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 4px 10px}
+  .visual-head h2{font-size:17px;margin:0}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+  .legend i{display:inline-block;width:12px;height:4px;border-radius:2px;margin-right:4px;vertical-align:middle;background:var(--green)}
+  .legend .kerf{background:var(--red)}
+  svg{width:100%;height:auto;display:block;min-height:460px}
+  .explain{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  }
+  .card{border:1px solid var(--line);border-radius:12px;padding:14px 15px;background:white}
+  .card h3{margin:0 0 8px;font-size:14px}
+  .card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
+  .status{
+    margin-top:12px;padding:12px 13px;border-radius:10px;font-size:13px;line-height:1.4;
+  }
+  .status.ok{background:#edf7f1;border:1px solid #bcdcc7;color:#23563a}
+  .status.warn{background:#fff5e3;border:1px solid #edcf95;color:#674c17}
+  .status.bad{background:#fff0ef;border:1px solid #e6bbb8;color:#742d29}
+  .equation{
+    font-family:"Courier New",monospace;background:#15251c;color:#eff9f2;border-radius:10px;padding:10px 12px;
+    font-size:12px;overflow:auto;margin-top:10px;
+  }
+  footer{color:#6a736c;font-size:11px;padding:12px 3px;text-align:center}
+  @media(max-width:900px){
+    header{align-items:flex-start;flex-direction:column}
+    .formula-pill{min-width:0;width:100%}
+    .grid{grid-template-columns:1fr}
+    .results{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:560px){
+    .app{width:100%;margin:0}
+    header{border-radius:0;padding:20px}
+    .grid{margin:10px;gap:10px}
+    .results{grid-template-columns:1fr 1fr}
+    .explain{grid-template-columns:1fr}
+    .main,.controls{padding:15px}
+  }
+  @media print{
+    body{background:white}
+    .app{width:100%;margin:0}
+    header,.panel{box-shadow:none}
+    .controls{display:none}
+    .grid{display:block;margin:10px 0}
+    header{border-radius:0}
+    footer{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <div class="eyebrow">Technology workshop tool</div>
+      <h1>Kerf Bending Calculator</h1>
+      <p>Enter the plywood and bend measurements. The calculator estimates a practical kerf spacing and shows what the bend should look like.</p>
+    </div>
+    <div class="formula-pill">
+      <strong>Theoretical model</strong><br>
+      Each kerf acts like a tiny hinge. The calculator assumes the kerf closes as the sheet bends.
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="panel controls">
+      <h2 class="section-title">Your measurements <span>millimetres</span></h2>
+
+      <div class="field">
+        <label for="thickness">Material thickness <small>Total plywood thickness</small></label>
+        <div class="input-row">
+          <input id="thicknessRange" type="range" min="3" max="40" step="0.5" value="18">
+          <input id="thickness" type="number" min="3" max="100" step="0.5" value="18">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="kerf">Kerf width <small>Width removed by saw blade</small></label>
+        <div class="input-row">
+          <input id="kerfRange" type="range" min="0.8" max="6" step="0.1" value="3.2">
+          <input id="kerf" type="number" min="0.2" max="20" step="0.1" value="3.2">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="radius">Desired inside radius <small>Radius of finished inside curve</small></label>
+        <div class="input-row">
+          <input id="radiusRange" type="range" min="20" max="600" step="5" value="150">
+          <input id="radius" type="number" min="5" max="5000" step="1" value="150">
+        </div>
+      </div>
+
+      <details class="advanced" open>
+        <summary>Advanced settings</summary>
+
+        <div class="field">
+          <label for="skin">Material left uncut <small>Thin face holding the bend together</small></label>
+          <div class="input-row">
+            <input id="skinRange" type="range" min="0.5" max="5" step="0.1" value="2">
+            <input id="skin" type="number" min="0.2" max="20" step="0.1" value="2">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="angle">Bend angle <small>Total change in direction</small></label>
+          <div class="input-row">
+            <input id="angleRange" type="range" min="15" max="180" step="5" value="90">
+            <input id="angle" type="number" min="1" max="270" step="1" value="90">
+          </div>
+        </div>
+      </details>
+
+      <div id="status" class="status ok"></div>
+      <div class="hint"><strong>Workshop rule:</strong> this is a starting point, not a guarantee. Always test the setup on scrap plywood before cutting the final workpiece.</div>
+    </section>
+
+    <section class="panel main">
+      <div class="results">
+        <div class="result"><span class="k">Kerf cut depth</span><b id="depthOut">16.0 mm</b><span class="s">Thickness − uncut face</span></div>
+        <div class="result"><span class="k">Kerf spacing</span><b id="spacingOut">33.1 mm</b><span class="s">Centre-to-centre starting estimate</span></div>
+        <div class="result"><span class="k">Number of kerfs</span><b id="countOut">8</b><span class="s">For the selected bend angle</span></div>
+        <div class="result"><span class="k">Kerfed length</span><b id="lengthOut">260.8 mm</b><span class="s">Approximate length of bending zone</span></div>
+      </div>
+
+      <div class="visual-wrap">
+        <div class="visual-head">
+          <h2>Visual preview</h2>
+          <div class="legend"><span><i></i> plywood</span><span><i class="kerf"></i> kerf cuts</span></div>
+        </div>
+        <svg id="viz" viewBox="0 0 900 520" role="img" aria-label="Kerf bend visualisation"></svg>
+      </div>
+
+      <div class="explain">
+        <div class="card">
+          <h3>What the spacing means</h3>
+          <p>The spacing is measured from the centre of one saw cut to the centre of the next. Closer cuts allow a tighter bend.</p>
+        </div>
+        <div class="card">
+          <h3>What the radius means</h3>
+          <p>The inside radius is measured from the centre of the curve to the inside face of the plywood.</p>
+        </div>
+      </div>
+
+      <div>
+        <strong style="font-size:13px">Calculation used</strong>
+        <div id="equation" class="equation"></div>
+      </div>
+    </section>
+  </div>
+  <footer>Kerf geometry is theoretical. Actual bending depends on plywood construction, veneer direction, defects, moisture, cut accuracy and springback.</footer>
+</div>
+
+<script>
+(() => {
+  const ids = ['thickness','kerf','radius','skin','angle'];
+  const el = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
+  const ranges = Object.fromEntries(ids.map(id => [id, document.getElementById(id+'Range')]));
+
+  function syncPair(id, source){
+    if(source === 'range') el[id].value = ranges[id].value;
+    else {
+      let v = Number(el[id].value);
+      const min = Number(ranges[id].min), max = Number(ranges[id].max);
+      if(Number.isFinite(v)) ranges[id].value = Math.min(max, Math.max(min, v));
+    }
+    update();
+  }
+
+  ids.forEach(id => {
+    ranges[id].addEventListener('input', () => syncPair(id,'range'));
+    el[id].addEventListener('input', () => syncPair(id,'number'));
+  });
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const S = (tag, attrs={}, text='') => {
+    const n = document.createElementNS(svgNS, tag);
+    Object.entries(attrs).forEach(([k,v]) => n.setAttribute(k,v));
+    if(text) n.textContent = text;
+    return n;
+  };
+
+  function arcPoint(cx, cy, r, deg){
+    const a = deg*Math.PI/180;
+    return [cx + r*Math.cos(a), cy + r*Math.sin(a)];
+  }
+
+  function arcPath(cx, cy, r, startDeg, endDeg){
+    const [x1,y1]=arcPoint(cx,cy,r,startDeg), [x2,y2]=arcPoint(cx,cy,r,endDeg);
+    const large = Math.abs(endDeg-startDeg)>180 ? 1 : 0;
+    const sweep = endDeg>startDeg ? 1 : 0;
+    return `M ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r.toFixed(2)} ${r.toFixed(2)} 0 ${large} ${sweep} ${x2.toFixed(2)} ${y2.toFixed(2)}`;
+  }
+
+  function fmt(v,dec=1){ return Number.isFinite(v) ? v.toFixed(dec) : '—'; }
+
+  function update(){
+    const T = Number(el.thickness.value);
+    const K = Number(el.kerf.value);
+    const R = Number(el.radius.value);
+    const skin = Number(el.skin.value);
+    const Adeg = Number(el.angle.value);
+    const status = document.getElementById('status');
+
+    if(![T,K,R,skin,Adeg].every(Number.isFinite) || T<=0 || K<=0 || R<=0 || skin<=0 || Adeg<=0){
+      status.className='status bad'; status.textContent='Enter positive numbers in all fields.'; return;
+    }
+    if(skin >= T){
+      status.className='status bad'; status.textContent='The uncut material must be thinner than the total plywood thickness.'; return;
+    }
+
+    const D = T - skin;
+    const alpha = 2*Math.atan(K/(2*D)); // radians per fully closed kerf
+    const theta = Adeg*Math.PI/180;
+    const theoreticalSpacing = (R + D)*alpha;
+    const exactN = theta/alpha;
+    const N = Math.max(1, Math.ceil(exactN));
+    const L = (R + D)*theta;
+    const practicalSpacing = L/N;
+
+    document.getElementById('depthOut').textContent = fmt(D)+' mm';
+    document.getElementById('spacingOut').textContent = fmt(practicalSpacing)+' mm';
+    document.getElementById('countOut').textContent = N;
+    document.getElementById('lengthOut').textContent = fmt(L)+' mm';
+
+    if(skin/T < 0.04){
+      status.className='status warn';
+      status.textContent='Very little face material is left uncut. The plywood may break through — test on scrap first.';
+    } else if(skin/T > 0.35){
+      status.className='status warn';
+      status.textContent='A relatively thick face is left uncut. The plywood may resist the bend or spring back strongly.';
+    } else if(R < T*2){
+      status.className='status warn';
+      status.textContent='This is a very tight radius compared with the plywood thickness. Treat the result as experimental.';
+    } else {
+      status.className='status ok';
+      status.textContent='Geometry is valid as a starting estimate. Confirm the cut depth and spacing on scrap material.';
+    }
+
+    document.getElementById('equation').innerHTML =
+      `Cut depth D = ${fmt(T)} − ${fmt(skin)} = ${fmt(D)} mm<br>`+
+      `Kerf hinge angle α = 2 × atan(${fmt(K)} ÷ (2 × ${fmt(D)})) = ${fmt(alpha*180/Math.PI,2)}°<br>`+
+      `Kerfed length L = (R + D) × θ = (${fmt(R)} + ${fmt(D)}) × ${fmt(theta,3)} = ${fmt(L)} mm<br>`+
+      `Kerfs N = ceil(θ ÷ α) = ${N}<br>`+
+      `Practical spacing = L ÷ N = ${fmt(L)} ÷ ${N} = <strong>${fmt(practicalSpacing)} mm</strong>`;
+
+    drawVisual({T,K,R,skin,D,Adeg,alpha,N,L,spacing:practicalSpacing,theoreticalSpacing});
+  }
+
+  function drawVisual({T,K,R,skin,D,Adeg,N,L,spacing}){
+    const svg = document.getElementById('viz');
+    svg.replaceChildren();
+
+    // Definitions
+    const defs = S('defs');
+    const marker = S('marker',{id:'arrow',markerWidth:'8',markerHeight:'8',refX:'4',refY:'4',orient:'auto',markerUnits:'strokeWidth'});
+    marker.appendChild(S('path',{d:'M0,0 L8,4 L0,8 z',fill:'#5e6d63'}));
+    defs.appendChild(marker);
+    svg.appendChild(defs);
+
+    svg.appendChild(S('text',{x:34,y:34,'font-size':16,'font-weight':700,fill:'#17211b'},'1. Flat kerf layout'));
+    svg.appendChild(S('text',{x:34,y:57,'font-size':12,fill:'#5e6d63'},`Kerfs are approximately ${fmt(spacing)} mm centre-to-centre`));
+
+    // Flat board view
+    const bx=50, by=84, bw=800, bh=115;
+    svg.appendChild(S('rect',{x:bx,y:by,width:bw,height:bh,rx:5,fill:'#d9b67b',stroke:'#a77b3d','stroke-width':2}));
+    svg.appendChild(S('rect',{x:bx,y:by,width:bw,height:Math.max(4,bh*(skin/T)),fill:'#f1d39f',opacity:.95}));
+
+    const displayCuts = Math.min(N,42);
+    const startX=bx+50, endX=bx+bw-50;
+    for(let i=0;i<displayCuts;i++){
+      const x = displayCuts===1 ? (startX+endX)/2 : startX + i*(endX-startX)/(displayCuts-1);
+      svg.appendChild(S('line',{x1:x,y1:by+bh,x2:x,y2:by+bh*(skin/T),'stroke':'#b9423a','stroke-width':Math.max(2,Math.min(7,K*1.1)),'stroke-linecap':'butt'}));
+    }
+    if(N>displayCuts) svg.appendChild(S('text',{x:830,y:215,'font-size':11,'text-anchor':'end',fill:'#5e6d63'},`${N} total cuts (preview simplified)`));
+
+    // Thickness dimension
+    const dx=30;
+    svg.appendChild(S('line',{x1:dx,y1:by,x2:dx,y2:by+bh,stroke:'#5e6d63','stroke-width':1.2,'marker-start':'url(#arrow)','marker-end':'url(#arrow)'}));
+    svg.appendChild(S('text',{x:17,y:by+bh/2,'font-size':11,fill:'#5e6d63','text-anchor':'middle',transform:`rotate(-90 17 ${by+bh/2})`},`${fmt(T)} mm thick`));
+
+    svg.appendChild(S('line',{x1:bx+145,y1:by+bh+23,x2:bx+145+(endX-startX)/Math.max(1,displayCuts-1),y2:by+bh+23,stroke:'#5e6d63','stroke-width':1,'marker-start':'url(#arrow)','marker-end':'url(#arrow)'}));
+    svg.appendChild(S('text',{x:bx+145+(endX-startX)/(2*Math.max(1,displayCuts-1)),y:by+bh+42,'font-size':11,fill:'#5e6d63','text-anchor':'middle'},`${fmt(spacing)} mm spacing`));
+
+    // Curved preview title
+    svg.appendChild(S('text',{x:34,y:285,'font-size':16,'font-weight':700,fill:'#17211b'},'2. Bent shape'));
+    svg.appendChild(S('text',{x:34,y:308,'font-size':12,fill:'#5e6d63'},`Inside radius ${fmt(R)} mm • bend angle ${fmt(Adeg,0)}°`));
+
+    const maxROuter = R+T;
+    const maxR = Math.max(maxROuter,60);
+    const scale = Math.min(190/maxR, 1.4);
+    const ri = Math.max(24,R*scale);
+    const ro = Math.max(ri+8,(R+T)*scale);
+    const cx=450, cy=494;
+    const endAngle=-90;
+    const startAngle=endAngle-Adeg;
+
+    // Filled curved strip using evenodd path
+    const [o1x,o1y]=arcPoint(cx,cy,ro,startAngle), [o2x,o2y]=arcPoint(cx,cy,ro,endAngle);
+    const [i2x,i2y]=arcPoint(cx,cy,ri,endAngle), [i1x,i1y]=arcPoint(cx,cy,ri,startAngle);
+    const large = Adeg>180 ? 1 : 0;
+    const path = `M ${o1x} ${o1y} A ${ro} ${ro} 0 ${large} 1 ${o2x} ${o2y} L ${i2x} ${i2y} A ${ri} ${ri} 0 ${large} 0 ${i1x} ${i1y} Z`;
+    svg.appendChild(S('path',{d:path,fill:'#d9b67b',stroke:'#a77b3d','stroke-width':2}));
+
+    // Kerf lines on inside face, radial
+    const cutCount = Math.min(N,36);
+    for(let i=0;i<cutCount;i++){
+      const f=(i+.5)/cutCount;
+      const deg=startAngle + f*Adeg;
+      const p1=arcPoint(cx,cy,ri,deg);
+      const p2=arcPoint(cx,cy,Math.max(ri+3,ro-(skin*scale)),deg);
+      svg.appendChild(S('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:'#b9423a','stroke-width':2}));
+    }
+
+    // Radius dimension and centre point
+    svg.appendChild(S('circle',{cx,cy,r:3.5,fill:'#0f5c42'}));
+    const midDeg=(startAngle+endAngle)/2;
+    const rp=arcPoint(cx,cy,ri,midDeg);
+    svg.appendChild(S('line',{x1:cx,y1:cy,x2:rp[0],y2:rp[1],stroke:'#0f5c42','stroke-width':1.4,'stroke-dasharray':'5 4'}));
+    const tx=(cx+rp[0])/2, ty=(cy+rp[1])/2;
+    svg.appendChild(S('rect',{x:tx-47,y:ty-13,width:94,height:24,rx:7,fill:'#ffffff',stroke:'#cbd7cf'}));
+    svg.appendChild(S('text',{x:tx,y:ty+4,'font-size':12,'font-weight':700,fill:'#0f5c42','text-anchor':'middle'},`R = ${fmt(R)} mm`));
+
+    // Labels
+    const labelX=655, labelY=344;
+    svg.appendChild(S('rect',{x:labelX,y:labelY,width:205,height:109,rx:10,fill:'#ffffff',stroke:'#d8ded9'}));
+    svg.appendChild(S('text',{x:labelX+14,y:labelY+23,'font-size':12,'font-weight':700,fill:'#17211b'},'Calculated setup'));
+    svg.appendChild(S('text',{x:labelX+14,y:labelY+45,'font-size':11.5,fill:'#5e6d63'},`Cut depth: ${fmt(D)} mm`));
+    svg.appendChild(S('text',{x:labelX+14,y:labelY+64,'font-size':11.5,fill:'#5e6d63'},`Kerf width: ${fmt(K)} mm`));
+    svg.appendChild(S('text',{x:labelX+14,y:labelY+83,'font-size':11.5,fill:'#5e6d63'},`Kerf count: ${N}`));
+    svg.appendChild(S('text',{x:labelX+14,y:labelY+102,'font-size':11.5,fill:'#5e6d63'},`Bend zone: ${fmt(L)} mm`));
+  }
+
+  update();
+})();
+</script>
+</body>
+</html>
