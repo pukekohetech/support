@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>AI Education Prompt Builder V2.15</title>
+<title>AI Education Prompt Builder V2.18</title>
 <style>
   :root{
     --bg:#f4f6f5; --surface:#ffffff; --surface-2:#f8faf9; --text:#17231f; --muted:#5c6d67;
@@ -95,6 +95,15 @@
   .curriculum-workflow-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .curriculum-stage-help{font-size:.76rem;color:var(--muted);font-weight:500;line-height:1.35}
   .field-note{align-self:end;padding:10px 12px;border-radius:11px;background:#fff;color:var(--muted);font-size:.78rem;border:1px solid #e0ebe6}
+  .nzqa-lookup{margin-top:12px;padding:12px;border:1px solid #d7e4df;border-radius:13px;background:#f8fbfa}
+  .nzqa-lookup-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+  .nzqa-lookup-title{font-size:.84rem;font-weight:850;color:#34453f}
+  .nzqa-lookup-sub{display:block;margin-top:2px;color:var(--muted);font-size:.72rem;font-weight:500}
+  .nzqa-lookup-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}
+  .nzqa-lookup-row input{min-width:0}
+  .nzqa-lookup-row .mini{min-height:40px;padding:8px 11px;white-space:nowrap}
+  .nzqa-lookup-status{margin-top:8px;color:var(--muted);font-size:.73rem;line-height:1.4}
+  .nzqa-lookup-status strong{color:var(--text)}
   .hidden{display:none!important}
   details{border-top:1px solid var(--line);background:var(--surface)}
   details:first-of-type{border-top:0}
@@ -175,7 +184,7 @@
 
   @media(max-width:1050px){.layout{grid-template-columns:1fr}.sticky{position:static}.summary-card{max-width:none}.resource-grid{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:760px){.curriculum-workflow-grid{grid-template-columns:1fr}.shell{padding:20px 13px 36px}.hero{align-items:flex-start;flex-direction:column}.resource-grid,.task-modes,.preset-grid{grid-template-columns:repeat(2,1fr)}.quick-options{grid-template-columns:1fr}.context-grid,.advanced-fields,.custom-fields{grid-template-columns:1fr}.advanced-fields .wide{grid-column:auto}.module-grid,.section-list{grid-template-columns:1fr}.source-modes{grid-template-columns:1fr}.panel-inner{padding:17px}summary{padding:15px 17px}.details-body{padding:0 17px 17px}.brand-theme{grid-template-columns:auto 1fr}.brand-preview{grid-column:2;justify-self:start}}
-  @media(max-width:440px){.resource-grid,.task-modes,.preset-grid,.effort-modes{grid-template-columns:1fr}.resource-card{min-height:0}.secondary-actions{grid-template-columns:1fr}.quick-head{display:block}.quick-head>div:last-child{margin-top:9px;justify-content:flex-start!important;flex-wrap:wrap}.quick-title{font-size:.92rem}.quick-sub{max-width:100%}.brand-box-head{display:block}.brand-box-head .tag{display:inline-flex;margin-top:6px}.version-pill{white-space:normal;max-width:100%;overflow-wrap:anywhere}.brand-note{overflow-wrap:anywhere;word-break:break-word}}
+  @media(max-width:440px){.resource-grid,.task-modes,.preset-grid,.effort-modes{grid-template-columns:1fr}.resource-card{min-height:0}.secondary-actions{grid-template-columns:1fr}.quick-head{display:block}.quick-head>div:last-child{margin-top:9px;justify-content:flex-start!important;flex-wrap:wrap}.quick-title{font-size:.92rem}.quick-sub{max-width:100%}.brand-box-head{display:block}.brand-box-head .tag{display:inline-flex;margin-top:6px}.version-pill{white-space:normal;max-width:100%;overflow-wrap:anywhere}.brand-note{overflow-wrap:anywhere;word-break:break-word}.nzqa-lookup-row{grid-template-columns:1fr 1fr}.nzqa-lookup-row input{grid-column:1/-1}.nzqa-lookup-row .mini{width:100%}}
   @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
@@ -242,15 +251,40 @@
           <div class="panel-head">
             <div class="step">
               <div class="step-num">2</div>
-              <div><h2>Add just enough context</h2><div class="sub">Optional, but a topic + year level makes the copied prompt much more useful.</div></div>
+              <div><h2>Add just enough context</h2><div class="sub">Use the quick choices where possible; only type the parts that are unique to your class or resource.</div></div>
             </div>
           </div>
           <div class="context-grid">
             <label class="field">Topic<input id="topic" type="text" placeholder="e.g. Isometric sketching"></label>
-            <label class="field">Year level<input id="year" type="text" placeholder="e.g. Year 9"></label>
-            <label class="field">Subject<input id="subject" type="text" placeholder="e.g. DVC"></label>
+            <label class="field">Year level
+              <select id="year">
+                <option value="">Select year level…</option>
+                <option>Year 9</option><option>Year 10</option><option>Year 11</option><option>Year 12</option><option>Year 13</option>
+                <option>Years 9–10</option><option>Years 11–13</option><option>Mixed year levels</option><option>Staff / PLD</option><option>Other / not specified</option>
+              </select>
+            </label>
+            <label class="field">Subject / learning area<input id="subject" type="text" list="subjectOptions" placeholder="Choose or type a subject"></label>
+            <datalist id="subjectOptions">
+              <option value="English"><option value="Mathematics and Statistics"><option value="Science"><option value="Biology"><option value="Chemistry"><option value="Physics">
+              <option value="Social Sciences"><option value="History"><option value="Geography"><option value="Economics"><option value="Accounting"><option value="Business Studies">
+              <option value="Technology"><option value="Design and Visual Communication (DVC)"><option value="Engineering / Materials Technology"><option value="Building / Construction"><option value="Food Technology"><option value="Hospitality"><option value="Digital Technologies">
+              <option value="Health and Physical Education"><option value="The Arts"><option value="Visual Arts"><option value="Music"><option value="Drama"><option value="Languages"><option value="Te Reo Māori">
+            </datalist>
           </div>
           <label class="field" style="margin-top:10px">Main learning goal <span class="sub">optional</span><input id="goal" type="text" placeholder="e.g. Students can convert a simple oblique sketch into isometric"></label>
+
+          <div class="nzqa-lookup hidden" id="nzqaLookupFields">
+            <div class="nzqa-lookup-head">
+              <div><div class="nzqa-lookup-title">NZQA standard lookup <span class="sub">optional</span></div><span class="nzqa-lookup-sub">Useful for senior teaching resources, assessment, marking and curriculum planning. Enter the standard number only; the builder uses the same resilient NZQA lookup approach as the PHS unit planner.</span></div>
+              <span class="tag">official NZQA</span>
+            </div>
+            <div class="nzqa-lookup-row">
+              <input id="nzqaStandardNumbers" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 24350 or 92012, 92013" aria-label="NZQA standard number or numbers">
+              <button class="mini" id="nzqaLookupBtn" type="button">Fetch details</button>
+              <button class="mini" id="nzqaOpenBtn" type="button">Open NZQA ↗</button>
+            </div>
+            <div class="nzqa-lookup-status" id="nzqaLookupStatus">Type a standard number and it will be included in the prompt for official NZQA verification. <strong>Fetch details</strong> retrieves the title, type, level, credits, version and status, with fallback readers and a local cache when direct NZQA browser access is blocked.</div>
+          </div>
 
           <div class="brand-box">
             <div class="brand-box-head"><div><div class="setting-title">School branding</div><div class="sub">Optional, but on by default for your Pukekohe High School resources.</div></div><span class="tag">default</span></div>
@@ -264,7 +298,9 @@
 
           <div class="custom-fields hidden" id="customFields">
             <label class="field">What should be produced?<input id="customDeliverable" type="text" placeholder="e.g. a two-page student guide with teacher notes"></label>
-            <label class="field">Required format<input id="customFormat" type="text" placeholder="e.g. DOCX, PPTX, HTML or chat"></label>
+            <label class="field">Required format
+              <select id="customFormat"><option value="">Choose format…</option><option>DOCX</option><option>PPTX</option><option>HTML</option><option>PDF</option><option>XLSX / spreadsheet</option><option>JSON</option><option>ZIP package</option><option>Chat response</option><option>Other / flexible</option></select>
+            </label>
           </div>
           <div class="custom-fields hidden" id="powerpointFields">
             <label class="field">Minimum student-facing font size<input id="minFontSize" type="number" min="16" max="40" step="1" value="24" inputmode="numeric" aria-describedby="fontSizeNote"></label>
@@ -286,8 +322,12 @@
             <label class="field">Student name <span class="sub">optional if in file</span><input id="studentName" type="text" placeholder="e.g. Jordan Smith"></label>
             <label class="field">Standard code(s) <span class="sub">optional if in file</span><input id="standardCodes" type="text" placeholder="e.g. AS92012, US29655"></label>
             <label class="field">Project / task<input id="projectTask" type="text" placeholder="e.g. Folding stool development"></label>
-            <label class="field">Assessment stage<input id="assessmentStage" type="text" placeholder="e.g. formative checkpoint / final submission"></label>
-            <label class="field">Assessment year <span class="sub">used to choose the applicable standard version</span><input id="assessmentYear" type="text" placeholder="e.g. 2026"></label>
+            <label class="field">Assessment stage
+              <select id="assessmentStage"><option value="">Select stage…</option><option>Diagnostic / early evidence</option><option>Formative checkpoint</option><option>Draft submission</option><option>Final submission</option><option>Resubmission / further evidence</option><option>Moderation / teacher review</option></select>
+            </label>
+            <label class="field">Assessment year <span class="sub">used to choose the applicable standard version</span>
+              <select id="assessmentYear"><option value="">Select year…</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option><option>Not sure</option></select>
+            </label>
             <label class="field wide">Current student notes / teacher evidence <span class="sub">session-only</span><textarea id="studentNotes" placeholder="e.g. brief oral evidence, teacher observation or current-student verification note"></textarea></label>
             <div class="field-note" style="grid-column:1/-1;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap"><span><strong>Full-fidelity marking mode:</strong> the complete standards-based marking master prompt is preserved. Student-specific evidence and notes are session-only.</span><button class="mini" id="newStudentBtn" type="button">New student — clear evidence</button></div>
           </div>
@@ -305,15 +345,21 @@
               <select id="curriculumStage"></select>
               <span class="curriculum-stage-help" id="curriculumStageHelp"></span>
             </label>
-            <label class="field">Intended teaching year <span class="sub">important during curriculum transition</span><input id="intendedTeachingYear" type="text" placeholder="e.g. 2027"></label>
-            <label class="field">Phase / curriculum level <span class="sub">optional if evident in resource</span><input id="curriculumPhase" type="text" placeholder="e.g. Phase 4 / Level 5"></label>
+            <label class="field">Intended teaching year <span class="sub">important during curriculum transition</span>
+              <select id="intendedTeachingYear"><option value="">Select year…</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option><option>Not sure yet</option></select>
+            </label>
+            <label class="field">Phase / curriculum level <span class="sub">optional — AI can determine it</span>
+              <select id="curriculumPhase"><option value="">Let AI determine from year level</option><option>Phase 1</option><option>Phase 2</option><option>Phase 3</option><option>Phase 4</option><option>NZC Level 1</option><option>NZC Level 2</option><option>NZC Level 3</option><option>NZC Level 4</option><option>NZC Level 5</option><option>NZC Level 6</option><option>NZC Level 7</option><option>NZC Level 8</option><option>Not sure</option></select>
+            </label>
             <div class="field-note" id="curriculumWorkflowNote" style="grid-column:1/-1"></div>
           </div>
 
           <div class="custom-fields hidden" id="teamsFields">
             <label class="field">Assessment title<input id="teamsAssessmentTitle" type="text" placeholder="e.g. Develop and evaluate a folding stool"></label>
             <label class="field">Standard / strand / code <span class="sub">optional</span><input id="teamsStandardRef" type="text" placeholder="e.g. AS92012 or Technology strand"></label>
-            <label class="field">Assessment / intended year <span class="sub">for the applicable standard or curriculum version</span><input id="teamsAssessmentYear" type="text" placeholder="e.g. 2027"></label>
+            <label class="field">Assessment / intended year <span class="sub">for the applicable standard or curriculum version</span>
+              <select id="teamsAssessmentYear"><option value="">Select year…</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option><option>Not sure</option></select>
+            </label>
             <label class="field wide">What students need to submit / evidence required <span class="sub">optional if in source</span><textarea id="teamsSubmissionEvidence" placeholder="e.g. completed workbook, testing photos, final outcome and evaluation"></textarea></label>
             <label class="field">Due / checkpoint note <span class="sub">optional</span><input id="teamsDueNote" type="text" placeholder="e.g. Draft checkpoint Friday; final due in Teams"></label>
             <div class="field-note"><strong>Default:</strong> ready-to-paste Teams assignment blurb + editable student workbook DOCX with criterion-linked prompts and teacher tick-box marking schedule.</div>
@@ -322,8 +368,12 @@
 
           <div class="custom-fields hidden" id="unitPlannerFields">
             <label class="field">Unit title <span class="sub">optional if in source</span><input id="unitPlannerTitle" type="text" placeholder="e.g. Sustainable folding stool"></label>
-            <label class="field">Approximate unit length<input id="unitPlannerWeeks" type="text" placeholder="e.g. 7 weeks"></label>
-            <label class="field">Lessons per week<input id="unitPlannerLessonsPerWeek" type="text" placeholder="e.g. 3"></label>
+            <label class="field">Approximate unit length
+              <select id="unitPlannerWeeks"><option value="">Select if known…</option><option>1 week</option><option>2 weeks</option><option>3 weeks</option><option>4 weeks</option><option>5 weeks</option><option>6 weeks</option><option>7 weeks</option><option>8 weeks</option><option>9 weeks</option><option>10 weeks / one term</option><option>2 terms</option><option>Full year</option><option>Other / flexible</option></select>
+            </label>
+            <label class="field">Lessons per week
+              <select id="unitPlannerLessonsPerWeek"><option value="">Select if known…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>Variable</option></select>
+            </label>
             <label class="field" style="grid-column:1/-1">Known strand / curriculum focus <span class="sub">optional — AI can research and recommend</span><input id="unitPlannerStrandFocus" type="text" placeholder="e.g. Materials and Processing Technology / unsure"></label>
             <label class="field">Teacher name / code <span class="sub">optional</span><input id="unitPlannerTeacher" type="text" placeholder="e.g. NCC"></label>
             <label class="field">Class / course <span class="sub">optional</span><input id="unitPlannerClass" type="text" placeholder="e.g. 9TEC"></label>
@@ -384,11 +434,13 @@
               <summary style="padding:12px 14px">More context & preferences</summary>
               <div class="details-body" style="padding:0 14px 14px">
                 <div class="advanced-fields">
-                  <label class="field">Lesson / use length<input id="length" type="text" placeholder="e.g. 50 minutes"></label>
+                  <label class="field">Lesson / use length
+                    <select id="length"><option value="">Select if useful…</option><option>45 minutes</option><option>50 minutes</option><option>55 minutes</option><option>60 minutes</option><option>75 minutes</option><option>90 minutes</option><option>100 minutes / double period</option><option>Variable</option></select>
+                  </label>
                   <label class="field">Output scale<input id="scope" type="text" placeholder="e.g. 10 slides, 4 pages, or 20 questions"></label>
                   <label class="field">Prior knowledge<input id="prior" type="text" placeholder="e.g. Students have used oblique drawing"></label>
                   <label class="field">Curriculum / assessment context<input id="curriculum" type="text" placeholder="e.g. NCEA AS91343"></label>
-                  <label class="field">Delivery environment<input id="environment" type="text" placeholder="e.g. Chromebook + classroom display"></label>
+                  <label class="field">Delivery environment<input id="environment" type="text" list="environmentOptions" placeholder="Choose or type environment"></label><datalist id="environmentOptions"><option value="Printed / paper"><option value="Classroom display + teacher device"><option value="Chromebooks"><option value="Windows PCs"><option value="Student phones / BYOD"><option value="Mixed student devices"><option value="Workshop / practical room"><option value="Kitchen / food room"><option value="Online / Microsoft Teams"></datalist>
                   <label class="field wide">Specific learner needs<textarea id="learners" placeholder="e.g. Mixed ability; keep writing load low; strong visual scaffolding"></textarea></label>
                   <label class="field">Visual direction<input id="visualDirection" type="text" placeholder="e.g. technical drawing studio"></label>
                   <label class="field">Branding / template<input id="branding" type="text" placeholder="e.g. use supplied school template"></label>
@@ -447,7 +499,7 @@
       <div style="text-align:center;margin-top:9px"><button class="reset-link" id="resetBtn">Reset builder</button></div>
     </aside>
   </div>
-  <div class="footer">AI Education Prompt Builder V2.15 · Self-contained builder · sensitive source/student data is session-only · stage-based curriculum workflow · hosted PHS shield used only when selected</div>
+  <div class="footer">AI Education Prompt Builder V2.18 · Self-contained builder · sensitive source/student data is session-only · quick-select teacher UX · resilient NZQA DASS lookup · stage-based curriculum workflow · hosted PHS shield used only when selected</div>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -991,7 +1043,7 @@ const QUICK_OFF_INSTRUCTIONS={
   teamsLowLoad:'Do not impose a special low-writing constraint; use the evidence format genuinely required by the task.',
   unitPlannerJson:'Do not create a separate planner-compatible JSON file unless the teacher explicitly requests it; the editable Word unit plan remains the main output.'
 };
-const state = { artifact:null, modules:new Set(), sectionState:{}, quickOptions:new Set(), autoRecommended:true, effort:'RECOMMENDED' };
+const state = { artifact:null, modules:new Set(), sectionState:{}, quickOptions:new Set(), autoRecommended:true, effort:'RECOMMENDED', nzqaDetails:[] };
 const $ = id => document.getElementById(id);
 
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -1047,7 +1099,7 @@ function clearCurrentStudentEvidence(showToast=false){
   ['studentName','assessmentStage','studentNotes','sourceText'].forEach(id=>{if($(id))$(id).value='';});
   state.quickOptions.delete('markCohort');
   setSourcePlan('ATTACH');
-  try{['eduPromptBuilderSessionV215','eduPromptBuilderSessionV214','eduPromptBuilderSessionV213','eduPromptBuilderSessionV212','eduPromptBuilderSessionV211'].forEach(k=>sessionStorage.removeItem(k));}catch(e){}
+  try{['eduPromptBuilderSessionV218','eduPromptBuilderSessionV217','eduPromptBuilderSessionV216','eduPromptBuilderSessionV215','eduPromptBuilderSessionV214','eduPromptBuilderSessionV213','eduPromptBuilderSessionV212','eduPromptBuilderSessionV211'].forEach(k=>sessionStorage.removeItem(k));}catch(e){}
   renderQuickOptions();updateSourcePlanUI();update();saveState();
   if(showToast)toast('New student ready — previous evidence cleared');
   return true;
@@ -1291,6 +1343,7 @@ function updateCustomUI(){
   $('unitPlannerFields').classList.toggle('hidden',state.artifact!=='curriculum');
   if(state.artifact==='curriculum')renderCurriculumStageOptions();
   $('teamsFields').classList.toggle('hidden',state.artifact!=='teams');
+  $('nzqaLookupFields').classList.toggle('hidden',!nzqaLookupRelevant());
   $('taskModeControls').classList.toggle('hidden',specialised);
   $('effortControls').classList.toggle('hidden',specialised);
   $('specialWorkflowNote').classList.toggle('hidden',!specialised);
@@ -1314,6 +1367,165 @@ function selectArtifact(id){
   (id==='custom'?$('customDeliverable'):id==='marking'?$('studentName'):id==='unitplanner'?$('unitPlannerTitle'):id==='teams'?$('teamsAssessmentTitle'):$('topic')).focus();
 }
 function contextValue(id){return $(id).value.trim();}
+const NZQA_DASS_SEARCH='https://www.nzqa.govt.nz/framework/search/results.do?query=';
+const NZQA_LOOKUP_CACHE_KEY='eduPromptBuilderNzqaLookupCacheV218';
+function getNzqaNumbers(){
+  const raw=contextValue('nzqaStandardNumbers');
+  const nums=raw.match(/\d{3,6}/g)||[];
+  return [...new Set(nums)].slice(0,8);
+}
+function nzqaLookupRelevant(){
+  if(!state.artifact)return false;
+  if(['marking','teams','curriculum'].includes(state.artifact))return true;
+  const y=contextValue('year');
+  return /Year 1[1-3]|Years 11[–-]13/.test(y);
+}
+function nzqaSearchUrl(num){return NZQA_DASS_SEARCH+encodeURIComponent(num)+'&type=UNIT';}
+function setNzqaStatus(text,details=[]){
+  state.nzqaDetails=Array.isArray(details)?details:[];
+  const el=$('nzqaLookupStatus');if(el)el.textContent=text;
+  update();
+}
+function readableNzqaText(raw){
+  const doc=new DOMParser().parseFromString(String(raw||''),'text/html');
+  doc.querySelectorAll('script,style,noscript').forEach(el=>el.remove());
+  return String(doc.body?.textContent||raw||'')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g,'$1')
+    .replace(/\u00a0/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function cleanNzqaTitle(title){
+  return String(title||'')
+    .replace(/\s+/g,' ')
+    .split(/\bThis standard (?:is|has)\b|\bThis (?:unit|achievement|skill) standard\b/i)[0]
+    .trim()
+    .replace(/[|·]+$/,'')
+    .trim();
+}
+function parseNzqaResult(raw,num){
+  const text=readableNzqaText(raw);
+  const numberAt=text.search(new RegExp('\\b'+num+'\\b'));
+  if(numberAt<0)return null;
+  const before=text.slice(Math.max(0,numberAt-900),numberAt);
+  const after=text.slice(numberAt,numberAt+8500);
+  const result=after.match(new RegExp('\\b'+num+'\\s+(Unit|Skill|Achievement)\\s+(.+?)\\s+(\\d+)\\s*Credits?\\b(?:\\s+(Internal|External))?','i'));
+  if(!result)return null;
+  const levelMatches=[...before.matchAll(/Level\s+(\d+)/gi)];
+  const level=levelMatches.length?levelMatches[levelMatches.length-1][1]:'';
+  const version=after.match(/\bVersion\s+(\d+)\b/i)?.[1]||'';
+  const dataDate=(text.match(/\bData as at\s+([0-9]{4}-[0-9]{2}-[0-9]{2}(?:\s+[0-9:.]+)?)/i)?.[1]
+    ||text.match(/\bData as at\s+([0-9]{1,2}\s+[A-Za-z]+\s+[0-9]{4})/i)?.[1]||'');
+  const statusWindow=after.slice(0,5000);
+  const replacement=statusWindow.match(/(?:replaced by|replacement(?: is)?)[^0-9]{0,80}(\d{3,6})/i);
+  let status='Current / status not flagged in result';
+  if(/This standard (?:is )?expiring\b/i.test(statusWindow))status='Expiring';
+  else if(/This standard (?:is|has) expired\b|This standard has expired\b/i.test(statusWindow))status='Expired';
+  else if(/This standard (?:is )?discontinued\b/i.test(statusWindow))status='Discontinued';
+  if(replacement)status+=(status?' · ':'')+'replaced by '+replacement[1];
+  return {
+    number:String(num),
+    type:result[1][0].toUpperCase()+result[1].slice(1).toLowerCase(),
+    title:cleanNzqaTitle(result[2]),
+    credits:String(result[3]),
+    assessmentMode:result[4]||'',
+    level:String(level||''),
+    version:String(version||''),
+    status,
+    dataDate,
+    url:nzqaSearchUrl(num),
+    retrievedAt:new Date().toISOString(),
+    retrievalSource:''
+  };
+}
+function readNzqaCache(){
+  try{return JSON.parse(localStorage.getItem(NZQA_LOOKUP_CACHE_KEY)||'{}');}catch(e){return {};}
+}
+function saveNzqaCache(number,details){
+  try{
+    const cache=readNzqaCache();cache[number]=details;
+    Object.keys(cache).sort((a,b)=>new Date(cache[b]?.retrievedAt||0)-new Date(cache[a]?.retrievedAt||0)).slice(40).forEach(k=>delete cache[k]);
+    localStorage.setItem(NZQA_LOOKUP_CACHE_KEY,JSON.stringify(cache));
+  }catch(e){}
+}
+async function fetchNzqaText(url,timeout=10000){
+  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),timeout);
+  try{
+    const response=await fetch(url,{signal:controller.signal,credentials:'omit',headers:{Accept:'text/html,text/plain'}});
+    if(!response.ok)throw new Error('Request failed ('+response.status+')');
+    return await response.text();
+  }finally{clearTimeout(timer);}
+}
+async function retrieveNzqaStandard(number){
+  const official=nzqaSearchUrl(number);
+  const attempts=[
+    {name:'NZQA direct',url:official,timeout:6500},
+    {name:'NZQA via reader',url:`https://r.jina.ai/${official}`,timeout:12000},
+    {name:'NZQA via fallback',url:`https://api.allorigins.win/raw?url=${encodeURIComponent(official)}`,timeout:12000}
+  ];
+  let lastError=null;
+  for(const attempt of attempts){
+    try{
+      const parsed=parseNzqaResult(await fetchNzqaText(attempt.url,attempt.timeout),number);
+      if(parsed){parsed.retrievalSource=attempt.name;return parsed;}
+      lastError=new Error('Standard not found in the NZQA response');
+    }catch(error){lastError=error;}
+  }
+  throw lastError||new Error('NZQA lookup failed');
+}
+function applyNzqaConvenienceFields(results){
+  if(!Array.isArray(results)||!results.length)return;
+  const one=results.length===1?results[0]:null;
+  const numbers=results.map(x=>x.number).join(', ');
+  if(state.artifact==='teams'){
+    if(!contextValue('teamsStandardRef'))$('teamsStandardRef').value=numbers;
+    if(one&&!contextValue('teamsAssessmentTitle')&&one.title)$('teamsAssessmentTitle').value=one.title;
+  }else if(state.artifact==='marking'){
+    if(!contextValue('standardCodes'))$('standardCodes').value=numbers;
+  }else if(one&&!contextValue('topic')&&one.title&&['powerpoint','worksheet','game','explorer','poster','infographic'].includes(state.artifact||'')){
+    $('topic').value=one.title;
+  }
+}
+async function fetchNzqaDetails(){
+  const nums=getNzqaNumbers();
+  if(!nums.length){setNzqaStatus('Enter at least one NZQA standard number first.');$('nzqaStandardNumbers').focus();return;}
+  const button=$('nzqaLookupBtn');button.disabled=true;button.textContent='Searching…';
+  $('nzqaLookupStatus').textContent='Checking NZQA DASS…';
+  const results=[];const misses=[];const cache=readNzqaCache();
+  try{
+    for(const num of nums){
+      try{
+        const details=await retrieveNzqaStandard(num);
+        saveNzqaCache(num,details);results.push(details);
+      }catch(error){
+        if(cache[num])results.push({...cache[num],retrievalSource:'Saved result'});
+        else misses.push(num);
+      }
+    }
+    if(results.length){
+      applyNzqaConvenienceFields(results);
+      const summary=results.map(x=>`${x.number} — ${x.type||'Standard'}${x.level?' · Level '+x.level:''}${x.credits?' · '+x.credits+' credits':''}${x.version?' · Version '+x.version:''}${x.assessmentMode?' · '+x.assessmentMode:''}${x.title?' — '+x.title:''}${x.status&&x.status!=='Current / status not flagged in result'?' · '+x.status:''}${x.retrievalSource==='Saved result'?' · saved lookup':''}`).join(' | ');
+      const suffix=misses.length?` | Not found: ${misses.join(', ')}`:'';
+      setNzqaStatus(summary+suffix,results);saveState();
+    }else{
+      setNzqaStatus('NZQA could not be reached from this browser and no saved result is available. Check the number or use “Open NZQA”. The number will still be included in the generated prompt for official verification.');
+    }
+  }finally{button.disabled=false;button.textContent='Fetch details';}
+}
+function openNzqaLookup(){
+  const nums=getNzqaNumbers();
+  if(!nums.length){setNzqaStatus('Enter an NZQA standard number first.');$('nzqaStandardNumbers').focus();return;}
+  window.open(nzqaSearchUrl(nums[0]),'_blank','noopener,noreferrer');
+}
+function nzqaLookupInstruction(){
+  const nums=getNzqaNumbers();if(!nums.length||!nzqaLookupRelevant())return '';
+  let out=`NZQA STANDARD LOOKUP — OFFICIAL SOURCE REQUIRED:\nSearch the official NZQA Directory of Assessment and Skill Standards (DASS) for standard number(s): ${nums.join(', ')}. For each standard retrieve and use the exact official standard number, title, standard type (Achievement / Unit / Skill), level, credit value, version, current status, replacement/superseding standard if stated, and Internal/External where NZQA shows it. Use NZQA as the source of truth rather than memory or third-party summaries. If an assessment/intended year is supplied, use the version/status applicable to that year rather than blindly substituting the newest version. If a number is not found or is ambiguous, say so and do not invent details.`;
+  if(state.nzqaDetails?.length){
+    const preview=state.nzqaDetails.map(x=>`${x.number}: ${x.title||'title not parsed'}; ${x.type||'type not parsed'}; ${x.level?'Level '+x.level:'level not parsed'}; ${x.credits?x.credits+' credits':'credits not parsed'}; ${x.version?'Version '+x.version:'version not parsed'}; ${x.assessmentMode||'assessment mode not shown'}; ${x.status||'status not parsed'}`).join(' | ');
+    out+=`\nBuilder lookup preview: ${preview}. This preview may have been retrieved through a read-through service or local cache because NZQA blocks some cross-origin browser requests. Re-verify against the official NZQA record before relying on it for assessment decisions.`;
+  }
+  return out;
+}
 const PHS_SHIELD_URL='https://raw.githubusercontent.com/pukekohetech/support/main/Sheild.webp';
 const PHS_SHIELD_PAGE_URL='https://github.com/pukekohetech/support/blob/main/Sheild.webp';
 const PHS_PREVIEW_FALLBACK=$('phsPreview')?.src||'';
@@ -1390,13 +1602,14 @@ function buildContext(includeSource=true){
   if(!state.artifact) return '';
   if(state.artifact==='teams'){
     const fields=[
-      ['Assessment title',contextValue('teamsAssessmentTitle')],['Standard / strand / code',contextValue('teamsStandardRef')],['Assessment / intended year',contextValue('teamsAssessmentYear')],
+      ['Assessment title',contextValue('teamsAssessmentTitle')],['Standard / strand / code',contextValue('teamsStandardRef')],['NZQA standard lookup',getNzqaNumbers().join(', ')],['Assessment / intended year',contextValue('teamsAssessmentYear')],
       ['Year level',contextValue('year')],['Subject',contextValue('subject')],['Topic / project',contextValue('topic')],['Learning goal',contextValue('goal')],
       ['Submission / evidence expected',contextValue('teamsSubmissionEvidence')],['Due / checkpoint note',contextValue('teamsDueNote')],['Approximate duration',contextValue('length')]
     ].filter(x=>x[1]);
     let out=`# CURRENT TEAMS ASSESSMENT BUILD\n\n`;
     out+=`FULL FIDELITY: Apply the complete Microsoft Teams Assessment & Student Workbook Master Prompt above. Do not shorten, simplify or omit its source-handling, official-standard verification, A/M/E accuracy, criterion-to-evidence mapping, student-workbook, authenticity, accessibility, marking-schedule or quality-control requirements merely to reduce token use.\n\nCURRENT-RUN OPTION PRECEDENCE: The SELECTED OPTIONS below control optional outputs for this run and override optional feature defaults described in the master prompt. They never override official criteria, safety, authenticity, source verification or assessment accuracy.\n\n`;
     if(fields.length)out+=fields.map(([k,v])=>`${k}: ${v}`).join('\n')+'\n';
+    const nzqa=nzqaLookupInstruction();if(nzqa)out+=`\n${nzqa}\n`;
     const quick=quickInstructions();if(quick)out+=`\nSELECTED OPTIONS:\n${quick}\n`;
     if(usePHSTheme())out+=`\n${phsThemeInstruction()}\n`;
     const extra=contextValue('extra');if(extra)out+=`\nEXTRA TEACHER INSTRUCTIONS:\n${extra}\n`;
@@ -1428,10 +1641,11 @@ RESEARCH TRIGGER: If the teacher context or supplied material names or clearly i
   }
   if(state.artifact==='curriculum'){
     const workflow=getCurriculumWorkflow(),stage=getCurriculumStage();
-    const fields=[['Workflow',curriculumWorkflowLabel()],['Current stage',curriculumStageLabel()],['Resource / unit / project',contextValue('topic')],['Learning area / subject',contextValue('subject')],['Student year level',contextValue('year')],['Intended teaching year',contextValue('intendedTeachingYear')],['Phase / curriculum level if known',contextValue('curriculumPhase')],['Unit title',contextValue('unitPlannerTitle')],['Approximate unit length',contextValue('unitPlannerWeeks')||contextValue('length')],['Lessons per week',contextValue('unitPlannerLessonsPerWeek')],['Known strand / curriculum focus',contextValue('unitPlannerStrandFocus')],['Teacher name / code',contextValue('unitPlannerTeacher')],['Class / course',contextValue('unitPlannerClass')],['Main learning goal',contextValue('goal')]].filter(x=>x[1]);
+    const fields=[['Workflow',curriculumWorkflowLabel()],['Current stage',curriculumStageLabel()],['Resource / unit / project',contextValue('topic')],['Learning area / subject',contextValue('subject')],['Student year level',contextValue('year')],['Intended teaching year',contextValue('intendedTeachingYear')],['Phase / curriculum level if known',contextValue('curriculumPhase')],['NZQA standard lookup',getNzqaNumbers().join(', ')],['Unit title',contextValue('unitPlannerTitle')],['Approximate unit length',contextValue('unitPlannerWeeks')||contextValue('length')],['Lessons per week',contextValue('unitPlannerLessonsPerWeek')],['Known strand / curriculum focus',contextValue('unitPlannerStrandFocus')],['Teacher name / code',contextValue('unitPlannerTeacher')],['Class / course',contextValue('unitPlannerClass')],['Main learning goal',contextValue('goal')]].filter(x=>x[1]);
     const sourcePlan=getSourcePlan();let out='# CURRENT PHS CURRICULUM WORKFLOW RUN\n\n';
     out+='COMPLETE QUALITY ENGINE: Apply the PHS Curriculum Planning Coach above, but execute ONLY the selected workflow stage below. Keep curriculum verification, source fidelity, non-fabrication, TO CONFIRM, template integrity and document QA rules intact. Do not automatically advance to later stages.\n\n';
     if(fields.length)out+=fields.map(([k,v])=>`${k}: ${v}`).join('\n')+'\n';
+    const nzqa=nzqaLookupInstruction();if(nzqa)out+=`\n${nzqa}\n`;
     out+=`\n${curriculumStageInstruction()}\n`;
     const quick=quickInstructions();if(quick)out+='\nSELECTED OPTIONS:\n'+quick+'\n';
     if(usePHSTheme())out+='\n'+phsThemeInstruction()+'\n';const extra=contextValue('extra');if(extra)out+=`\nREUSABLE EXTRA TEACHER INSTRUCTIONS:\n${extra}\n`;
@@ -1446,12 +1660,13 @@ RESEARCH TRIGGER: If the teacher context or supplied material names or clearly i
   }
   if(state.artifact==='marking'){
     const fields=[
-      ['Student name',contextValue('studentName')],['Standard code(s)',contextValue('standardCodes')],['Project / task',contextValue('projectTask')],['Assessment stage',contextValue('assessmentStage')],['Assessment year',contextValue('assessmentYear')],['Current student notes / teacher evidence',contextValue('studentNotes')],
+      ['Student name',contextValue('studentName')],['Standard code(s)',contextValue('standardCodes')],['NZQA standard lookup',getNzqaNumbers().join(', ')],['Project / task',contextValue('projectTask')],['Assessment stage',contextValue('assessmentStage')],['Assessment year',contextValue('assessmentYear')],['Current student notes / teacher evidence',contextValue('studentNotes')],
       ['Year level',contextValue('year')],['Subject',contextValue('subject')],['Topic / assessment context',contextValue('topic')]
     ].filter(x=>x[1]);
     let out='# CURRENT MARKING RUN\n\n';
     out+='FULL FIDELITY: Apply the complete Universal Standards-Based Student Marking & Feedback Master Prompt above. Do not shorten, simplify or omit its student-isolation, Standards Reference Pack, evidence-mapping, grading, research, document-generation or quality-control requirements merely to reduce token use.\n\n';
     if(fields.length)out+=fields.map(([k,v])=>`${k}: ${v}`).join('\n')+'\n';
+    const nzqa=nzqaLookupInstruction();if(nzqa)out+=`\n${nzqa}\n`;
     const quick=quickInstructions();if(quick)out+='\nSELECTED OPTIONS:\n'+quick+'\n';
     if(usePHSTheme())out+='\n'+phsThemeInstruction()+'\n';
     const extra=contextValue('extra');if(extra)out+=`\nEXTRA TEACHER INSTRUCTIONS:\n${extra}\n`;
@@ -1476,6 +1691,7 @@ RESEARCH TRIGGER: If the teacher context or supplied material names or clearly i
     ...powerpointFields,
     ...interactiveFields,
     ['School theme',usePHSTheme()?'Pukekohe High School — use official hosted shield asset':''],
+    ['NZQA standard lookup',nzqaLookupRelevant()?getNzqaNumbers().join(', '):''],
     ['Year level',contextValue('year')],['Subject',contextValue('subject')],['Topic',contextValue('topic')],['Learning goal',contextValue('goal')],['Lesson/use length',contextValue('length')],['Output scale',contextValue('scope')],
     ['Prior knowledge',contextValue('prior')],['Curriculum/assessment context',contextValue('curriculum')],['Delivery environment',contextValue('environment')],
     ['Specific learner needs',contextValue('learners')]
@@ -1488,6 +1704,7 @@ RESEARCH TRIGGER: If the teacher context or supplied material names or clearly i
   out+=`VISUAL ASSETS: ${imageApproachLabel().toUpperCase()}\n${imageApproachInstruction()}\n\n`;
   out+=`Artifact: ${a.name}\n`;
   if(fields.length)out+=fields.map(([k,v])=>`${k}: ${v}`).join('\n')+'\n';
+  const nzqa=nzqaLookupInstruction();if(nzqa)out+=`\n${nzqa}\n`;
   if(prefs.length){out+='\nPREFERENCES:\n'+prefs.map(([k,v])=>`${k}: ${v}`).join('\n')+'\n';}
   const quick=quickInstructions(); if(quick)out+='\nQUICK OPTIONS:\n'+quick+'\n';
   if(usePHSTheme())out+='\n'+phsThemeInstruction()+'\n';
@@ -1530,13 +1747,13 @@ function update(){
   const specialised=artifact&&isSpecialisedWorkflow(artifact.id);
   const hasSource=sourcePlan==='ATTACH'||(sourcePlan==='INLINE'&&inlineSource);
   const customValue=artifact?.id==='custom'?contextValue('customDeliverable'):'';
-  const hasBasis=!!(contextValue('topic')||contextValue('goal')||customValue||hasSource);
+  const hasBasis=!!(contextValue('topic')||contextValue('goal')||customValue||hasSource||(nzqaLookupRelevant()&&getNzqaNumbers().length));
   const strictMissing=!(artifact&&isSpecialisedWorkflow(artifact.id))&&getSourceMode()==='SOURCE-ONLY'&&(sourcePlan==='NONE'||(sourcePlan==='INLINE'&&!inlineSource));
   const modeMissingSource=taskMode!=='CREATE'&&!hasSource;
   const customMissing=artifact?.id==='custom'&&taskMode==='CREATE'&&!contextValue('customDeliverable');
   const curriculumReviewMissing=artifact?.id==='curriculum'&&getCurriculumWorkflow()==='REVIEW'&&!hasSource;
   const curriculumMissingSource=curriculumReviewMissing;
-  const teamsHasBasis=artifact?.id==='teams'&&!!(contextValue('teamsAssessmentTitle')||contextValue('teamsStandardRef')||contextValue('topic')||contextValue('goal')||hasSource);
+  const teamsHasBasis=artifact?.id==='teams'&&!!(contextValue('teamsAssessmentTitle')||contextValue('teamsStandardRef')||getNzqaNumbers().length||contextValue('topic')||contextValue('goal')||hasSource);
   const unitPlannerCanStart=artifact?.id==='unitplanner';
   const curriculumCanStart=artifact?.id==='curriculum'&&!curriculumReviewMissing;
   const ready=!!artifact&&(artifact.id==='curriculum'?curriculumCanStart:artifact.id==='unitplanner'?unitPlannerCanStart:artifact.id==='teams'?teamsHasBasis:hasBasis)&&!strictMissing&&!modeMissingSource&&!customMissing&&!curriculumMissingSource;
@@ -1563,6 +1780,7 @@ function update(){
   if(artifact)chips.push(artifact.short);
   if(artifact&&(artifact.id==='game'||artifact.id==='explorer'))chips.push(gameModeShortLabel());
   if(artifact?.id==='teams')chips.push(state.quickOptions.has('teamsWorkbook')?'Teams + DOCX':'Teams blurb only');
+  if(nzqaLookupRelevant()&&getNzqaNumbers().length)chips.push('NZQA '+getNzqaNumbers().join(', '));
   if(artifact&&artifact.id==='curriculum'){chips.push(curriculumWorkflowLabel());chips.push(curriculumStageLabel());if(curriculumStageCreatesPlan())chips.push('PHS unit plan');if(curriculumStageCreatesDocs())chips.push('PHS documents');}
   if(artifact?.id==='unitplanner')chips.push(sourcePlan==='NONE'?'Guided build':'Unit + alignment');
   if(artifact?.id==='unitplanner')chips.push('PHS DOCX');
@@ -1585,20 +1803,20 @@ function downloadPrompt(){
   const topic=contextValue('topic').replace(/[^a-z0-9]+/gi,'_').replace(/^_|_$/g,'');
   const a=state.artifact?DATA.artifacts[state.artifact].short.replace(/[^a-z0-9]+/gi,'_'):'Prompt';
   const action=taskModeLabel().replace(/[^a-z0-9]+/gi,'_').replace(/^_|_$/g,'');
-  const name=`V2_15_${action}_${a}${topic?'_'+topic:''}_Prompt.txt`;
+  const name=`V2_18_${action}_${a}${topic?'_'+topic:''}_Prompt.txt`;
   const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),500);toast('Prompt downloaded');
 }
 function saveState(){
-  const persistentIds=['topic','year','subject','goal','standardCodes','projectTask','assessmentYear','intendedTeachingYear','curriculumPhase','curriculumStage','unitPlannerTitle','unitPlannerWeeks','unitPlannerLessonsPerWeek','unitPlannerStrandFocus','unitPlannerTeacher','unitPlannerClass','teamsAssessmentTitle','teamsStandardRef','teamsAssessmentYear','teamsSubmissionEvidence','teamsDueNote','customDeliverable','customFormat','minFontSize','gameModePreference','length','scope','prior','curriculum','environment','learners','visualDirection','branding','includeFeatures','avoidFeatures','extra'];
+  const persistentIds=['topic','year','subject','goal','nzqaStandardNumbers','standardCodes','projectTask','assessmentYear','intendedTeachingYear','curriculumPhase','curriculumStage','unitPlannerTitle','unitPlannerWeeks','unitPlannerLessonsPerWeek','unitPlannerStrandFocus','unitPlannerTeacher','unitPlannerClass','teamsAssessmentTitle','teamsStandardRef','teamsAssessmentYear','teamsSubmissionEvidence','teamsDueNote','customDeliverable','customFormat','minFontSize','gameModePreference','length','scope','prior','curriculum','environment','learners','visualDirection','branding','includeFeatures','avoidFeatures','extra'];
   const payload={artifact:state.artifact,modules:[...state.modules],quickOptions:[...state.quickOptions].filter(id=>id!=='markCohort'),autoRecommended:state.autoRecommended,effort:getEffortLevel(),taskMode:getTaskMode(),aiCapability:getAICapability(),imageApproach:getImageApproach(),sourceMode:getSourceMode(),sourcePlan:getSourcePlan(),curriculumWorkflow:getCurriculumWorkflow(),phsTheme:usePHSTheme(),sectionState:state.sectionState,fields:Object.fromEntries(persistentIds.map(id=>[id,$(id).value]))};
   const sessionPayload={studentName:$('studentName').value,assessmentStage:$('assessmentStage').value,studentNotes:$('studentNotes').value,sourceText:$('sourceText').value};
-  try{localStorage.setItem('eduPromptBuilderV215',JSON.stringify(payload));}catch(e){}
-  try{sessionStorage.setItem('eduPromptBuilderSessionV215',JSON.stringify(sessionPayload));}catch(e){}
+  try{localStorage.setItem('eduPromptBuilderV218',JSON.stringify(payload));}catch(e){}
+  try{sessionStorage.setItem('eduPromptBuilderSessionV218',JSON.stringify(sessionPayload));}catch(e){}
 }
 function loadState(){
   let loaded=false;
   try{
-    const raw=localStorage.getItem('eduPromptBuilderV215')||localStorage.getItem('eduPromptBuilderV214')||localStorage.getItem('eduPromptBuilderV213')||localStorage.getItem('eduPromptBuilderV212')||localStorage.getItem('eduPromptBuilderV211')||localStorage.getItem('eduPromptBuilderV210')||localStorage.getItem('eduPromptBuilderV29')||localStorage.getItem('eduPromptBuilderV28')||localStorage.getItem('eduPromptBuilderV27')||localStorage.getItem('eduPromptBuilderV26')||localStorage.getItem('eduPromptBuilderV25')||localStorage.getItem('eduPromptBuilderV24')||localStorage.getItem('eduPromptBuilderV23')||localStorage.getItem('eduPromptBuilderV22')||localStorage.getItem('eduPromptBuilderV21');
+    const raw=localStorage.getItem('eduPromptBuilderV218')||localStorage.getItem('eduPromptBuilderV217')||localStorage.getItem('eduPromptBuilderV216')||localStorage.getItem('eduPromptBuilderV215')||localStorage.getItem('eduPromptBuilderV214')||localStorage.getItem('eduPromptBuilderV213')||localStorage.getItem('eduPromptBuilderV212')||localStorage.getItem('eduPromptBuilderV211')||localStorage.getItem('eduPromptBuilderV210')||localStorage.getItem('eduPromptBuilderV29')||localStorage.getItem('eduPromptBuilderV28')||localStorage.getItem('eduPromptBuilderV27')||localStorage.getItem('eduPromptBuilderV26')||localStorage.getItem('eduPromptBuilderV25')||localStorage.getItem('eduPromptBuilderV24')||localStorage.getItem('eduPromptBuilderV23')||localStorage.getItem('eduPromptBuilderV22')||localStorage.getItem('eduPromptBuilderV21');
     if(raw){
       const p=JSON.parse(raw);loaded=true;
       state.artifact=p.artifact&&DATA.artifacts[p.artifact]?p.artifact:null;
@@ -1619,7 +1837,7 @@ function loadState(){
     }
   }catch(e){}
   try{
-    const sr=sessionStorage.getItem('eduPromptBuilderSessionV215')||sessionStorage.getItem('eduPromptBuilderSessionV214')||sessionStorage.getItem('eduPromptBuilderSessionV213')||sessionStorage.getItem('eduPromptBuilderSessionV212')||sessionStorage.getItem('eduPromptBuilderSessionV211');
+    const sr=sessionStorage.getItem('eduPromptBuilderSessionV218')||sessionStorage.getItem('eduPromptBuilderSessionV217')||sessionStorage.getItem('eduPromptBuilderSessionV216')||sessionStorage.getItem('eduPromptBuilderSessionV215')||sessionStorage.getItem('eduPromptBuilderSessionV214')||sessionStorage.getItem('eduPromptBuilderSessionV213')||sessionStorage.getItem('eduPromptBuilderSessionV212')||sessionStorage.getItem('eduPromptBuilderSessionV211');
     if(sr){const x=JSON.parse(sr);for(const id of ['studentName','assessmentStage','studentNotes','sourceText'])if($(id)&&id in x)$(id).value=x[id]||'';loaded=true;}
   }catch(e){}
   try{
@@ -1632,11 +1850,11 @@ function loadState(){
 function resetBuilder(){
   const meaningful=!!(state.artifact||contextValue('topic')||contextValue('studentName')||contextValue('studentNotes')||contextValue('sourceText')||contextValue('unitPlannerTitle')||contextValue('teamsAssessmentTitle')||contextValue('extra'));
   if(meaningful&&!window.confirm('Reset the entire builder? This clears current selections, student/source evidence and saved preferences for this builder.'))return;
-  state.artifact=null;state.modules.clear();state.quickOptions.clear();state.autoRecommended=true;state.effort='RECOMMENDED';for(const k in state.sectionState)state.sectionState[k]=true;
-  ['topic','year','subject','goal','studentName','standardCodes','projectTask','assessmentStage','assessmentYear','studentNotes','intendedTeachingYear','curriculumPhase','unitPlannerTitle','unitPlannerWeeks','unitPlannerLessonsPerWeek','unitPlannerStrandFocus','unitPlannerTeacher','unitPlannerClass','teamsAssessmentTitle','teamsStandardRef','teamsAssessmentYear','teamsSubmissionEvidence','teamsDueNote','customDeliverable','customFormat','sourceText','length','scope','prior','curriculum','environment','learners','visualDirection','branding','includeFeatures','avoidFeatures','extra'].forEach(id=>$(id).value='');
+  state.artifact=null;state.modules.clear();state.quickOptions.clear();state.autoRecommended=true;state.effort='RECOMMENDED';state.nzqaDetails=[];for(const k in state.sectionState)state.sectionState[k]=true;
+  ['topic','year','subject','goal','nzqaStandardNumbers','studentName','standardCodes','projectTask','assessmentStage','assessmentYear','studentNotes','intendedTeachingYear','curriculumPhase','unitPlannerTitle','unitPlannerWeeks','unitPlannerLessonsPerWeek','unitPlannerStrandFocus','unitPlannerTeacher','unitPlannerClass','teamsAssessmentTitle','teamsStandardRef','teamsAssessmentYear','teamsSubmissionEvidence','teamsDueNote','customDeliverable','customFormat','sourceText','length','scope','prior','curriculum','environment','learners','visualDirection','branding','includeFeatures','avoidFeatures','extra'].forEach(id=>$(id).value='');
   $('phsTheme').checked=true;
   $('minFontSize').value='24';$('gameModePreference').value='SMART';$('autoRecommended').checked=true;setEffortLevel('RECOMMENDED');setCurriculumWorkflow('CREATE');renderCurriculumStageOptions('FOCUS');
-  setTaskMode('CREATE');setAICapability('FILE');setImageApproach('SMART');setSourceMode('FLEXIBLE');setSourcePlan('NONE');try{['eduPromptBuilderV215','eduPromptBuilderV214','eduPromptBuilderV213','eduPromptBuilderV212','eduPromptBuilderV211','eduPromptBuilderV210','eduPromptBuilderV29','eduPromptBuilderV28','eduPromptBuilderV27','eduPromptBuilderV26','eduPromptBuilderV25','eduPromptBuilderV24','eduPromptBuilderV23','eduPromptBuilderV22','eduPromptBuilderV21'].forEach(k=>localStorage.removeItem(k));['eduPromptBuilderSessionV215','eduPromptBuilderSessionV214','eduPromptBuilderSessionV213','eduPromptBuilderSessionV212','eduPromptBuilderSessionV211'].forEach(k=>sessionStorage.removeItem(k));}catch(e){}
+  setTaskMode('CREATE');setAICapability('FILE');setImageApproach('SMART');setSourceMode('FLEXIBLE');setSourcePlan('NONE');try{['eduPromptBuilderV218','eduPromptBuilderV217','eduPromptBuilderV216','eduPromptBuilderV215','eduPromptBuilderV214','eduPromptBuilderV213','eduPromptBuilderV212','eduPromptBuilderV211','eduPromptBuilderV210','eduPromptBuilderV29','eduPromptBuilderV28','eduPromptBuilderV27','eduPromptBuilderV26','eduPromptBuilderV25','eduPromptBuilderV24','eduPromptBuilderV23','eduPromptBuilderV22','eduPromptBuilderV21'].forEach(k=>localStorage.removeItem(k));['eduPromptBuilderSessionV218','eduPromptBuilderSessionV217','eduPromptBuilderSessionV216','eduPromptBuilderSessionV215','eduPromptBuilderSessionV214','eduPromptBuilderSessionV213','eduPromptBuilderSessionV212','eduPromptBuilderSessionV211'].forEach(k=>sessionStorage.removeItem(k));}catch(e){}
   renderPresets();renderResources();renderModules();renderSectionGroups();renderQuickOptions();updateCustomUI();update();toast('Builder reset');
 }
 
@@ -1658,6 +1876,11 @@ $('minFontSize').addEventListener('change',()=>{$('minFontSize').value=String(ge
 $('gameModePreference').addEventListener('change',()=>{update();saveState();});
 document.querySelectorAll('input[name="curriculumWorkflow"]').forEach(r=>r.addEventListener('change',()=>{renderCurriculumStageOptions();if(getCurriculumWorkflow()==='REVIEW'&&getSourcePlan()==='NONE')setSourcePlan('ATTACH');updateSourcePlanUI();update();saveState();}));
 $('curriculumStage').addEventListener('change',()=>{renderCurriculumStageOptions($('curriculumStage').value);updateSourcePlanUI();update();saveState();});
+$('nzqaLookupBtn').addEventListener('click',fetchNzqaDetails);
+$('nzqaOpenBtn').addEventListener('click',openNzqaLookup);
+$('nzqaStandardNumbers').addEventListener('input',()=>{state.nzqaDetails=[];$('nzqaLookupStatus').textContent='Standard number added. Fetch details for a quick preview, or copy the prompt and the AI will verify it from official NZQA.';update();saveState();});
+$('nzqaStandardNumbers').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();fetchNzqaDetails();}});
+$('year').addEventListener('change',()=>{updateCustomUI();update();saveState();});
 ['topic','year','subject','goal','studentName','standardCodes','projectTask','assessmentStage','assessmentYear','studentNotes','intendedTeachingYear','curriculumPhase','unitPlannerTitle','unitPlannerWeeks','unitPlannerLessonsPerWeek','unitPlannerStrandFocus','unitPlannerTeacher','unitPlannerClass','teamsAssessmentTitle','teamsStandardRef','teamsAssessmentYear','teamsSubmissionEvidence','teamsDueNote','customDeliverable','customFormat','minFontSize','gameModePreference','sourceText','length','scope','prior','curriculum','environment','learners','visualDirection','branding','includeFeatures','avoidFeatures','extra'].forEach(id=>$(id).addEventListener('input',()=>{update();saveState();}));
 
 loadState();refreshPHSPreview();$('minFontSize').value=String(getMinFontSize());renderCurriculumStageOptions($('curriculumStage')?.value||null);if(state.artifact&&!state.quickOptions.size)state.quickOptions=defaultQuickSet(state.artifact);renderPresets();renderResources();renderModules();renderSectionGroups();renderQuickOptions();updateCustomUI();updateSourcePlanUI();update();
