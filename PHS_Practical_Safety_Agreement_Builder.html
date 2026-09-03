@@ -187,8 +187,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
 .preview-live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(47,125,74,.10)}
 .preview-scroll{overflow:auto;padding:13px;background:#e9e5e3}
 .paper{background:white;box-shadow:0 4px 16px rgba(0,0,0,.11);min-height:880px;padding:29px 31px;margin:auto;max-width:720px;font-size:12.8px;line-height:1.47;color:#292526}
-.paper-head{display:grid;grid-template-columns:66px 1fr;gap:13px;align-items:center;padding-bottom:12px}
-.paper-head img{width:58px;height:68px;object-fit:contain}
+.paper-head{display:grid;grid-template-columns:2.2cm 1fr;gap:13px;align-items:center;padding-bottom:12px}
+.paper-head img{width:auto;height:2cm;max-width:2.2cm;object-fit:contain}
 .paper-head h2{font-size:18px;margin:0;color:var(--charcoal);line-height:1.18}
 .paper-head .subtitle{color:var(--maroon);font-weight:800;font-size:12.8px;margin-top:3px}
 .gold-rule{height:4px;background:var(--gold);border-radius:3px;margin:1px 0 14px}
@@ -347,8 +347,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
             <div class="field"><label for="agreementScope">Agreement applies to</label><select id="agreementScope"><option value="class">This class only</option><option value="subject" selected>This Technology subject / area</option><option value="allTech">All Technology practical learning areas</option></select><div class="scope-note">Use “all Technology” only where the safety concern genuinely applies across practical areas.</div></div>
             <div class="field hidden" id="otherAreaField"><label for="otherArea">Other area</label><input id="otherArea" type="text" placeholder="Name the practical learning area" /></div>
             <div class="field"><label for="classTeacher">Classroom teacher</label><input id="classTeacher" type="text" placeholder="Teacher responsible for the class" /></div>
-            <div class="field"><label class="req" for="issuerRole">Agreement issued by</label><select id="issuerRole"><option value="">Select role…</option><option value="Pou Taahū">Pou Taahū</option><option value="HOD">HOD</option></select></div>
-            <div class="field"><label class="req" for="issuerName">Issuing staff member</label><input id="issuerName" type="text" placeholder="Name" /></div>
+            <div class="field"><label class="req" for="issuerPreset">Agreement issued by</label><select id="issuerPreset"><option value="">Select staff member…</option><option value="reynolds">Mr Paul Reynolds (RY) — Pou TaaHuu Technology</option><option value="devaney">Mrs Mel Devaney (DVM) — HOD Hard Materials and Spatial Design</option><option value="jacobs">Mrs Colleen Jacobs (JC) — HOD Catering and Food &amp; Nutrition</option><option value="fulford">Mrs Lesley Fulford (FLL) — Assistant HOD Catering and Food &amp; Nutrition</option><option value="coburn">Mr Hari Coburn (HR) — HOD Digital Technology</option><option value="custom">Other staff member…</option></select><div class="help">Selecting a staff member adds the correct role and school email automatically.</div></div>
+            <div class="field hidden" id="customIssuerNameField"><label class="req" for="customIssuerName">Other issuing staff member</label><input id="customIssuerName" type="text" placeholder="Name" /></div>
+            <div class="field hidden" id="customIssuerRoleField"><label class="req" for="customIssuerRole">Role</label><input id="customIssuerRole" type="text" placeholder="e.g. HOD or Pou TaaHuu" /></div>
+            <div class="field hidden" id="customIssuerEmailField"><label class="req" for="customIssuerEmail">School email</label><input id="customIssuerEmail" type="email" placeholder="name@pukekohehigh.school.nz" /></div>
+            <input id="issuerName" type="hidden" />
+            <input id="issuerRole" type="hidden" />
+            <input id="issuerEmail" type="hidden" />
             <div class="field"><label for="startDate">Start date</label><input id="startDate" type="date" /></div>
             <div class="field"><label for="reviewDate">Review date</label><input id="reviewDate" type="date" /><div class="duration-row" aria-label="Quick review period"><button type="button" class="duration-btn" data-duration="7">1 week</button><button type="button" class="duration-btn selected" data-duration="14">2 weeks</button><button type="button" class="duration-btn" data-duration="28">4 weeks</button><button type="button" class="duration-btn" data-duration="custom">Custom</button></div><div class="help">Choose a quick period or enter a date directly.</div></div>
           </div>
@@ -384,13 +389,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
           </div>
           <div class="option-list" id="concernOptions"></div>
           <div class="field compact-field hidden" id="otherEquipmentField" style="margin-top:13px"><label for="otherEquipment">Equipment / activity involved</label><input id="otherEquipment" type="text" placeholder="e.g. laser cutter, soldering iron, sewing machine" /></div>
+          <div class="field" style="margin-top:13px"><label for="incidentSummary">Teacher-recorded reason / behaviour</label><textarea id="incidentSummary" rows="3" placeholder="Briefly describe the actual behaviour or reason for using this agreement"></textarea><div class="help">This wording appears prominently under “Why this agreement is being used” and in the communication summary.</div></div>
         </div>
 
         <details class="optional-panel">
-          <summary>Optional incident details <span>Open only if a short factual note is useful</span></summary>
+          <summary>Quick reason wording <span>Optional — use a preset when it saves time</span></summary>
           <div class="optional-content">
-            <div class="field compact-field"><label for="incidentPreset">Quick incident summary</label><select id="incidentPreset"><option value="">No preset summary</option><option value="Repeated unsafe behaviour has created an unacceptable safety risk during practical learning.">Repeated unsafe behaviour / safety risk</option><option value="Unsafe or unauthorised use of equipment has created a risk to the student and/or others.">Unsafe / unauthorised equipment use</option><option value="Deliberate or reckless misuse or damage of school equipment, materials, facilities or another student's work has occurred.">Misuse / damage</option><option value="Unsafe physical behaviour or interference with other students has created a risk in the learning space.">Unsafe physical behaviour / interference</option><option value="Repeated refusal to follow safety instructions has meant practical work cannot continue safely.">Refusal to follow safety instructions</option><option value="Leaving the assigned area or entering a restricted practical area without permission has created a safety concern.">Unauthorised movement / restricted area</option></select></div>
-            <div class="field"><label for="incidentSummary">Factual note</label><input id="incidentSummary" type="text" placeholder="Only add detail if needed — e.g. date or brief factual context" /></div>
+            <div class="field compact-field"><label for="incidentPreset">Quick reason / behaviour summary</label><select id="incidentPreset"><option value="">No preset summary</option><option value="Repeated unsafe behaviour has created an unacceptable safety risk during practical learning.">Repeated unsafe behaviour / safety risk</option><option value="Unsafe or unauthorised use of equipment has created a risk to the student and/or others.">Unsafe / unauthorised equipment use</option><option value="Deliberate or reckless misuse or damage of school equipment, materials, facilities or another student's work has occurred.">Misuse / damage</option><option value="Unsafe physical behaviour or interference with other students has created a risk in the learning space.">Unsafe physical behaviour / interference</option><option value="Repeated refusal to follow safety instructions has meant practical work cannot continue safely.">Refusal to follow safety instructions</option><option value="Repeated refusal or failure to wear required PPE or meet practical-room clothing and footwear requirements, including covered shoes, has meant practical work cannot continue safely.">Refusal to wear PPE / covered shoes</option><option value="Leaving the assigned area or entering a restricted practical area without permission has created a safety concern.">Unauthorised movement / restricted area</option></select></div>
           </div>
         </details>
 
@@ -519,7 +524,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
 
         <div class="form-card">
           <div class="form-card-head">
-            <div><h4>Signature lines</h4><p>Student, classroom teacher and issuing HOD / Pou Taahū are selected by default.</p></div>
+            <div><h4>Signature lines</h4><p>Student, classroom teacher and issuing HOD / Pou TaaHuu are selected by default.</p></div>
           </div>
           <div class="option-list" id="signatureOptions"></div>
         </div>
@@ -544,9 +549,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
               <textarea class="report-output" id="kamarReport" readonly aria-label="Generated KAMAR note"></textarea>
             </div>
             <div class="report-card">
-              <div class="report-card-head"><strong>Whānau email</strong><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="report-copy" id="openEmail">Open email</button><button type="button" class="report-copy" id="copyEmail">Copy email</button></div></div>
+              <div class="report-card-head"><strong>Whānau email</strong><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="report-copy" id="openEmail">Open email</button><button type="button" class="report-copy" id="emailWithContract">Email + contract</button><button type="button" class="report-copy" id="copyEmail">Copy email</button></div></div>
               <div class="report-subject" id="emailSubjectLine"><b>Subject:</b> Technology Practical Access Agreement</div>
               <textarea class="report-output email" id="emailReport" readonly aria-label="Generated email summary"></textarea>
+              <div class="muted-small" style="margin-top:7px">Email text is plain text with no imposed font. “Open email” opens a ready-to-send email. “Email + contract” shares the Word agreement when supported; its Outlook-draft fallback copies the message so it can be pasted above your Outlook signature.</div>
             </div>
           </div>
           <div class="staff-summary-card">
@@ -590,9 +596,16 @@ const SHIELD_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAABLAAAAVkCAYAAADE+eZCAAEAAElEQVR4n
 const STORAGE_KEY = 'phs-practical-access-agreement-v3';
 const LEGACY_STORAGE_KEY = 'phs-practical-safety-agreement-v2';
 const SAVE_TTL_MS = 24 * 60 * 60 * 1000;
-const SCHEMA_VERSION = 4;
+const SCHEMA_VERSION = 6;
 const STAFF_DEFAULTS_KEY = 'phs-practical-access-staff-defaults-v1';
 const stepNames = ['Student & access','Concerns & goals','Conditions & support','Response & pathway','Export'];
+const ISSUER_PRESETS = {
+  reynolds:{name:'Mr Paul Reynolds (RY)',role:'Pou TaaHuu Technology',email:'ry@pukekohehigh.school.nz',aliases:['Mr Reynolds','Paul Reynolds','Paul Reynolds (RY)']},
+  devaney:{name:'Mrs Mel Devaney (DVM)',role:'HOD Hard Materials and Spatial Design',email:'dvm@pukekohehigh.school.nz',aliases:['Mrs Devaney','Mel Devaney','Mel Devaney (DVM)']},
+  jacobs:{name:'Mrs Colleen Jacobs (JC)',role:'HOD Catering and Food & Nutrition',email:'jc@pukekohehigh.school.nz',aliases:['Mrs Jacobs','Colleen Jacobs','Colleen Jacobs (JC)']},
+  fulford:{name:'Mrs Lesley Fulford (FLL)',role:'Assistant HOD Catering and Food & Nutrition',email:'fll@pukekohehigh.school.nz',aliases:['Mrs Fulford','Lesley Fulford','Lesley Fulford (FLL)']},
+  coburn:{name:'Mr Hari Coburn (HR)',role:'HOD Digital Technology',email:'hr@pukekohehigh.school.nz',aliases:['Mr Coburn','Hari Coburn','Coburn Hari','Hari Coburn (HR)']}
+};
 let agreementId = (globalThis.crypto?.randomUUID?.() || `phs-${Date.now()}-${Math.random().toString(36).slice(2,8)}`);
 let agreementCreatedAt = new Date().toISOString();
 let agreementHistory = [];
@@ -645,7 +658,7 @@ const definitions = {
   ],
   escalation: [
     ['home','Contact or update whānau as appropriate'],
-    ['leader','Refer to HOD / Pou Taahū for further review'],
+    ['leader','Refer to HOD / Pou TaaHuu for further review'],
     ['pastoral','Involve Dean / pastoral / SLT support where appropriate']
   ],
   serious: [
@@ -657,7 +670,7 @@ const definitions = {
     ['dangerousEquipment','Using practical equipment in a way that could cause serious harm to self or others']
   ],
   reentry: [
-    ['reentryMeeting','Take part in a safety review / re-entry conversation with the teacher and/or HOD / Pou Taahū'],
+    ['reentryMeeting','Take part in a safety review / re-entry conversation with the teacher and/or HOD / Pou TaaHuu'],
     ['reentryRestate','Restate the relevant safety expectations and explain how they will be followed'],
     ['reentryDemo','Demonstrate the relevant safe technique before independent access is considered'],
     ['reentrySupervised','Return first under Amber restrictions / increased supervision']
@@ -665,7 +678,7 @@ const definitions = {
   signatures: [
     ['student','Student'],
     ['teacher','Classroom Teacher'],
-    ['issuer','HOD / Pou Taahū'],
+    ['issuer','HOD / Pou TaaHuu'],
     ['whanau','Whānau / Caregiver']
   ]
 };
@@ -742,6 +755,7 @@ const areaDefinitions = {
       ['foodHeat','Unsafe behaviour around ovens, cooktops, hot liquids, trays or other heat sources'],
       ['foodAppliance','Unsafe or unauthorised use of powered kitchen appliances'],
       ['foodInterfere','Interfering with another student’s cooking, ingredients, equipment or workstation'],
+      ['foodPpe','Refusing or repeatedly failing to wear required kitchen PPE or meet hair, clothing and covered-shoe requirements'],
       ['foodHygiene','Refusing or repeatedly failing to follow handwashing, hygiene, allergen, cross-contamination or cleaning instructions'],
       ['foodThrow','Throwing food, utensils, equipment or ingredients']
     ],
@@ -750,6 +764,7 @@ const areaDefinitions = {
       ['foodHeatSafe','Use ovens, cooktops, hot trays and hot liquids only as directed and keep safe movement around heat sources.'],
       ['foodApplianceSafe','Use powered appliances only with teacher permission and for the instructed purpose.'],
       ['foodStation','Remain at the assigned kitchen station unless the teacher gives permission to move.'],
+      ['foodPpeReady','Wear required kitchen PPE and meet hair, clothing and covered-shoe requirements before practical work.'],
       ['foodHygieneSafe','Follow handwashing, food hygiene, allergen, cross-contamination and cleaning instructions.']
     ],
     goals:[
@@ -757,6 +772,7 @@ const areaDefinitions = {
       ['foodGoalHeat','Work calmly and safely around heat, hot liquids and hot equipment.'],
       ['foodGoalAppliance','Use powered kitchen appliances only when authorised and as instructed.'],
       ['foodGoalStation','Stay at the assigned station and do not interfere with another group’s food or equipment.'],
+      ['foodGoalPpe','Arrive ready for kitchen practical work with required PPE, tied-back hair, suitable clothing and covered shoes.'],
       ['foodGoalHygiene','Follow hygiene, allergen, cross-contamination and cleaning instructions without repeated reminders.']
     ],
     serious:[
@@ -768,6 +784,7 @@ const areaDefinitions = {
       ['foodKnifeReentry','Re-demonstrate knife safety before knife access is restored'],
       ['foodHeatReentry','Review burn / scald controls before access to hot equipment is restored'],
       ['foodApplianceReentry','Re-demonstrate safe appliance use before powered appliance access is restored'],
+      ['foodPpeReentry','Show that required kitchen PPE, hair, clothing and covered-shoe requirements can be met consistently'],
       ['foodHygieneReentry','Review hygiene, allergen and cross-contamination controls before independent food practical work resumes']
     ]
   },
@@ -907,7 +924,7 @@ const goalMap = {
   aggression:['goalHands','goalCalm'], refusal:['goalStop'], disruption:['goalCalm'], damage:['goalProperty'], movement:['goalMovement'], otherEquipment:['goalPermission'],
   engUnauthorised:['engGoalPermission'], engInterfere:['engGoalPosition','goalHands'], engThrow:['goalHands','goalProperty'], engPpe:['engGoalPpe'], engHotWork:['engGoalHotWork'],
   bldPower:['bldGoalPermission'], bldInterfere:['bldGoalZone','goalHands'], bldThrow:['goalHands','goalProperty'], bldPpe:['bldGoalPpe'], bldHeight:['bldGoalHeight'],
-  foodKnife:['foodGoalKnife'], foodHeat:['foodGoalHeat'], foodAppliance:['foodGoalAppliance'], foodInterfere:['foodGoalStation','goalHands'], foodHygiene:['foodGoalHygiene'], foodThrow:['foodGoalStation','goalHands'],
+  foodKnife:['foodGoalKnife'], foodHeat:['foodGoalHeat'], foodAppliance:['foodGoalAppliance'], foodInterfere:['foodGoalStation','goalHands'], foodPpe:['foodGoalPpe'], foodHygiene:['foodGoalHygiene'], foodThrow:['foodGoalStation','goalHands'],
   dvcCutting:['dvcGoalCutting'], dvcInterfere:['dvcGoalWorkspace','goalHands'], dvcComputer:['dvcGoalComputer'],
   compEquipmentDamage:['compGoalHardware','goalProperty'], compTamper:['compGoalHardware'], compAccount:['compGoalFiles'], compRiskMisuse:['compGoalAssigned'],
   txtSharp:['txtGoalSharp'], txtMachine:['txtGoalMachine'], txtHeat:['txtGoalHeat'], txtInterference:['txtGoalWorkspace','goalHands'],
@@ -918,7 +935,7 @@ const expectationMap = {
   aggression:['regulate'], refusal:[], disruption:['regulate'], damage:['property','report'], movement:['movementRule'], otherEquipment:['report'],
   engUnauthorised:['engMachinePermission'], engInterfere:['engSafePosition'], engThrow:['engSafePosition','property'], engPpe:['engPpeReady'], engHotWork:['engHotWorkSafe'],
   bldPower:['bldToolPermission'], bldInterfere:['bldSitePosition'], bldThrow:['bldSitePosition','property'], bldPpe:['bldPpeReady'], bldHeight:['bldHeightSafe'],
-  foodKnife:['foodKnifeSafe'], foodHeat:['foodHeatSafe'], foodAppliance:['foodApplianceSafe'], foodInterfere:['foodStation'], foodHygiene:['foodHygieneSafe'], foodThrow:['foodStation'],
+  foodKnife:['foodKnifeSafe'], foodHeat:['foodHeatSafe'], foodAppliance:['foodApplianceSafe'], foodInterfere:['foodStation'], foodPpe:['foodPpeReady'], foodHygiene:['foodHygieneSafe'], foodThrow:['foodStation'],
   dvcCutting:['dvcCuttingSafe'], dvcInterfere:['dvcWorkspace'], dvcComputer:['dvcComputerSafe'],
   compEquipmentDamage:['compHardware','property','report'], compTamper:['compHardware'], compAccount:['compFiles'], compRiskMisuse:['compAssigned'],
   txtSharp:['txtSharpSafe'], txtMachine:['txtMachineSafe'], txtHeat:['txtHeatSafe'], txtInterference:['txtWorkspace'],
@@ -929,7 +946,7 @@ const seriousMap = {
   aggression:['violence'], refusal:['refuseStop'], disruption:[], damage:['deliberateDamage'], movement:['restrictedEntry'], otherEquipment:['dangerousEquipment'],
   engUnauthorised:['engMachineSerious'], engInterfere:['engMachineSerious'], engThrow:['throwing'], engPpe:[], engHotWork:['engHotWorkSerious'],
   bldPower:['bldPowerSerious'], bldInterfere:['bldInterfereSerious'], bldThrow:['throwing'], bldPpe:[], bldHeight:['bldHeightSerious'],
-  foodKnife:['foodKnifeSerious'], foodHeat:['foodHeatSerious'], foodAppliance:['dangerousEquipment'], foodInterfere:['foodContamSerious'], foodHygiene:['foodContamSerious'], foodThrow:['throwing'],
+  foodKnife:['foodKnifeSerious'], foodHeat:['foodHeatSerious'], foodAppliance:['dangerousEquipment'], foodInterfere:['foodContamSerious'], foodPpe:[], foodHygiene:['foodContamSerious'], foodThrow:['throwing'],
   dvcCutting:['dvcCuttingSerious'], dvcInterfere:[], dvcComputer:['dvcEquipmentSerious'],
   compEquipmentDamage:['compDamageSerious'], compTamper:['compSecuritySerious'], compAccount:['compSecuritySerious'], compRiskMisuse:['compDamageSerious'],
   txtSharp:['txtSharpSerious'], txtMachine:['txtMachineSerious'], txtHeat:['txtHeatSerious'], txtInterference:[],
@@ -940,7 +957,7 @@ const reentryMap = {
   aggression:['reentryMeeting','reentryRestate'], refusal:['reentryMeeting','reentryRestate'], disruption:['reentryRestate'], damage:['reentryMeeting','reentryRestate'], movement:['reentryRestate'], otherEquipment:['reentryDemo'],
   engUnauthorised:['engMachineReentry'], engInterfere:['engMachineReentry'], engThrow:['reentryRestate'], engPpe:['engPpeReentry'], engHotWork:['engHotWorkReentry'],
   bldPower:['bldPowerReentry'], bldInterfere:['reentryRestate'], bldThrow:['reentryRestate'], bldPpe:['bldPpeReentry'], bldHeight:['bldHeightReentry'],
-  foodKnife:['foodKnifeReentry'], foodHeat:['foodHeatReentry'], foodAppliance:['foodApplianceReentry'], foodInterfere:['reentryRestate'], foodHygiene:['foodHygieneReentry'], foodThrow:['reentryRestate'],
+  foodKnife:['foodKnifeReentry'], foodHeat:['foodHeatReentry'], foodAppliance:['foodApplianceReentry'], foodInterfere:['reentryRestate'], foodPpe:['foodPpeReentry'], foodHygiene:['foodHygieneReentry'], foodThrow:['reentryRestate'],
   dvcCutting:['dvcCuttingReentry'], dvcInterfere:['reentryRestate'], dvcComputer:['dvcComputerReentry'],
   compEquipmentDamage:['compDeviceReentry','compRulesReentry'], compTamper:['compRulesReentry'], compAccount:['compRulesReentry'], compRiskMisuse:['compDeviceReentry'],
   txtSharp:['txtSharpReentry'], txtMachine:['txtMachineReentry'], txtHeat:['txtHeatReentry'], txtInterference:['reentryRestate'],
@@ -968,6 +985,7 @@ const REPORT_CONCERNS = {
   foodHeat:'unsafe behaviour around heat / hot equipment',
   foodAppliance:'unsafe or unauthorised use of powered kitchen appliances',
   foodInterfere:'interfering with another student’s food, equipment or workstation',
+  foodPpe:'repeated refusal or failure to meet kitchen PPE, clothing or covered-shoe requirements',
   foodHygiene:'failure to follow hygiene / allergen / cross-contamination controls',
   foodThrow:'throwing food, utensils or kitchen equipment',
   dvcCutting:'unsafe use of craft knives / model-making cutting tools',
@@ -1008,6 +1026,7 @@ const restrictionMap = {
   foodHeat:'Oven, cooktop, hot-liquid and other heat-source access is restricted to direct teacher permission / supervision.',
   foodAppliance:'Powered kitchen appliances are restricted to the specific appliance and task authorised by the teacher.',
   foodInterfere:'Remain at the assigned kitchen station; do not handle another group’s food, equipment or ingredients.',
+  foodPpe:'No kitchen practical work until required PPE, tied-back hair, suitable clothing and covered shoes are correctly in place.',
   foodHygiene:'Practical food preparation proceeds only when hygiene, allergen, cross-contamination and cleaning instructions are being followed.',
   foodThrow:'Remain at the assigned kitchen station; utensils, food and ingredients stay within the approved task area.',
   dvcCutting:'Craft knives, scalpels and model-making cutting tools are restricted to the assigned cutting surface and direct teacher authorisation / supervision.',
@@ -1113,7 +1132,8 @@ function restrictionsFor(s=collectState()){
 function statusConditions(status=getStatus(),areaKey=getAreaKey(),s=null){
   const state=s || collectState();
   const normal=areaAccess[areaKey]||areaAccess.other;
-  const scopeLine=state.agreementScope==='allTech'?'These access conditions apply across Technology practical learning areas.':state.agreementScope==='class'?'These access conditions apply to this class only.':'These access conditions apply to this Technology subject / area.';
+  const selectedArea=areaDisplay(state);
+  const scopeLine=state.agreementScope==='allTech'?'These access conditions apply across Technology practical learning areas.':state.agreementScope==='class'?'These access conditions apply to this class only.':`These access conditions apply to ${selectedArea}.`;
   if(status==='green')return ['GREEN — Full practical participation','Full practical participation may continue while the agreed safety expectations are met.',scopeLine,normal.green,'If safety deteriorates, practical work may be stopped immediately and the access level reviewed.'];
   if(status==='red')return ['RED — Non-practical until safety review / re-entry','The student does not take part in practical work until a safety review and re-entry decision is made.',scopeLine,'A safe alternative learning task is provided.',state.agreementScope==='allTech'?'No practical participation across Technology practical learning areas until re-entry is approved.':normal.red,'RED returns to AMBER first; full Green access is not restored directly from Red.'];
   const r=restrictionsFor(state);
@@ -1149,7 +1169,7 @@ function statusProgression(status=getStatus(),cp=val('checkpoint')){
 
 function todayIso(){const d=new Date();const m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${d.getFullYear()}-${m}-${day}`}
 function addDaysIso(baseIso,days){const base=baseIso?new Date(`${baseIso}T12:00:00`):new Date();if(Number.isNaN(base.getTime()))return '';base.setDate(base.getDate()+Number(days||0));const m=String(base.getMonth()+1).padStart(2,'0'),d=String(base.getDate()).padStart(2,'0');return `${base.getFullYear()}-${m}-${d}`}
-function scopeLabel(v){return v==='class'?'This class only':v==='allTech'?'All Technology practical learning areas':'This Technology subject / area'}
+function scopeLabel(v,s=collectState()){return v==='class'?'This class only':v==='allTech'?'All Technology practical learning areas':`${areaDisplay(s)} only`}
 function statusLabelShort(v){return v==='green'?'GREEN':v==='red'?'RED':'AMBER'}
 function daysUntil(iso){if(!iso)return null;const a=new Date(`${todayIso()}T12:00:00`),b=new Date(`${iso}T12:00:00`);if(Number.isNaN(b.getTime()))return null;return Math.round((b-a)/86400000)}
 function reviewDueInfo(s=collectState()){
@@ -1198,20 +1218,20 @@ function staffAccessSummaryText(s=collectState()){
   }else if(s.status==='green')access='Full practical access under normal teacher permission and safety expectations.';
   else if(s.status==='red')access=(areaAccess[getAreaKey(s.area)]||areaAccess.other).red;
   else {const r=restrictionsFor(s);access=r.length?r.join(' '):(areaAccess[getAreaKey(s.area)]||areaAccess.other).amber}
-  const contact=[s.issuerName,s.issuerRole].filter(Boolean).join(', ')||'HOD / Pou Taahū';
+  const contact=[s.issuerName,s.issuerRole].filter(Boolean).join(', ')||'HOD / Pou TaaHuu';
   return `${name} | ${statusLabelShort(s.status)} | ${area}
 Scope: ${scope}
 Practical access: ${access}
 ${review}
-Contact: ${contact}`;
+Contact: ${contact}${s.issuerEmail?`\nEmail: ${s.issuerEmail}`:''}`;
 }
 function saveStaffDefaults(){
   const remember=document.getElementById('rememberStaffDefaults');if(!remember?.checked)return;
-  const payload={issuerRole:val('issuerRole'),issuerName:val('issuerName'),classTeacher:val('classTeacher'),area:val('area'),agreementScope:val('agreementScope')||'subject',reviewDays:currentReviewDays()||14};
+  const payload={issuerRole:val('issuerRole'),issuerName:val('issuerName'),issuerEmail:val('issuerEmail'),classTeacher:val('classTeacher'),area:val('area'),agreementScope:val('agreementScope')||'subject',reviewDays:currentReviewDays()||14};
   try{localStorage.setItem(STAFF_DEFAULTS_KEY,JSON.stringify(payload))}catch(e){}
 }
 function loadStaffDefaults(){
-  try{const raw=localStorage.getItem(STAFF_DEFAULTS_KEY);if(!raw)return false;const d=JSON.parse(raw);['issuerRole','issuerName','classTeacher','area','agreementScope'].forEach(id=>{const e=document.getElementById(id);if(e&&d[id])e.value=d[id]});document.getElementById('rememberStaffDefaults').checked=true;setReviewDuration(Number(d.reviewDays)||14,false);return true}catch(e){return false}
+  try{const raw=localStorage.getItem(STAFF_DEFAULTS_KEY);if(!raw)return false;const d=JSON.parse(raw);['issuerRole','issuerName','issuerEmail','classTeacher','area','agreementScope'].forEach(id=>{const e=document.getElementById(id);if(e&&d[id])e.value=d[id]});syncIssuerPresetFromState();document.getElementById('rememberStaffDefaults').checked=true;setReviewDuration(Number(d.reviewDays)||14,false);return true}catch(e){return false}
 }
 function currentReviewDays(){const s=val('startDate'),r=val('reviewDate');if(!s||!r)return null;return Math.round((new Date(`${r}T12:00:00`)-new Date(`${s}T12:00:00`))/86400000)}
 function updateDurationButtons(){const days=currentReviewDays();document.querySelectorAll('[data-duration]').forEach(b=>b.classList.toggle('selected',String(days)===b.dataset.duration || (b.dataset.duration==='custom'&&![7,14,28].includes(days))))}
@@ -1248,6 +1268,11 @@ function reportConcernLabels(s){
     if(id==='otherEquipment' && s.otherEquipment)return `unsafe use of ${s.otherEquipment}`;
     return REPORT_CONCERNS[id] || getLabel('concerns',id,s.area).replace(/[.]+$/,'').toLowerCase();
   });
+}
+function agreementReasonText(s){
+  const typed=String(s.incidentNote||'').trim().replace(/\s+/g,' ');
+  const preset=String(s.incidentPreset||'').trim().replace(/\s+/g,' ');
+  return stripEmailStop(typed||preset||naturalList(reportConcernLabels(s))||'the safety concerns recorded in the agreement');
 }
 function durationText(startIso,reviewIso){
   if(!startIso || !reviewIso)return 'review period not yet set';
@@ -1324,40 +1349,34 @@ function emailGoalSupportSummary(s){
   }
   return parts.join('\n\n');
 }
-function emailSignoffName(s){
-  return s.issuerName ? `\n${s.issuerName}${s.issuerRole?`\n${s.issuerRole}`:''}` : '';
-}
 function quickReportData(s=collectState()){
-  const student=s.studentName || '[Student]', cls=s.yearClass ? ` (${s.yearClass})` : '', area=areaDisplay(s), scope=scopeLabel(s.agreementScope);
+  const student=s.studentName || '[Student]', cls=s.yearClass ? ` (${s.yearClass})` : '', area=areaDisplay(s), scope=scopeLabel(s.agreementScope,s);
   const start=displayDate(s.startDate), review=displayDate(s.reviewDate), duration=durationText(s.startDate,s.reviewDate);
-  const reasons=naturalList(reportConcernLabels(s)) || 'the safety concerns recorded in the agreement';
-  const incident=s.incidentNote ? ` Context: ${s.incidentNote.trim().replace(/\s+/g,' ').slice(0,180)}${s.incidentNote.trim().replace(/\s+/g,' ').length>180?'…':''}` : '';
-  const access=reportAccessText(s), reviewLine=reportReviewText(s), issuer=[s.issuerName,s.issuerRole].filter(Boolean).join(', ') || 'issuing HOD / Pou Taahū';
+  const recordedReason=agreementReasonText(s);
+  const access=reportAccessText(s), reviewLine=reportReviewText(s), issuer=[s.issuerName,s.issuerRole].filter(Boolean).join(', ') || 'issuing HOD / Pou TaaHuu';
   const teacher=s.classTeacher && s.classTeacher!==s.issuerName ? ` Classroom teacher: ${s.classTeacher}.` : '', whanau=s.whanauStatus || 'Not yet contacted';
   const latest=[...(s.history||[])].reverse().find(h=>h.type==='review'||h.type==='breach');
   let kamar,subject,email;
   if(latest && s.lastUpdateType==='review'){
     const closed=s.agreementState==='closed';const outcome=latest.outcomeLabel||reviewOutcomeLabel(latest.outcome,latest.fromStatus);
-    kamar=`${student}${cls}'s PHS Technology Practical Access & Safety Agreement was reviewed on ${displayDate(latest.date)}. Outcome: ${outcome}. ${closed?'The agreement is now closed and normal practical access applies.':`Current access: ${reportAccessText(s)} Next review: ${displayDate(s.reviewDate)}.`}${latest.note?` Review note: ${latest.note}.`:''} Scope: ${scope}. Reviewed by ${issuer}.`;
-    subject=`Quick update on ${student}'s Technology practical agreement`;
+    kamar=`${student}${cls}'s PHS ${area} Practical Access & Safety Agreement was reviewed on ${displayDate(latest.date)}. Outcome: ${outcome}. ${closed?'The agreement is now closed and normal practical access applies.':`Current access: ${reportAccessText(s)} Next review: ${displayDate(s.reviewDate)}.`}${latest.note?` Review note: ${latest.note}.`:''} Scope: ${scope}. Reviewed by ${issuer}.`;
+    subject=`Quick update on ${student}'s ${area} practical agreement`;
     email=`Kia ora,
 
-Just a quick update on ${student}${cls}'s Technology Practical Access & Safety Agreement. We reviewed it on ${displayDate(latest.date)}.
+Just a quick update on ${student}${cls}'s ${area} Practical Access & Safety Agreement. We reviewed it on ${displayDate(latest.date)}.
 
 ${closed?`The agreement has now been closed and ${student} can return to normal practical participation. Thank you for the support while we worked through this.`:`Following the review, ${outcome.charAt(0).toLowerCase()+outcome.slice(1)}. At this stage, ${emailAccessSummary(s)}`}${latest.note?`\n\nA brief note from the review: ${latest.note}`:''}${closed?'':emailGoalSupportSummary(s)?`\n\n${emailGoalSupportSummary(s)}`:''}
 ${closed?'':`\n\n${emailReviewSummary(s)}`}
 
 The aim is to keep practical learning safe while giving ${student} a clear way to move forward successfully.
 
-Please feel free to get in touch if you would like to talk this through.
-
-Ngā mihi${emailSignoffName(s)}`;
+Please feel free to get in touch if you would like to talk this through.`;
   }else if(latest && s.lastUpdateType==='breach'){
-    kamar=`A new safety breach was recorded for ${student}${cls} on ${displayDate(latest.date)} while on a PHS Technology Practical Access & Safety Agreement. Practical access moved from ${statusLabelShort(latest.fromStatus)} to RED. ${latest.note?`Context: ${latest.note}. `:''}Current access: ${reportAccessText(s)} Review: ${displayDate(s.reviewDate)}. Scope: ${scope}. Recorded by ${issuer}.`;
-    subject=`Update about ${student}'s Technology practical work`;
+    kamar=`A new safety breach was recorded for ${student}${cls} on ${displayDate(latest.date)} while on a PHS ${area} Practical Access & Safety Agreement. Practical access moved from ${statusLabelShort(latest.fromStatus)} to RED. ${latest.note?`Context: ${latest.note}. `:''}Current access: ${reportAccessText(s)} Review: ${displayDate(s.reviewDate)}. Scope: ${scope}. Recorded by ${issuer}.`;
+    subject=`Update about ${student}'s ${area} practical work`;
     email=`Kia ora,
 
-I’m getting in touch with an update about ${student}${cls}'s Technology practical work.
+I’m getting in touch with an update about ${student}${cls}'s ${area} practical work.
 
 There was a further safety concern on ${displayDate(latest.date)} while ${student} was on a Practical Access & Safety Agreement.${latest.note?` The brief context recorded was: ${latest.note}`:''}
 
@@ -1367,17 +1386,15 @@ ${emailReviewSummary(s)}
 
 This is about keeping ${student}, other students and staff safe, while still giving ${student} a clear pathway back into practical learning.
 
-Please get in touch if you would like to discuss what happened or the next steps.
-
-Ngā mihi${emailSignoffName(s)}`;
+Please get in touch if you would like to discuss what happened or the next steps.`;
   }else{
-    kamar=`${student}${cls} is on a PHS Technology Practical Access & Safety Agreement for ${area} from ${start} to ${review} (${duration}). Reason: ${reasons}.${incident} Current access: ${access} Scope: ${scope}. Review: ${reviewLine} Issued by ${issuer}.${teacher} Whānau: ${whanau}.`;
-    subject=`Technology practical learning plan for ${student}`;
+    kamar=`${student}${cls} is on a PHS ${area} Practical Access & Safety Agreement from ${start} to ${review} (${duration}). Reason: ${recordedReason}. Current access: ${access} Scope: ${scope}. Review: ${reviewLine} Issued by ${issuer}.${teacher} Whānau: ${whanau}.`;
+    subject=`${area} practical learning plan for ${student}`;
     email=`Kia ora,
 
-I’m getting in touch to let you know that ${student}${cls} is starting a Technology Practical Access & Safety Agreement in ${area}. It will run from ${start} until the review on ${review} (${duration}).
+I’m getting in touch to let you know that ${student}${cls} is starting a ${area} Practical Access & Safety Agreement. It will run from ${start} until the review on ${review} (${duration}).
 
-The agreement has been put in place following concerns about ${reasons}.${incident}
+${s.incidentNote?`The reason / behaviour recorded by the teacher is: ${recordedReason}.`:`The agreement has been put in place following concerns about ${recordedReason}.`}
 
 The aim is not to remove ${student} from practical learning unnecessarily, but to make the expectations really clear and give them a supported pathway to take part safely. At the moment, ${emailAccessSummary(s)}${emailGoalSupportSummary(s)?`\n\n${emailGoalSupportSummary(s)}`:''}
 
@@ -1385,9 +1402,7 @@ ${emailReviewSummary(s)}
 
 We’ll keep supporting ${student} to meet the agreed expectations and will recognise progress at the review.
 
-Please feel free to get in touch if you have any questions or anything you think would help us support ${student} successfully.
-
-Ngā mihi${emailSignoffName(s)}`;
+Please feel free to get in touch if you have any questions or anything you think would help us support ${student} successfully.`;
   }
   return {kamar,subject,email,staff:staffAccessSummaryText(s)};
 }
@@ -1453,13 +1468,37 @@ function updateGoalCount(){
 function toggleOtherArea(){document.getElementById('otherAreaField').classList.toggle('hidden',val('area')!=='Other')}
 function toggleOtherEquipment(){document.getElementById('otherEquipmentField').classList.toggle('hidden',!selectedConcernIds().includes('otherEquipment'))}
 function updateStatusCards(){document.querySelectorAll('.status-card').forEach(c=>c.classList.toggle('selected',c.querySelector('input').checked))}
+function toggleCustomIssuerFields(){
+  const show=val('issuerPreset')==='custom';
+  document.getElementById('customIssuerNameField')?.classList.toggle('hidden',!show);
+  document.getElementById('customIssuerRoleField')?.classList.toggle('hidden',!show);
+  document.getElementById('customIssuerEmailField')?.classList.toggle('hidden',!show);
+}
+function syncIssuerFromPreset(){
+  const key=val('issuerPreset'), preset=ISSUER_PRESETS[key];
+  const name=document.getElementById('issuerName'), role=document.getElementById('issuerRole'), email=document.getElementById('issuerEmail');
+  if(preset){name.value=preset.name;role.value=preset.role;email.value=preset.email}
+  else if(key==='custom'){name.value=val('customIssuerName');role.value=val('customIssuerRole');email.value=val('customIssuerEmail').trim().toLowerCase()}
+  else{name.value='';role.value='';email.value=''}
+  toggleCustomIssuerFields();
+}
+function syncIssuerPresetFromState(){
+  const name=val('issuerName').trim();let role=val('issuerRole').trim();const email=val('issuerEmail').trim().toLowerCase();
+  if(role==='Pou Taahū'||role==='Pou Taahuu'){role='Pou TaaHuu Technology';document.getElementById('issuerRole').value=role}
+  const match=Object.entries(ISSUER_PRESETS).find(([,p])=>p.name===name||p.aliases?.includes(name)||email===p.email);
+  const select=document.getElementById('issuerPreset');
+  if(match){select.value=match[0];document.getElementById('issuerName').value=match[1].name;document.getElementById('issuerRole').value=match[1].role;document.getElementById('issuerEmail').value=match[1].email}
+  else if(name||role||email){select.value='custom';document.getElementById('customIssuerName').value=name;document.getElementById('customIssuerRole').value=role;document.getElementById('customIssuerEmail').value=email}
+  else select.value='';
+  toggleCustomIssuerFields();
+}
 
 function collectState(){
   const incidentNote=val('incidentSummary');
   const incident=[val('incidentPreset'),incidentNote].filter(Boolean).join(' ');
   return {
     version:SCHEMA_VERSION,schemaVersion:SCHEMA_VERSION,agreementId,createdAt:agreementCreatedAt,updatedAt:new Date().toISOString(),agreementState,lastUpdateType,history:agreementHistory,
-    studentName:val('studentName'),yearClass:val('yearClass'),area:val('area'),otherArea:val('otherArea'),agreementScope:val('agreementScope')||'subject',classTeacher:val('classTeacher'),issuerRole:val('issuerRole'),issuerName:val('issuerName'),startDate:val('startDate'),reviewDate:val('reviewDate'),status:getStatus(),
+    studentName:val('studentName'),yearClass:val('yearClass'),area:val('area'),otherArea:val('otherArea'),agreementScope:val('agreementScope')||'subject',classTeacher:val('classTeacher'),issuerRole:val('issuerRole'),issuerName:val('issuerName'),issuerEmail:val('issuerEmail'),startDate:val('startDate'),reviewDate:val('reviewDate'),status:getStatus(),
     concerns:checked('concerns'),otherEquipment:val('otherEquipment'),incidentPreset:val('incidentPreset'),incidentNote,incidentSummary:incident,
     goals:checked('goals'),customGoal:val('customGoal'),expectations:checked('expectations'),customExpectations:val('customExpectations'),supports:checked('supports'),regulationPlan:val('regulationPlan'),otherSupport:val('otherSupport'),
     escalation:checked('escalation'),whanauStatus:val('whanauStatus'),reentry:checked('reentry'),reentryNotes:val('reentryNotes'),checkpoint:val('checkpoint')||'3',signatures:checked('signatures'),internalNote:val('internalNote'),keepDraft:document.getElementById('keepDraft')?.checked||false
@@ -1472,6 +1511,7 @@ function migrateState(raw){
   if(!s.escalation && Array.isArray(s.consequences))s.escalation=s.consequences.filter(x=>['home','refer'].includes(x)).map(x=>x==='refer'?'leader':x);
   if(s.incidentSummary && s.incidentPreset && s.incidentSummary.startsWith(s.incidentPreset))s.incidentSummary=s.incidentSummary.slice(s.incidentPreset.length).trim();
   if(s.area==='Digital / Computer classroom' && Array.isArray(s.concerns))s.concerns=s.concerns.map(x=>x==='compInappropriate'?'compRiskMisuse':x);
+  if(s.issuerRole==='Pou Taahū'||s.issuerRole==='Pou Taahuu')s.issuerRole='Pou TaaHuu Technology';
   if(!s.agreementScope)s.agreementScope='subject';
   if(!Array.isArray(s.history))s.history=[];
   if(!s.agreementState)s.agreementState='active';
@@ -1481,15 +1521,16 @@ function migrateState(raw){
 function applyState(raw){
   const s=migrateState(raw);
   agreementId=s.agreementId||agreementId;agreementCreatedAt=s.createdAt||agreementCreatedAt;agreementHistory=Array.isArray(s.history)?s.history:[];agreementState=s.agreementState||'active';lastUpdateType=s.lastUpdateType||'creation';
-  const ids=['studentName','yearClass','area','otherArea','agreementScope','classTeacher','issuerRole','issuerName','startDate','reviewDate','otherEquipment','incidentPreset','customGoal','customExpectations','regulationPlan','otherSupport','whanauStatus','reentryNotes','internalNote','checkpoint'];
+  const ids=['studentName','yearClass','area','otherArea','agreementScope','classTeacher','issuerRole','issuerName','issuerEmail','startDate','reviewDate','otherEquipment','incidentPreset','customGoal','customExpectations','regulationPlan','otherSupport','whanauStatus','reentryNotes','internalNote','checkpoint'];
   ids.forEach(id=>{const e=document.getElementById(id);if(e && s[id]!==undefined)e.value=s[id]??''});
+  syncIssuerPresetFromState();
   const incidentNote=s.incidentNote!==undefined?s.incidentNote:(s.incidentSummary||'');const incidentInput=document.getElementById('incidentSummary');if(incidentInput)incidentInput.value=incidentNote;
   if(s.status){const r=document.querySelector(`input[name="status"][value="${s.status}"]`);if(r)r.checked=true}
   renderSubjectOptions({preserve:false});
   ['concerns','goals','expectations','supports','escalation','reentry','signatures'].forEach(group=>{if(Array.isArray(s[group]))setChecked(group,s[group])});
   document.getElementById('keepDraft').checked=!!s.keepDraft;
   autoGoalIds=[];autoExpectationIds=[];autoReentryIds=[];
-  toggleOtherArea();toggleOtherEquipment();updateStatusCards();updateGoalCount();renderAll();
+  toggleOtherArea();toggleOtherEquipment();toggleCustomIssuerFields();updateStatusCards();updateGoalCount();renderAll();
 }
 
 function saveLocal(show=false){
@@ -1513,8 +1554,9 @@ function requiredErrors(){
   if(!s.yearClass)e.push('Year / class is required.');
   if(!s.area)e.push('Subject / classroom is required.');
   if(s.area==='Other'&&!s.otherArea)e.push('Name the other practical learning area.');
-  if(!s.issuerRole)e.push('Select HOD or Pou Taahū as the issuing role.');
-  if(!s.issuerName)e.push('Issuing staff member is required.');
+  if(!s.issuerName||!s.issuerRole)e.push('Select the staff member issuing the agreement.');
+  if(!s.issuerEmail)e.push('Add the issuing staff member’s school email.');
+  else if(!/^[^\s@]+@pukekohehigh\.school\.nz$/i.test(s.issuerEmail))e.push('Use a valid @pukekohehigh.school.nz email address.');
   if(s.concerns.includes('otherEquipment')&&!s.otherEquipment)e.push('Name the equipment / activity involved in the “other unsafe equipment” concern.');
   if(!s.concerns.length)e.push('Select at least one concern.');
   if(!s.goals.length&&!lines(s.customGoal).length)e.push('Include at least one behaviour / safety goal.');
@@ -1530,16 +1572,16 @@ function renderPreview(){
   const supports=[...s.supports.map(id=>getLabel('supports',id,s.area)),...lines(s.otherSupport)];
   const escalation=s.escalation.map(id=>getLabel('escalation',id,s.area));
   const serious=seriousExamples(s);const reentry=s.reentry.map(id=>getLabel('reentry',id,s.area));
-  const sigs=s.signatures.map(id=>id==='issuer'?`${s.issuerRole||'HOD / Pou Taahū'} issuing the agreement`:getLabel('signatures',id,s.area));
+  const sigs=s.signatures.map(id=>id==='issuer'?`${s.issuerRole||'HOD / Pou TaaHuu'} issuing the agreement`:getLabel('signatures',id,s.area));
   document.getElementById('preview').innerHTML=`
     <div class="paper-head"><img src="data:image/png;base64,${SHIELD_BASE64}" alt="PHS shield"><div><h2>Pukekohe High School</h2><h3>Technology | Hangarau</h3><p>Practical Access &amp; Safety Agreement</p></div></div>
     <div class="gold-rule"></div>
-    <div class="meta"><div><b>Student</b><span>${esc(s.studentName||'—')}</span></div><div><b>Year / Class</b><span>${esc(s.yearClass||'—')}</span></div><div><b>Technology area</b><span>${esc(areaDisplay(s))}</span></div><div><b>Applies to</b><span>${esc(scopeLabel(s.agreementScope))}</span></div><div><b>Classroom teacher</b><span>${esc(s.classTeacher||'—')}</span></div><div><b>Agreement begins</b><span>${esc(displayDate(s.startDate))}</span></div><div><b>Review date</b><span>${esc(displayDate(s.reviewDate))}</span></div><div><b>Issued by</b><span>${esc([s.issuerName,s.issuerRole].filter(Boolean).join(', ')||'—')}</span></div><div><b>Whānau communication</b><span>${esc(s.whanauStatus||'Not yet contacted')}</span></div><div><b>Agreement state</b><span>${esc(s.agreementState==='closed'?'Closed':'Active')}</span></div></div>
+    <div class="meta"><div><b>Student</b><span>${esc(s.studentName||'—')}</span></div><div><b>Year / Class</b><span>${esc(s.yearClass||'—')}</span></div><div><b>Technology area</b><span>${esc(areaDisplay(s))}</span></div><div><b>Applies to</b><span>${esc(scopeLabel(s.agreementScope))}</span></div><div><b>Classroom teacher</b><span>${esc(s.classTeacher||'—')}</span></div><div><b>Agreement begins</b><span>${esc(displayDate(s.startDate))}</span></div><div><b>Review date</b><span>${esc(displayDate(s.reviewDate))}</span></div><div><b>Issued by</b><span>${esc([s.issuerName,s.issuerRole].filter(Boolean).join(', ')||'—')}${s.issuerEmail?`<br>${esc(s.issuerEmail)}`:''}</span></div><div><b>Whānau communication</b><span>${esc(s.whanauStatus||'Not yet contacted')}</span></div><div><b>Agreement state</b><span>${esc(s.agreementState==='closed'?'Closed':'Active')}</span></div></div>
     <div class="status-banner ${statusClass}"><b>${s.agreementState==='closed'?'AGREEMENT CLOSED — PRACTICAL ACCESS:':'PRACTICAL ACCESS LEVEL:'}</b> ${esc(statusText)}</div>
     <h4>What this access level means</h4>${listHtml(plan.slice(1),'Select an access level.')}
-    <h4>Why this agreement is being used</h4>${listHtml(concerns,'Select the concern(s) on Step 2.')}${s.incidentSummary?`<p><b>Brief factual note:</b> ${esc(s.incidentSummary)}</p>`:''}
+    <h4>Why this agreement is being used</h4>${s.incidentNote?`<p><b>Teacher-recorded reason / behaviour:</b> ${esc(s.incidentNote)}</p>`:''}${s.incidentPreset?`<p><b>Selected summary:</b> ${esc(s.incidentPreset)}</p>`:''}${listHtml(concerns,'Select the concern(s) on Step 2.')}
     <h4>Non-negotiable safety expectations</h4>${listHtml(CORE_EXPECTATIONS)}
-    <h4>My goals</h4>${goals.length?`<ol>${goals.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`:'<p class="empty">Goals will be recommended when concerns are selected.</p>'}
+    <h4>Goals for ${esc(s.studentName||'the student')}</h4>${goals.length?`<ol>${goals.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`:'<p class="empty">Goals will be recommended when concerns are selected.</p>'}
     ${expectations.length?`<h4>Specific expectations</h4>${listHtml(expectations)}`:''}
     ${(supports.length||s.regulationPlan)?`<h4>Support that will be provided</h4>${listHtml(supports,'No additional supports selected.')}${s.regulationPlan?`<p><b>If the student feels unable to work safely:</b> ${esc(s.regulationPlan)}</p>`:''}`:''}
     <h4>If expectations are not followed</h4>${listHtml(automaticResponses(s.status))}${escalation.length?`<p><b>Additional escalation if required:</b></p>${listHtml(escalation)}`:''}
@@ -1567,10 +1609,12 @@ else renderAll();
 updateDurationButtons();renderExistingAgreementCard();
 
 document.addEventListener('input',e=>{
+  if(e.target.matches('#customIssuerName,#customIssuerRole,#customIssuerEmail'))syncIssuerFromPreset();
   if(e.target.matches('input[data-group="goals"]'))updateGoalCount();
   changeHandler();
 });
 document.addEventListener('change',e=>{
+  if(e.target.id==='issuerPreset')syncIssuerFromPreset();
   if(e.target.matches('input[data-group="concerns"]'))applyConcernRecommendations();
   if(e.target.matches('input[data-group="goals"]')){autoGoalIds=autoGoalIds.filter(id=>checked('goals').includes(id));updateGoalCount()}
   changeHandler();
@@ -1613,7 +1657,7 @@ function bullet(text){return mixedPara([{text:'•  ',bold:true,color:'7B2036',s
 function sectionHeading(text){return `<w:p><w:pPr><w:spacing w:before="170" w:after="80"/><w:shd w:val="clear" w:fill="7B2036"/><w:keepNext/><w:pBdr><w:left w:val="single" w:sz="18" w:space="7" w:color="F6B333"/></w:pBdr></w:pPr>${run('  '+text,{bold:true,color:'FFFFFF',size:22})}</w:p>`}
 function tableCell(content,width,{fill='',bold=false,color='292526'}={}){return `<w:tc><w:tcPr><w:tcW w:w="${width}" w:type="dxa"/><w:vAlign w:val="center"/>${fill?`<w:shd w:val="clear" w:fill="${fill}"/>`:''}</w:tcPr>${para(content,{bold,color,size:20,after:35,before:35})}</w:tc>`}
 function metaTable(rows){const body=rows.map(([a,b])=>`<w:tr>${tableCell(a,2600,{fill:'F3EEEC',bold:true,color:'5F5659'})}${tableCell(b,6500)}</w:tr>`).join('');return `<w:tbl><w:tblPr><w:tblW w:w="9100" w:type="dxa"/><w:tblLayout w:type="fixed"/><w:tblBorders><w:top w:val="single" w:sz="5" w:color="D9D2D0"/><w:left w:val="single" w:sz="5" w:color="D9D2D0"/><w:bottom w:val="single" w:sz="5" w:color="D9D2D0"/><w:right w:val="single" w:sz="5" w:color="D9D2D0"/><w:insideH w:val="single" w:sz="4" w:color="E3DDDB"/><w:insideV w:val="single" w:sz="4" w:color="E3DDDB"/></w:tblBorders></w:tblPr><w:tblGrid><w:gridCol w:w="2600"/><w:gridCol w:w="6500"/></w:tblGrid>${body}</w:tbl>`}
-function imageDrawing(){const cx=950000,cy=1092500;return `<w:p><w:pPr><w:jc w:val="center"/><w:spacing w:after="0"/></w:pPr><w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="${cx}" cy="${cy}"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:docPr id="1" name="PHS Shield" descr="Pukekohe High School shield"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="0" name="PHS Shield" descr="Pukekohe High School shield"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${cx}" cy="${cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p>`}
+function imageDrawing(){const cy=720000,cx=626087;return `<w:p><w:pPr><w:jc w:val="center"/><w:spacing w:after="0"/></w:pPr><w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="${cx}" cy="${cy}"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:docPr id="1" name="PHS Shield" descr="Pukekohe High School shield"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="0" name="PHS Shield" descr="Pukekohe High School shield"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${cx}" cy="${cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p>`}
 function headerTable(){return `<w:tbl><w:tblPr><w:tblW w:w="9100" w:type="dxa"/><w:tblLayout w:type="fixed"/><w:tblBorders><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders></w:tblPr><w:tblGrid><w:gridCol w:w="1350"/><w:gridCol w:w="7750"/></w:tblGrid><w:tr><w:tc><w:tcPr><w:tcW w:w="1350" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${imageDrawing()}</w:tc><w:tc><w:tcPr><w:tcW w:w="7750" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${para('Pukekohe High School',{bold:true,color:'242021',size:33,after:20})}${para('Technology | Hangarau',{bold:true,color:'7B2036',size:24,after:20})}${para('Practical Work Safety & Behaviour Agreement',{bold:true,color:'7B2036',size:25,after:0})}</w:tc></w:tr></w:tbl>${para('',{shade:'F6B333',size:6,after:120})}`}
 function signatureTable(labels){if(!labels.length)return '';const cells=labels.map(l=>`<w:tc><w:tcPr><w:tcW w:w="4450" w:type="dxa"/><w:tcMar><w:top w:w="160" w:type="dxa"/><w:right w:w="180" w:type="dxa"/><w:bottom w:w="140" w:type="dxa"/><w:left w:w="0" w:type="dxa"/></w:tcMar></w:tcPr>${para('________________________________',{size:20,after:30,before:200})}${para(l,{bold:true,size:19,after:10})}${para('Signature                                      Date',{size:17,color:'6D6668',after:80})}</w:tc>`);let rows='';for(let i=0;i<cells.length;i+=2)rows+=`<w:tr>${cells[i]}${cells[i+1]||'<w:tc><w:tcPr><w:tcW w:w="4450" w:type="dxa"/></w:tcPr><w:p/></w:tc>'}</w:tr>`;return `<w:tbl><w:tblPr><w:tblW w:w="9100" w:type="dxa"/><w:tblLayout w:type="fixed"/><w:tblBorders><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders></w:tblPr><w:tblGrid><w:gridCol w:w="4450"/><w:gridCol w:w="4450"/></w:tblGrid>${rows}</w:tbl>`}
 function wordDocXml(s){
@@ -1627,21 +1671,22 @@ function wordDocXml(s){
   const escalation=s.escalation.map(id=>getLabel('escalation',id,s.area));
   const serious=seriousExamples(s);
   const reentry=s.reentry.map(id=>getLabel('reentry',id,s.area));
-  const sigs=s.signatures.map(id=>id==='issuer'?`${s.issuerRole||'HOD / Pou Taahū'} issuing the agreement`:getLabel('signatures',id,s.area));
+  const sigs=s.signatures.map(id=>id==='issuer'?`${s.issuerRole||'HOD / Pou TaaHuu'} issuing the agreement`:getLabel('signatures',id,s.area));
   const plan=statusConditions(s.status,getAreaKey(s.area),s);
   let body=headerTable();
   body+=metaTable([
     ['Student',s.studentName],['Year / Class',s.yearClass],['Technology area',area],['Applies to',scopeLabel(s.agreementScope)],['Classroom teacher',s.classTeacher||'—'],
-    ['Agreement begins',displayDate(s.startDate)],['Review date',displayDate(s.reviewDate)],['Agreement state',s.agreementState==='closed'?'Closed':'Active'],['Issued by',[s.issuerName,s.issuerRole].filter(Boolean).join(', ')],['Whānau communication',s.whanauStatus||'Not yet contacted']
+    ['Agreement begins',displayDate(s.startDate)],['Review date',displayDate(s.reviewDate)],['Agreement state',s.agreementState==='closed'?'Closed':'Active'],['Issued by',`${[s.issuerName,s.issuerRole].filter(Boolean).join(', ')}${s.issuerEmail?`\n${s.issuerEmail}`:''}`],['Whānau communication',s.whanauStatus||'Not yet contacted']
   ]);
   body+=mixedPara([{text:s.agreementState==='closed'?'AGREEMENT CLOSED — PRACTICAL ACCESS: ':'PRACTICAL ACCESS LEVEL: ',bold:true,color:statusColor,size:20},{text:st,bold:true,color:statusColor,size:20}],{shade:statusFill,before:120,after:120});
   body+=sectionHeading('What this access level means');plan.slice(1).forEach(x=>body+=bullet(x));
   body+=sectionHeading('Why this agreement is being used');
   body+=para('Practical Technology learning can involve tools, machinery, equipment, heat, sharp utensils, computers, materials and other hazards. This agreement sets clear conditions for safe participation and a pathway back to full practical access.',{size:21,after:90});
+  if(s.incidentNote)body+=mixedPara([{text:'Teacher-recorded reason / behaviour: ',bold:true,size:21},{text:s.incidentNote,size:21}],{shade:'FFF7E3',before:80,after:100});
+  if(s.incidentPreset)body+=mixedPara([{text:'Selected summary: ',bold:true,size:21},{text:s.incidentPreset,size:21}],{after:90});
   if(concerns.length){body+=para('The concerns linked to this agreement are:',{bold:true,size:21,after:55,keep:true});concerns.forEach(x=>body+=bullet(x))}
-  if(s.incidentSummary)body+=mixedPara([{text:'Brief factual note: ',bold:true,size:21},{text:s.incidentSummary,size:21}],{after:100});
   body+=sectionHeading('Non-negotiable safety expectations');CORE_EXPECTATIONS.forEach(x=>body+=bullet(x));
-  body+=sectionHeading('My goals');goals.forEach((x,i)=>body+=mixedPara([{text:`${i+1}. `,bold:true,color:'7B2036',size:21},{text:x,size:21}],{after:65}));
+  body+=sectionHeading(`Goals for ${s.studentName||'the student'}`);goals.forEach((x,i)=>body+=mixedPara([{text:`${i+1}. `,bold:true,color:'7B2036',size:21},{text:x,size:21}],{after:65}));
   if(expectations.length){body+=sectionHeading('Specific expectations');expectations.forEach(x=>body+=bullet(x))}
   if(supports.length||s.regulationPlan){body+=sectionHeading('Support that will be provided');supports.forEach(x=>body+=bullet(x));if(s.regulationPlan)body+=mixedPara([{text:'If the student feels unable to work safely: ',bold:true,size:21},{text:s.regulationPlan,size:21}],{after:90})}
   body+=sectionHeading('If expectations are not followed');automaticResponses(s.status).forEach(x=>body+=bullet(x));
@@ -1676,6 +1721,56 @@ function zipStore(files){const locals=[],centrals=[];let offset=0;const dt=dosDa
 function makeDocxBlob(s){const now=new Date().toISOString();const contentTypes=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/><Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/></Types>`;const rootRels=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/></Relationships>`;const docRels=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/phs-shield.png"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`;const core=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>Practical Access &amp; Safety Agreement</dc:title><dc:subject>Pukekohe High School Technology | Hangarau</dc:subject><dc:creator>Pukekohe High School Technology</dc:creator><cp:lastModifiedBy>Pukekohe High School Technology</cp:lastModifiedBy><dcterms:created xsi:type="dcterms:W3CDTF">${now}</dcterms:created><dcterms:modified xsi:type="dcterms:W3CDTF">${now}</dcterms:modified></cp:coreProperties>`;const app=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes"><Application>PHS Technology Agreement Builder</Application><Company>Pukekohe High School</Company><AppVersion>1.0</AppVersion></Properties>`;return zipStore([{name:'[Content_Types].xml',data:contentTypes},{name:'_rels/.rels',data:rootRels},{name:'word/document.xml',data:wordDocXml(s)},{name:'word/styles.xml',data:stylesXml()},{name:'word/_rels/document.xml.rels',data:docRels},{name:'word/media/phs-shield.png',data:base64Bytes(SHIELD_BASE64)},{name:'docProps/core.xml',data:core},{name:'docProps/app.xml',data:app}])}
 function safeFilename(s){return (s||'Student').replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,50)||'Student'}
 function triggerDownload(blob,name){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200)}
+function bytesToBase64(bytes){let binary='';const size=0x8000;for(let i=0;i<bytes.length;i+=size)binary+=String.fromCharCode(...bytes.subarray(i,i+size));return btoa(binary)}
+function wrapMimeBase64(value){return String(value||'').match(/.{1,76}/g)?.join('\r\n')||''}
+function mimeHeader(value){return `=?UTF-8?B?${bytesToBase64(te.encode(String(value||'')))}?=`}
+async function makeEmailDraftBlob(s,data,docxBlob,docxName,bodyText=''){
+  const boundary=`phs_agreement_${Date.now()}_${Math.random().toString(36).slice(2,9)}`;
+  const body64=wrapMimeBase64(bytesToBase64(te.encode(bodyText)));
+  const attachment64=wrapMimeBase64(bytesToBase64(new Uint8Array(await docxBlob.arrayBuffer())));
+  const lines=[
+    'To:',
+    `Subject: ${mimeHeader(data.subject)}`,
+    `Date: ${new Date().toUTCString()}`,
+    'MIME-Version: 1.0',
+    'X-Unsent: 1',
+    'Content-Class: urn:content-classes:message',
+    `Content-Type: multipart/mixed; boundary="${boundary}"`,
+    '',
+    `--${boundary}`,
+    'Content-Type: text/plain; charset="UTF-8"',
+    'Content-Transfer-Encoding: base64',
+    '',
+    body64,
+    `--${boundary}`,
+    `Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document; name="${docxName}"`,
+    'Content-Transfer-Encoding: base64',
+    `Content-Disposition: attachment; filename="${docxName}"`,
+    '',
+    attachment64,
+    `--${boundary}--`,
+    ''
+  ];
+  return new Blob([lines.join('\r\n')],{type:'message/rfc822'});
+}
+async function emailAgreementWithAttachment(){
+  const errs=requiredErrors();showErrors(errs);
+  if(errs.length){toast('Complete the required fields first');return}
+  ensureCreationHistory();
+  const s=collectState(), data=quickReportData(s);
+  const docxName=`PHS_Practical_Access_Agreement_${safeFilename(s.studentName)}_${s.startDate||'draft'}.docx`;
+  const docxBlob=makeDocxBlob(s);
+  try{
+    const file=new File([docxBlob],docxName,{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    if(navigator.share && navigator.canShare?.({files:[file]})){
+      try{await navigator.share({title:data.subject,text:data.email,files:[file]});toast('Email shared with the agreement attached');return}catch(err){if(err?.name==='AbortError')return}
+    }
+  }catch(err){}
+  await copyGeneratedText(data.email,'Email message');
+  const eml=await makeEmailDraftBlob(s,data,docxBlob,docxName,'');
+  triggerDownload(eml,`Email_${safeFilename(s.studentName)}_with_agreement.eml`);
+  toast('Email draft created — in Outlook press Ctrl+Home, then paste the copied message above your signature');
+}
 function clearLocalDraft(){try{localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(LEGACY_STORAGE_KEY)}catch(e){}}
 async function copyGeneratedText(text,label){
   if(!text)return;
@@ -1688,6 +1783,7 @@ document.getElementById('copyKamar')?.addEventListener('click',()=>copyGenerated
 document.getElementById('copyEmail')?.addEventListener('click',()=>copyGeneratedText(document.getElementById('emailReport')?.value||'','Email summary'));
 document.getElementById('copyStaffSummary')?.addEventListener('click',()=>copyGeneratedText(document.getElementById('staffAccessSummary')?.value||'','Staff access summary'));
 document.getElementById('openEmail')?.addEventListener('click',()=>{const d=quickReportData();window.location.href=`mailto:?subject=${encodeURIComponent(d.subject)}&body=${encodeURIComponent(d.email)}`});
+document.getElementById('emailWithContract')?.addEventListener('click',emailAgreementWithAttachment);
 document.getElementById('downloadDocx').addEventListener('click',()=>{
   const errs=requiredErrors();showErrors(errs);
   if(errs.length){toast('Complete the required fields first');return}
