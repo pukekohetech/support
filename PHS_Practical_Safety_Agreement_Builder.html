@@ -121,7 +121,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
 .option span{font-size:.84rem;color:#4b4547}
 .option input:checked + span{font-weight:750;color:#392e31}
 .option:has(input:checked){border-color:#b98494;background:var(--soft-maroon);box-shadow:inset 3px 0 0 var(--maroon)}
-#concernOptions .option span{font-size:.835rem}
+#concernOptions .option span,#behaviourConcernOptions .option span{font-size:.835rem}
+.concern-group+.concern-group{margin-top:18px;padding-top:16px;border-top:1px solid #e8e1de}
+.concern-group-head{margin-bottom:9px}
+.concern-group-head strong{display:block;color:var(--charcoal);font-size:.9rem}
+.concern-group-head span{display:block;color:var(--muted);font-size:.76rem;line-height:1.4;margin-top:2px}
 #supportOptions .option span,#signatureOptions .option span,#escalationOptions .option span{font-size:.83rem}
 .callout{border:1px solid #ead598;border-left:5px solid var(--gold);background:var(--soft-gold);padding:11px 13px;border-radius:10px;margin:13px 0;color:#4b402d;line-height:1.45;font-size:.84rem}
 .callout.danger{border-color:#e6b6b9;border-left-color:var(--red);background:var(--red-soft);color:#6f2429}
@@ -387,7 +391,14 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
             <div><h4>Select the concern(s)</h4><p>Usually one to three selections are enough.</p></div>
             <span class="subject-note" id="concernSubjectLabel">Subject-specific options</span>
           </div>
-          <div class="option-list" id="concernOptions"></div>
+          <div class="concern-group">
+            <div class="concern-group-head"><strong>Behaviour-related safety concerns</strong><span>Select these only where the behaviour creates or increases risk in the practical learning space.</span></div>
+            <div class="option-list" id="behaviourConcernOptions"></div>
+          </div>
+          <div class="concern-group">
+            <div class="concern-group-head"><strong>Equipment, activity and subject-specific concerns</strong><span>These options adapt to the selected Technology area.</span></div>
+            <div class="option-list" id="concernOptions"></div>
+          </div>
           <div class="field compact-field hidden" id="otherEquipmentField" style="margin-top:13px"><label for="otherEquipment">Equipment / activity involved</label><input id="otherEquipment" type="text" placeholder="e.g. laser cutter, soldering iron, sewing machine" /></div>
           <div class="field" style="margin-top:13px"><label for="incidentSummary">Teacher-recorded reason / behaviour</label><textarea id="incidentSummary" rows="3" placeholder="Briefly describe the actual behaviour or reason for using this agreement"></textarea><div class="help">This wording appears prominently under “Why this agreement is being used” and in the communication summary.</div></div>
         </div>
@@ -395,7 +406,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--maroon);box-shadow:0 
         <details class="optional-panel">
           <summary>Quick reason wording <span>Optional — use a preset when it saves time</span></summary>
           <div class="optional-content">
-            <div class="field compact-field"><label for="incidentPreset">Quick reason / behaviour summary</label><select id="incidentPreset"><option value="">No preset summary</option><option value="Repeated unsafe behaviour has created an unacceptable safety risk during practical learning.">Repeated unsafe behaviour / safety risk</option><option value="Unsafe or unauthorised use of equipment has created a risk to the student and/or others.">Unsafe / unauthorised equipment use</option><option value="Deliberate or reckless misuse or damage of school equipment, materials, facilities or another student's work has occurred.">Misuse / damage</option><option value="Unsafe physical behaviour or interference with other students has created a risk in the learning space.">Unsafe physical behaviour / interference</option><option value="Repeated refusal to follow safety instructions has meant practical work cannot continue safely.">Refusal to follow safety instructions</option><option value="Repeated refusal or failure to wear required PPE or meet practical-room clothing and footwear requirements, including covered shoes, has meant practical work cannot continue safely.">Refusal to wear PPE / covered shoes</option><option value="Leaving the assigned area or entering a restricted practical area without permission has created a safety concern.">Unauthorised movement / restricted area</option></select></div>
+            <div class="field compact-field"><label for="incidentPreset">Quick reason / behaviour summary</label><select id="incidentPreset"><option value="">No preset summary</option><option value="Repeated unsafe behaviour has created an unacceptable safety risk during practical learning.">Repeated unsafe behaviour / safety risk</option><option value="Bullying, intimidation or targeted behaviour toward another student has created distress, distraction or conflict that could lead to an incident in the practical learning space.">Bullying / intimidation creating a safety risk</option><option value="Repeated disrespect, abusive language or defiance toward staff has prevented safety directions from being followed reliably during practical learning.">Disrespect / defiance affecting safety</option><option value="Unsafe or unauthorised use of equipment has created a risk to the student and/or others.">Unsafe / unauthorised equipment use</option><option value="Deliberate or reckless misuse or damage of school equipment, materials, facilities or another student's work has occurred.">Misuse / damage</option><option value="Unsafe physical behaviour or interference with other students has created a risk in the learning space.">Unsafe physical behaviour / interference</option><option value="Repeated refusal to follow safety instructions has meant practical work cannot continue safely.">Refusal to follow safety instructions</option><option value="Repeated refusal or failure to wear required PPE or meet practical-room clothing and footwear requirements, including covered shoes, has meant practical work cannot continue safely.">Refusal to wear PPE / covered shoes</option><option value="Leaving the assigned area or entering a restricted practical area without permission has created a safety concern.">Unauthorised movement / restricted area</option></select></div>
           </div>
         </details>
 
@@ -623,10 +634,16 @@ const CORE_EXPECTATIONS = [
 ];
 
 const definitions = {
-  concerns: [
+  behaviourConcerns: [
     ['aggression','Unsafe physical behaviour: fighting, pushing, play fighting, threatening or deliberately startling others'],
+    ['bullying','Bullying, intimidation, harassment or targeted behaviour that creates distress, distraction or conflict near practical hazards'],
+    ['staffDisrespect','Repeated disrespect, abusive language or defiance toward staff that prevents safety directions being followed reliably'],
+    ['verbalEscalation','Threatening, provocative or escalating verbal behaviour that could lead to confrontation in the practical space'],
     ['refusal','Repeated failure or refusal to follow a STOP or safety instruction'],
     ['disruption','Behaviour that repeatedly disrupts the safe operation of the practical learning space'],
+    ['otherBehaviour','Other repeated behaviour that creates or increases a practical safety risk']
+  ],
+  concerns: [
     ['damage','Deliberate or reckless damage, destruction or misuse of school equipment, facilities, materials or another student’s work'],
     ['movement','Leaving the assigned work area or entering a practical, tool, storage or restricted area without permission'],
     ['otherEquipment','Other unsafe use of subject-specific equipment or a practical activity']
@@ -635,7 +652,8 @@ const definitions = {
     ['property','Treat school property, equipment, materials and other students’ work with care.'],
     ['movementRule','Remain in the assigned work area and enter practical, tool, storage or restricted areas only with teacher permission.'],
     ['report','Report damaged, faulty or unsafe equipment to the teacher immediately and do not continue using it.'],
-    ['regulate','If you feel unable to work safely, tell the teacher and use the agreed safe reset / non-practical process.']
+    ['regulate','If you feel unable to work safely, tell the teacher and use the agreed safe reset / non-practical process.'],
+    ['respectSafety','Use respectful language, follow staff directions and do not target, intimidate or provoke another person in the practical space.']
   ],
   goals: [
     ['goalStop','Follow a STOP or safety instruction immediately.'],
@@ -643,7 +661,9 @@ const definitions = {
     ['goalCalm','Work calmly without behaviour that disrupts the safe learning environment.'],
     ['goalProperty','Treat equipment, materials, facilities and other students’ work with care.'],
     ['goalMovement','Stay in the assigned work area and ask permission before entering restricted practical areas.'],
-    ['goalPermission','Use equipment and practical activities only when the teacher has authorised them.']
+    ['goalPermission','Use equipment and practical activities only when the teacher has authorised them.'],
+    ['goalRespect','Respond respectfully and follow staff safety directions immediately.'],
+    ['goalPeerSafety','Respect other students’ personal space, wellbeing and right to work safely.']
   ],
   supports: [
     ['shortInstructions','Short, clear instructions with one step at a time'],
@@ -921,7 +941,7 @@ const areaAccess = {
 };
 
 const goalMap = {
-  aggression:['goalHands','goalCalm'], refusal:['goalStop'], disruption:['goalCalm'], damage:['goalProperty'], movement:['goalMovement'], otherEquipment:['goalPermission'],
+  aggression:['goalHands','goalCalm'], bullying:['goalPeerSafety','goalCalm'], staffDisrespect:['goalRespect','goalStop'], verbalEscalation:['goalRespect','goalCalm'], refusal:['goalStop'], disruption:['goalCalm'], otherBehaviour:['goalCalm','goalRespect'], damage:['goalProperty'], movement:['goalMovement'], otherEquipment:['goalPermission'],
   engUnauthorised:['engGoalPermission'], engInterfere:['engGoalPosition','goalHands'], engThrow:['goalHands','goalProperty'], engPpe:['engGoalPpe'], engHotWork:['engGoalHotWork'],
   bldPower:['bldGoalPermission'], bldInterfere:['bldGoalZone','goalHands'], bldThrow:['goalHands','goalProperty'], bldPpe:['bldGoalPpe'], bldHeight:['bldGoalHeight'],
   foodKnife:['foodGoalKnife'], foodHeat:['foodGoalHeat'], foodAppliance:['foodGoalAppliance'], foodInterfere:['foodGoalStation','goalHands'], foodPpe:['foodGoalPpe'], foodHygiene:['foodGoalHygiene'], foodThrow:['foodGoalStation','goalHands'],
@@ -932,7 +952,7 @@ const goalMap = {
 };
 
 const expectationMap = {
-  aggression:['regulate'], refusal:[], disruption:['regulate'], damage:['property','report'], movement:['movementRule'], otherEquipment:['report'],
+  aggression:['regulate'], bullying:['respectSafety','regulate'], staffDisrespect:['respectSafety'], verbalEscalation:['respectSafety','regulate'], refusal:[], disruption:['regulate'], otherBehaviour:['respectSafety','regulate'], damage:['property','report'], movement:['movementRule'], otherEquipment:['report'],
   engUnauthorised:['engMachinePermission'], engInterfere:['engSafePosition'], engThrow:['engSafePosition','property'], engPpe:['engPpeReady'], engHotWork:['engHotWorkSafe'],
   bldPower:['bldToolPermission'], bldInterfere:['bldSitePosition'], bldThrow:['bldSitePosition','property'], bldPpe:['bldPpeReady'], bldHeight:['bldHeightSafe'],
   foodKnife:['foodKnifeSafe'], foodHeat:['foodHeatSafe'], foodAppliance:['foodApplianceSafe'], foodInterfere:['foodStation'], foodPpe:['foodPpeReady'], foodHygiene:['foodHygieneSafe'], foodThrow:['foodStation'],
@@ -943,7 +963,7 @@ const expectationMap = {
 };
 
 const seriousMap = {
-  aggression:['violence'], refusal:['refuseStop'], disruption:[], damage:['deliberateDamage'], movement:['restrictedEntry'], otherEquipment:['dangerousEquipment'],
+  aggression:['violence'], bullying:[], staffDisrespect:['refuseStop'], verbalEscalation:['violence'], refusal:['refuseStop'], disruption:[], otherBehaviour:[], damage:['deliberateDamage'], movement:['restrictedEntry'], otherEquipment:['dangerousEquipment'],
   engUnauthorised:['engMachineSerious'], engInterfere:['engMachineSerious'], engThrow:['throwing'], engPpe:[], engHotWork:['engHotWorkSerious'],
   bldPower:['bldPowerSerious'], bldInterfere:['bldInterfereSerious'], bldThrow:['throwing'], bldPpe:[], bldHeight:['bldHeightSerious'],
   foodKnife:['foodKnifeSerious'], foodHeat:['foodHeatSerious'], foodAppliance:['dangerousEquipment'], foodInterfere:['foodContamSerious'], foodPpe:[], foodHygiene:['foodContamSerious'], foodThrow:['throwing'],
@@ -954,7 +974,7 @@ const seriousMap = {
 };
 
 const reentryMap = {
-  aggression:['reentryMeeting','reentryRestate'], refusal:['reentryMeeting','reentryRestate'], disruption:['reentryRestate'], damage:['reentryMeeting','reentryRestate'], movement:['reentryRestate'], otherEquipment:['reentryDemo'],
+  aggression:['reentryMeeting','reentryRestate'], bullying:['reentryMeeting','reentryRestate'], staffDisrespect:['reentryMeeting','reentryRestate'], verbalEscalation:['reentryMeeting','reentryRestate'], refusal:['reentryMeeting','reentryRestate'], disruption:['reentryRestate'], otherBehaviour:['reentryMeeting','reentryRestate'], damage:['reentryMeeting','reentryRestate'], movement:['reentryRestate'], otherEquipment:['reentryDemo'],
   engUnauthorised:['engMachineReentry'], engInterfere:['engMachineReentry'], engThrow:['reentryRestate'], engPpe:['engPpeReentry'], engHotWork:['engHotWorkReentry'],
   bldPower:['bldPowerReentry'], bldInterfere:['reentryRestate'], bldThrow:['reentryRestate'], bldPpe:['bldPpeReentry'], bldHeight:['bldHeightReentry'],
   foodKnife:['foodKnifeReentry'], foodHeat:['foodHeatReentry'], foodAppliance:['foodApplianceReentry'], foodInterfere:['reentryRestate'], foodPpe:['foodPpeReentry'], foodHygiene:['foodHygieneReentry'], foodThrow:['reentryRestate'],
@@ -966,8 +986,12 @@ const reentryMap = {
 
 const REPORT_CONCERNS = {
   aggression:'unsafe physical behaviour / aggression',
+  bullying:'bullying, intimidation or targeted peer behaviour creating a practical safety risk',
+  staffDisrespect:'disrespect, abusive language or defiance preventing staff safety directions being followed reliably',
+  verbalEscalation:'threatening, provocative or escalating verbal behaviour creating a risk of confrontation',
   refusal:'failure or refusal to follow STOP / safety instructions',
   disruption:'behaviour disrupting safe practical learning',
+  otherBehaviour:'other repeated behaviour creating or increasing a practical safety risk',
   damage:'deliberate or reckless damage / misuse of property or equipment',
   movement:'leaving the assigned area or entering restricted areas without permission',
   otherEquipment:'unsafe use of subject-specific equipment',
@@ -1007,8 +1031,12 @@ const REPORT_CONCERNS = {
 
 const restrictionMap = {
   aggression:'The student remains in an assigned work area. Access to loose tools, sharp items, hot equipment or other high-risk equipment is limited to direct teacher permission while behaviour is settled and safe.',
+  bullying:'The student works in an assigned area separated from the affected student where needed. Practical access continues only while personal space, respectful conduct and staff directions are maintained.',
+  staffDisrespect:'Practical activity is limited to tasks where the teacher can give and verify safety directions reliably. Refusal or abuse that prevents safe instruction pauses practical work.',
+  verbalEscalation:'The student works in an assigned area and uses the agreed reset process if conflict begins to escalate. Threatening or provocative behaviour pauses practical work immediately.',
   refusal:'Practical activity is limited to tasks where the teacher can directly verify safety instructions are being followed; failure to follow a STOP instruction ends practical work immediately.',
   disruption:'Use an assigned workstation and a reduced-risk practical task where possible; the teacher may pause practical work if disruption affects safe supervision.',
+  otherBehaviour:'The teacher sets an assigned workspace, supervision level and practical limits matched to the behaviour-related safety risk recorded in this agreement.',
   damage:'Access to the equipment, materials or area involved is restricted. Equipment and materials are issued by the teacher only as needed for the approved task.',
   movement:'Remain in the assigned work area. Do not enter machine, tool, kitchen, storage, cutting or other restricted areas without direct teacher permission.',
   otherEquipment:'Access to {equipment} is restricted to direct teacher authorisation and the supervision level set by the teacher.',
@@ -1104,6 +1132,7 @@ function renderOptionList(containerId,group,items){
 function renderSubjectOptions({preserve=true}={}){
   const previous={};['concerns','goals','expectations','supports','escalation','reentry','signatures'].forEach(g=>previous[g]=preserve?checked(g):[]);
   const a=getAreaDef();
+  renderOptionList('behaviourConcernOptions','concerns',definitions.behaviourConcerns);
   renderOptionList('concernOptions','concerns',[...definitions.concerns,...a.concerns]);
   renderOptionList('goalOptions','goals',[...definitions.goals,...a.goals]);
   renderOptionList('expectationOptions','expectations',[...definitions.expectations,...a.expectations]);
@@ -1113,7 +1142,7 @@ function renderSubjectOptions({preserve=true}={}){
   renderOptionList('signatureOptions','signatures',definitions.signatures);
   Object.entries(previous).forEach(([g,ids])=>setChecked(g,ids));
   if(!preserve)setChecked('signatures',['student','teacher','issuer']);
-  document.getElementById('concernSubjectLabel').textContent=`${a.label}: common + subject-specific concerns`;
+  document.getElementById('concernSubjectLabel').textContent=`${a.label}: subject-specific options included`;
   updateGoalCount();
 }
 
@@ -1558,6 +1587,7 @@ function requiredErrors(){
   if(!s.issuerEmail)e.push('Add the issuing staff member’s school email.');
   else if(!/^[^\s@]+@pukekohehigh\.school\.nz$/i.test(s.issuerEmail))e.push('Use a valid @pukekohehigh.school.nz email address.');
   if(s.concerns.includes('otherEquipment')&&!s.otherEquipment)e.push('Name the equipment / activity involved in the “other unsafe equipment” concern.');
+  if(s.concerns.includes('otherBehaviour')&&!s.incidentNote)e.push('Briefly describe the other behaviour-related safety concern.');
   if(!s.concerns.length)e.push('Select at least one concern.');
   if(!s.goals.length&&!lines(s.customGoal).length)e.push('Include at least one behaviour / safety goal.');
   return e;
