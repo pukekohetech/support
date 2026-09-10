@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PHS Prompt Builder Extension Bridge</title>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #f4f6f5; }
+    #builder { width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+  </style>
+</head>
+<body>
+  <iframe id="builder" src="./AI_Education_Prompt_Builder_V2.html" title="AI Education Prompt Builder"></iframe>
+  <script>
+    (() => {
+      const frame = document.getElementById('builder');
+
+      function addIntegrationButton() {
+        const doc = frame.contentDocument;
+        if (!doc) return;
+
+        const copyBtn = doc.getElementById('copyBtn');
+        const preview = doc.getElementById('promptPreview');
+        if (!copyBtn || !preview) {
+          setTimeout(addIntegrationButton, 250);
+          return;
+        }
+
+        if (doc.getElementById('phsExtensionInsertBtn')) return;
+
+        const insertBtn = doc.createElement('button');
+        insertBtn.id = 'phsExtensionInsertBtn';
+        insertBtn.type = 'button';
+        insertBtn.className = 'primary';
+        insertBtn.textContent = 'Insert into current AI';
+        insertBtn.style.marginTop = '8px';
+        insertBtn.style.width = '100%';
+
+        const integrationNote = doc.createElement('div');
+        integrationNote.id = 'phsExtensionNote';
+        integrationNote.className = 'copy-note';
+        integrationNote.style.marginTop = '7px';
+        integrationNote.textContent = 'This inserts the finished prompt into the open AI chat. It will not press Send.';
+
+        copyBtn.insertAdjacentElement('afterend', insertBtn);
+        insertBtn.insertAdjacentElement('afterend', integrationNote);
+
+        const syncDisabled = () => {
+          insertBtn.disabled = copyBtn.disabled;
+        };
+        syncDisabled();
+        new MutationObserver(syncDisabled).observe(copyBtn, {
+          attributes: true,
+          attributeFilter: ['disabled']
+        });
+
+        insertBtn.addEventListener('click', () => {
+          const prompt = (preview.innerText || preview.textContent || '').trim();
+          const unusable = !prompt || /^Choose a resource type/i.test(prompt);
+          if (unusable) {
+            const oldText = integrationNote.textContent;
+            integrationNote.textContent = 'Choose a resource and complete the required fields first.';
+            setTimeout(() => integrationNote.textContent = oldText, 2500);
+            return;
+          }
+
+          window.parent.postMessage({
+            type: 'PHS_PROMPT_READY',
+            prompt,
+            source: 'PHS AI Education Prompt Builder',
+            builderTitle: doc.title || ''
+          }, '*');
+
+          integrationNote.textContent = 'Prompt handed to the current AI chat. Add files or extra context before sending.';
+        });
+      }
+
+      frame.addEventListener('load', addIntegrationButton);
+    })();
+  </script>
+</body>
+</html>
